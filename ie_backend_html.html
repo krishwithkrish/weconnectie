@@ -2439,12 +2439,13 @@ async function executeSessionDashboardHydration(sb) {
   const { data: { user } } = await sb.auth.getUser();
   if (!user) { showToast('Session expired. Please log in again.', 'error'); showScreen('login'); return; }
 
-  // Check roles
+  // 1. RESOLVE ROLE FIRST (Single Source of Truth)
   let role = user.app_metadata?.role || user.user_metadata?.role || APP.loginRole;
   if (user.app_metadata?.role === 'admin' || user.user_metadata?.role === 'admin') {
     role = 'admin';
   }
 
+  // 2. NOW EVALUATE TABLE DEPENDENCIES
   const table = role === 'exporter' ? 'exporters' : role === 'importer' ? 'importers' : null;
   let profile = null, subscription = null;
 
@@ -2455,17 +2456,19 @@ async function executeSessionDashboardHydration(sb) {
     if (pd?.status === 'pending') { showToast('Your account is pending admin approval.', 'warning'); await sb.auth.signOut(); return; }
     const { data: sd } = await sb.from('subscriptions').select('*').eq('user_id', user.id).single();
     subscription = sd;
-  } // <-- Ensure this closes the "if (table)" block properly
+  }
 
+  // 3. HYDRATE GLOBAL APPLICATION STATE
   APP.currentRole = role;
   APP.profile = profile || { company_name: (role === 'admin' ? 'Administrator' : 'Unknown'), role };
   APP.subscription = subscription;
   APP.usage = subscription ? { postsUsed: subscription.posts_used, eoisUsed: subscription.eois_used, postsLimit: subscription.posts_limit, eoisLimit: subscription.eois_limit, periodReset: subscription.period_reset } : null;
 
+  // 4. TRIGGER VIEW ENGINE
   buildDashboard(role);
   showScreen('dashboard');
-  showToast('Welcome back, ' + esc(APP.profile.company_name || 'Partner') + '!', 'success');
-} // <-- This should be the single, final closing brace for the function
+  showToast('Welcome back, ' + esc(APP.profile.company_name || 'Admin') + '!', 'success');
+}
 
 async function verifyLoginOtp(){
   const otp=getOtpValue('loginOtpInputs');
