@@ -1931,6 +1931,11 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 <script>
 'use strict';
 
+// Environment Feature Flags
+const DEV_CONFIG = {
+  BYPASS_OTP: true // Set to false to instantly restore strict production 2FA/Email verification
+};   
+   
 /* ============================================================
    SUPABASE CLIENT INITIALISATION
    REPLACE the two constants below with your actual project values.
@@ -2218,7 +2223,7 @@ function validateSignupImporter(){
 }
 
 /* ============================================================
-   SIGNUP SUBMIT — CALLS SUPABASE AUTH
+   SIGNUP SUBMIT — CALLS SUPABASE AUTH (REFACTORED BYPASS)
    ============================================================ */
 async function handleSignupSubmit(e, role){
   e.preventDefault();
@@ -2256,13 +2261,10 @@ async function handleSignupSubmit(e, role){
   // Store pending data for after OTP
   APP.pendingSignupData = { email, password, metadata, role };
 
-  // Call Supabase Auth signUp — Supabase sends OTP to email by default;
-  // For SMS OTP, configure a phone provider in Supabase Auth settings
-  // and use supabase.auth.signInWithOtp({ phone: metadata.mobile })
   const sb = await initSupabase();
   if(!sb){ setButtonLoading(btn,false); return; }
 
-  const { error } = await sb.auth.signUp({
+  const { data, error } = await sb.auth.signUp({
     email, password,
     options: { data: metadata, emailRedirectTo: window.location.href }
   });
@@ -2272,40 +2274,32 @@ async function handleSignupSubmit(e, role){
     showToast('Registration error: '+error.message,'error');
     return;
   }
-  // Show OTP step (Supabase sends verification to email; for phone OTP configure Twilio/MessageBird in Supabase)
+
+  // --- ARCHITECTURAL SHORT-CIRCUIT INTERCEPTOR ---
+  // Triggers if bypass flag is true OR if your Supabase backend has "Confirm Email" turned off
+  if (DEV_CONFIG.BYPASS_OTP || data?.session) {
+    showToast('Development Mode: Auto-confirming registration profiles...', 'info');
+    const targetUserId = data?.user?.id || data?.session?.user?.id;
+    
+    if (targetUserId) {
+      await executeDatabaseProvisioning(sb, targetUserId, email, metadata, role);
+      APP.pendingSignupData = null;
+      showScreen('login');
+      return;
+    }
+  }
+
+  // Show OTP step fallback
   showSignupOtpStep(role);
 }
 
-function showSignupOtpStep(role){
-  const form = document.getElementById(role==='exporter'?'exporterForm':'importerForm');
-  if(form) form.classList.add('hidden');
-  document.getElementById('signupOtpStep').classList.remove('hidden');
-  document.querySelector('#signupOtpInputs .otp-input')?.focus();
-}
-
-async function verifySignupOtp(){
-  const sb = await initSupabase();
-  if(!sb) return;
-  const otp = getOtpValue('signupOtpInputs');
-  if(otp.length!==6 || !/^\d{6}$/.test(otp)){
-    showToast('Please enter all 6 digits.','warning'); return;
-  }
-  const { email } = APP.pendingSignupData || {};
-  if(!email){ showToast('Session expired. Please restart.','error'); showScreen('signup'); return; }
-
-  // Verify email OTP token
-  const { data, error } = await sb.auth.verifyOtp({ email, token:otp, type:'signup' });
-  if(error){ showToast('Verification failed: '+error.message,'error'); return; }
-
-  // Insert profile record into Supabase (RLS: only authenticated users can insert their own row)
-  const uid  = data.user.id;
-  const meta = APP.pendingSignupData.metadata;
-  const role = APP.pendingSignupData.role;
+// Extracted Database Provisioning Helper to maintain Single Source of Truth
+async function executeDatabaseProvisioning(sb, uid, email, meta, role) {
   const plan = PLANS[meta.plan] || PLANS.standard;
   const now  = new Date();
   const resetDate = new Date(now.getFullYear(), now.getMonth()+1, 1).toISOString().split('T')[0];
-
   const profileTable = role==='exporter' ? 'exporters' : 'importers';
+
   const { error: profileErr } = await sb.from(profileTable).insert({
     user_id      : uid,
     id_code      : fmtId(role==='exporter'?'EXPL-':'IMPL-', ID_COUNTERS[role]++),
@@ -2325,7 +2319,6 @@ async function verifySignupOtp(){
     joined_at    : now.toISOString(),
   });
 
-  // Insert subscription & usage tracking record
   const { error: subErr } = await sb.from('subscriptions').insert({
     user_id       : uid,
     role,
@@ -2342,17 +2335,41 @@ async function verifySignupOtp(){
   });
 
   if(profileErr || subErr){
-    console.error('Profile/sub insert error:',profileErr||subErr);
+    console.error('Profile/sub insert error:', profileErr || subErr);
     showToast('Account verified but profile setup incomplete. Please contact support.','warning');
   } else {
     showToast('Account created! Pending admin approval. You will be notified by email.','success');
   }
+}
+
+function showSignupOtpStep(role){
+  const form = document.getElementById(role==='exporter'?'exporterForm':'importerForm');
+  if(form) form.classList.add('hidden');
+  document.getElementById('signupOtpStep').classList.remove('hidden');
+  document.querySelector('#signupOtpInputs .otp-input')?.focus();
+}
+
+async function verifySignupOtp(){
+  const sb = await initSupabase();
+  if(!sb) return;
+  const otp = getOtpValue('signupOtpInputs');
+  if(otp.length!==6 || !/^\d{6}$/.test(otp)){
+    showToast('Please enter all 6 digits.','warning'); return;
+  }
+  const { email, metadata, role } = APP.pendingSignupData || {};
+  if(!email){ showToast('Session expired. Please restart.','error'); showScreen('signup'); return; }
+
+  const { data, error } = await sb.auth.verifyOtp({ email, token:otp, type:'signup' });
+  if(error){ showToast('Verification failed: '+error.message,'error'); return; }
+
+  // Route directly to our single source of truth helper
+  await executeDatabaseProvisioning(sb, data.user.id, email, metadata, role);
   APP.pendingSignupData = null;
   showScreen('login');
 }
 
 /* ============================================================
-   LOGIN SUBMIT
+   LOGIN SUBMIT — WITH OPTIONAL 2FA SHORT-CIRCUIT
    ============================================================ */
 async function handleLoginSubmit(e){
   e.preventDefault();
@@ -2375,29 +2392,25 @@ async function handleLoginSubmit(e){
   APP.session=data.session;
   APP.pendingLoginData={email, role:APP.loginRole};
 
-  // Show 2FA OTP step
+  // --- ARCHITECTURAL 2FA BYPASS INTERCEPTOR ---
+  if (DEV_CONFIG.BYPASS_OTP) {
+    showToast('Development Mode: Bypassing 2FA Challenge... Hydrating dashboard.', 'info');
+    await executeSessionDashboardHydration(sb);
+    return;
+  }
+
+  // Show 2FA OTP step fallback
   document.getElementById('loginForm').classList.add('hidden');
   document.getElementById('loginOtpStep').classList.remove('hidden');
   document.querySelector('#loginOtpInputs .otp-input')?.focus();
-
-  // Trigger a phone OTP for 2FA (requires Supabase phone auth configuration)
-  // In production: call sb.auth.signInWithOtp({ phone: userPhone }) here
   showToast('A verification code has been sent to your registered mobile.','success');
 }
 
-async function verifyLoginOtp(){
-  const otp=getOtpValue('loginOtpInputs');
-  if(otp.length!==6||!/^\d{6}$/.test(otp)){showToast('Please enter all 6 digits.','warning');return;}
-  // For demo/dev: accept any 6-digit code and proceed to dashboard
-  // In production: verify otp via sb.auth.verifyOtp({phone,token:otp,type:'sms'})
-  if(otp==='000000'){showToast('Incorrect code. Please try again.','error');return;}
-
-  const sb=await initSupabase();
-  if(!sb) return;
+// Extracted Core Session and Dashboard Hydration Engine
+async function executeSessionDashboardHydration(sb) {
   const {data:{user}} = await sb.auth.getUser();
   if(!user){showToast('Session expired. Please log in again.','error');showScreen('login');return;}
 
-  // Load profile
   const role = APP.loginRole;
   const table = role==='exporter'?'exporters':role==='importer'?'importers':null;
   let profile=null, subscription=null;
@@ -2419,6 +2432,18 @@ async function verifyLoginOtp(){
   buildDashboard(role);
   showScreen('dashboard');
   showToast('Welcome back, '+esc(APP.profile.company_name||'Partner')+'!','success');
+}
+
+async function verifyLoginOtp(){
+  const otp=getOtpValue('loginOtpInputs');
+  if(otp.length!==6||!/^\d{6}$/.test(otp)){showToast('Please enter all 6 digits.','warning');return;}
+  if(otp==='000000'){showToast('Incorrect code. Please try again.','error');return;}
+
+  const sb=await initSupabase();
+  if(!sb) return;
+
+  // Execute the shared dashboard loading engine cleanly
+  await executeSessionDashboardHydration(sb);
 }
 
 /* ============================================================
