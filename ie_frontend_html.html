@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TradeLink Global — International Import & Export Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A2463;--navy-deep:#06163d;--red:#E63946;
+  --gold:#F4A261;--gold-dark:#c9763a;--light:#bfdbfe;
+  --dark:#12141C;--muted:#6B7280;--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a2e;overflow-x:hidden}
+
+/* HEADER */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  transition:all .35s;
+}
+header.scrolled{background:rgba(10,36,99,.96);backdrop-filter:blur(14px);box-shadow:0 2px 30px rgba(0,0,0,.3)}
+.logo{display:flex;align-items:center;gap:0;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.5rem}
+.logo-we{color:#fff}
+.logo-connect{color:var(--gold)}
+.logo-lk{color:var(--red)}
+nav{display:flex;align-items:center;gap:.15rem}
+nav a{color:rgba(255,255,255,.82);font-size:.875rem;font-weight:500;text-decoration:none;padding:.45rem .8rem;border-radius:6px;transition:all .2s;white-space:nowrap}
+nav a:hover{color:#fff;background:rgba(255,255,255,.12)}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:.45rem 1.2rem!important;border-radius:25px!important;margin-left:.5rem;font-weight:700!important;box-shadow:0 4px 14px rgba(230,57,70,.4)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(230,57,70,.55)!important}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;background:none;border:none}
+.hbg span{width:24px;height:2px;background:#fff;border-radius:2px;display:block;transition:all .3s}
+.mob-menu{display:none;position:fixed;inset:0;background:rgba(6,22,61,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mob-menu.open{display:flex}
+.mob-menu a{color:#fff;font-size:1.3rem;font-weight:700;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif}
+.mob-close{position:absolute;top:1.5rem;right:2rem;color:#fff;font-size:2rem;background:none;border:none;cursor:pointer;line-height:1}
+
+/* HERO */
+#home{
+  min-height:100vh;padding:7rem 2rem 4rem;
+  background:linear-gradient(135deg,#06163d 0%,#0A2463 55%,#1a3a8f 100%);
+  display:flex;align-items:center;position:relative;overflow:hidden;
+}
+.hero-grid-bg{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:64px 64px}
+.hero-orb1{position:absolute;top:-10%;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(244,162,97,.12) 0%,transparent 70%);animation:orbPulse 6s ease-in-out infinite}
+.hero-orb2{position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(230,57,70,.1) 0%,transparent 70%);animation:orbPulse 8s ease-in-out infinite reverse}
+.hero-wrap{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-left{animation:fadeUp .9s ease both}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem 1rem;border-radius:25px;margin-bottom:1.5rem}
+.pulse-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:pulseDot 2s infinite}
+h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2.2rem,4.2vw,3.6rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:1.25rem}
+h1 .gold{color:var(--gold)}
+h1 .red{color:var(--red)}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:2.25rem;max-width:510px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.hero-platform-label{font-size:.65rem;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+a.btn-gold{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--gold);color:var(--navy-deep);
+  font-weight:800;font-size:1rem;padding:.9rem 1.9rem;
+  border-radius:50px;text-decoration:none;
+  box-shadow:0 0 30px rgba(244,162,97,.55);
+  animation:glowPulse 2.5s ease-in-out infinite;
+  transition:transform .2s,box-shadow .2s;
+}
+a.btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(244,162,97,.8)}
+a.btn-ghost{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:transparent;color:#fff;font-weight:600;font-size:.95rem;
+  padding:.9rem 1.75rem;border-radius:50px;text-decoration:none;
+  border:1.5px solid rgba(255,255,255,.35);transition:all .2s;
+}
+a.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.65)}
+a.btn-red{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--red);color:#fff;
+  font-weight:700;font-size:1rem;padding:.85rem 1.75rem;
+  border-radius:50px;text-decoration:none;
+  box-shadow:0 4px 18px rgba(230,57,70,.45);transition:all .2s;
+}
+a.btn-red:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(230,57,70,.6)}
+
+.hc-title{
+  margin-top: 36px;
+  font-size: 20px;
+}
+
+/* HERO VISUAL */
+.hero-right{animation:fadeUp .9s .2s ease both;display:flex;justify-content:center}
+.hero-card{
+  background:var(--gold);backdrop-filter:blur(14px);
+  border:1px solid rgba(244,162,97,.5);border-radius:24px;
+  padding:1rem;width:100%;max-width:600px;max-height:500px;position:relative;
+}
+.hc-title{color:rgba(10,36,99,.85);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:0.5rem;text-align:center}
+.conn-svg{width:100%;height:500px}
+.float-pill{
+  position:absolute;display:flex;align-items:center;gap:.5rem;
+  background:rgba(10,36,99,.15);backdrop-filter:blur(10px);
+  border:1px solid rgba(10,36,99,.25);border-radius:12px;
+  padding:.55rem 1rem;color:var(--navy-deep);font-size:.78rem;font-weight:600;
+}
+.float-pill.p1{top:1.5rem;right:-1.5rem;animation:float 3s ease-in-out infinite}
+.float-pill.p2{bottom:1.5rem;left:-1.5rem;animation:float 3s 1.2s ease-in-out infinite}
+.gdot{width:8px;height:8px;border-radius:50%;background:#22c55e}
+.bdot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+
+.scroll-arrow{display:flex;justify-content:center;margin-top:3rem;position:relative;z-index:1}
+.scroll-arrow a{color:rgba(255,255,255,.4);animation:bounce 2s ease-in-out infinite;text-decoration:none;font-size:1.5rem}
+
+/* GENERAL SECTION */
+section{padding:6rem 2rem}
+.wrap{max-width:1200px;margin:0 auto;width:100%}
+.sec-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(244,162,97,.12);color:var(--gold-dark);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .9rem;border-radius:25px;margin-bottom:.9rem}
+h2.sec-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(1.9rem,3.8vw,2.75rem);color:var(--navy);line-height:1.2;margin-bottom:.75rem}
+h2.sec-title .accent{color:var(--red)}
+.divider{width:56px;height:4px;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:4px;margin:.9rem 0 1.25rem}
+p.sec-sub{font-size:1rem;color:var(--muted);line-height:1.78;max-width:620px}
+
+/* ABOUT */
+#about{background:var(--light)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center}
+.trust-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.75rem}
+.t-pill{background:#fff;border:1px solid #e2e8f0;border-radius:25px;padding:.4rem 1rem;font-size:.8rem;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:.4rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stat-card{
+  background:#fff;border-radius:18px;padding:1.75rem 1.5rem;
+  box-shadow:0 4px 24px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.05);
+  text-align:center;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden;
+}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),var(--gold))}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(0,0,0,.12)}
+.stat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.6rem;font-weight:800;color:var(--navy);line-height:1}
+.stat-plus{color:var(--red);font-weight:800}
+.stat-lbl{font-size:.8rem;color:var(--muted);margin-top:.3rem;font-weight:500}
+
+/* SERVICES */
+#services{background:#fff}
+.svc-header{text-align:center;margin-bottom:3.5rem}
+.svc-header .sec-sub,.svc-header .divider{margin-left:auto;margin-right:auto}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.svc-card{
+  background:var(--light);border-radius:20px;padding:2rem;
+  border:1.5px solid transparent;transition:all .35s;position:relative;overflow:hidden;
+}
+.svc-card:hover{transform:translateY(-6px);border-color:rgba(10,36,99,.15);box-shadow:0 16px 44px rgba(10,36,99,.1);background:#fff}
+.svc-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.25rem}
+.svc-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.55rem}
+.svc-desc{font-size:.88rem;color:var(--muted);line-height:1.7}
+.svc-link{display:inline-block;margin-top:1rem;font-size:.8rem;font-weight:700;color:var(--red);letter-spacing:.05em;text-decoration:none}
+.svc-link:hover{text-decoration:underline}
+
+/* HOW IT WORKS */
+#how-it-works{
+  background:var(--navy);
+  position:relative;
+  overflow:hidden;
+}
+#how-it-works::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 20% 60%,rgba(244,162,97,.08) 0%,transparent 55%),radial-gradient(ellipse at 80% 40%,rgba(230,57,70,.07) 0%,transparent 55%);
+  pointer-events:none;
+}
+#how-it-works h2.sec-title{color:#fff}
+#how-it-works .sec-sub{color:rgba(255,255,255,.62)}
+#how-it-works .sec-badge{background:rgba(244,162,97,.15);color:var(--gold)}
+.hiw-tabs{
+  display:flex;gap:.5rem;margin:2rem 0 3rem;flex-wrap:wrap;
+  position:relative;z-index:10;
+}
+.hiw-tab{
+  padding:.55rem 1.25rem;border-radius:25px;font-size:.85rem;font-weight:600;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);background:transparent;transition:all .25s;
+}
+.hiw-tab.active,.hiw-tab:hover{background:var(--gold);color:var(--navy-deep);border-color:var(--gold)}
+.hiw-steps{
+  display:none;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;
+  position:relative;z-index:1;
+}
+.hiw-steps.active{display:grid}
+.hiw-step{
+  background:var(--gold);border:1px solid rgba(255,255,255,.12);border-radius:18px;
+  padding:1.25rem 1.5rem;position:relative;overflow:hidden;transition:all .35s;
+}
+.hiw-step:hover{background:rgba(255,255,255,.12);transform:translateY(-4px)}
+.step-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.5rem;font-weight:800;color:rgba(244,162,97,.2);line-height:1;margin-bottom:.25rem}
+.step-icon{font-size:1.5rem;margin-bottom:.5rem}
+.step-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:#fff;margin-bottom:.4rem}
+.step-desc{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.6}
+
+/* FAQ */
+#faq{background:var(--light)}
+.faq-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;align-items:start;margin-top:2rem}
+.faq-list{display:flex;flex-direction:column;gap:.75rem}
+.faq-item{background:#fff;border-radius:14px;border:1px solid #e8edf5;overflow:hidden;transition:box-shadow .3s}
+.faq-item:hover{box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.1rem 1.4rem;cursor:pointer;
+  font-weight:600;font-size:.92rem;color:var(--navy);gap:1rem;
+}
+.faq-q:hover{color:var(--red)}
+.faq-arrow{width:22px;height:22px;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem;transition:transform .3s,background .3s}
+.faq-item.open .faq-arrow{transform:rotate(180deg);background:var(--red);color:#fff}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.faq-a p{padding:.1rem 1.4rem 1.2rem;font-size:.88rem;color:var(--muted);line-height:1.75}
+.faq-item.open .faq-a{max-height:300px}
+.faq-cta-box{background:linear-gradient(135deg,var(--navy) 0%,#1a3a8f 100%);border-radius:24px;padding:3rem 2.5rem;color:#fff;position:sticky;top:7rem}
+.faq-cta-box h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:.75rem}
+.faq-cta-box p{color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7;margin-bottom:1.75rem}
+
+/* REVIEWS */
+#reviews{background:#fff}
+.reviews-header{text-align:center;margin-bottom:3.5rem}
+.reviews-header .sec-sub,.reviews-header .divider{margin-left:auto;margin-right:auto}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.review-card{
+  background:var(--light);border-radius:20px;padding:2rem;
+  border:1px solid transparent;transition:all .35s;
+}
+.review-card:hover{border-color:rgba(10,36,99,.12);box-shadow:0 12px 36px rgba(10,36,99,.08);transform:translateY(-4px);background:#fff}
+.stars{color:var(--gold);font-size:1rem;margin-bottom:1rem;letter-spacing:.1em}
+.review-text{font-size:.9rem;color:#4a5568;line-height:1.8;margin-bottom:1.5rem;font-style:italic}
+.reviewer{display:flex;align-items:center;gap:.85rem}
+.reviewer-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:.9rem;color:#fff;flex-shrink:0}
+.reviewer-name{font-weight:700;font-size:.9rem;color:var(--navy)}
+.reviewer-role{font-size:.78rem;color:var(--muted)}
+.reviews-stat-bar{
+  display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;
+  margin-top:3rem;padding:2rem;background:var(--light);border-radius:18px;
+}
+.rstat{text-align:center}
+.rstat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2rem;font-weight:800;color:var(--navy)}
+.rstat-lbl{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+
+/* CONTACT */
+#contact{background:var(--light);color:#1a1a2e;position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(244,162,97,.07),transparent 55%),radial-gradient(ellipse at 20% 70%,rgba(230,57,70,.06),transparent 55%)}
+#contact h2.sec-title{color:var(--navy)}
+#contact .sec-badge{background:rgba(10,36,99,.1);color:var(--navy)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;position:relative;z-index:1}
+.contact-form-wrap{background:#fff;border:1px solid rgba(10,36,99,.15);border-radius:24px;padding:2.5rem}
+.form-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.3rem;color:var(--navy);margin-bottom:.4rem}
+.form-sub{font-size:.85rem;color:var(--muted);margin-bottom:2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-group label{font-size:.78rem;font-weight:600;color:var(--navy);letter-spacing:.06em;text-transform:uppercase}
+.form-group input,.form-group select,.form-group textarea{
+  background:#fff;border:1px solid rgba(10,36,99,.2);
+  border-radius:10px;padding:.75rem 1rem;color:var(--navy);font-size:.9rem;font-family:'Inter',sans-serif;
+  outline:none;transition:border .2s;width:100%;
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group select option{background:#fff;color:var(--navy)}
+.form-group textarea{resize:vertical;min-height:100px}
+.submit-btn{
+  width:100%;background:var(--gold);color:var(--navy-deep);
+  font-weight:800;font-size:1rem;padding:1rem;
+  border-radius:50px;border:none;cursor:pointer;
+  transition:all .25s;margin-top:.5rem;font-family:'Inter',sans-serif;
+}
+.submit-btn:hover{background:#e5924f;transform:translateY(-2px);box-shadow:0 8px 24px rgba(244,162,97,.4)}
+.contact-info{display:flex;flex-direction:column;gap:2rem}
+.contact-info-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.3rem;color:var(--navy);margin-bottom:.5rem}
+.info-item{display:flex;gap:1rem;align-items:flex-start}
+.info-icon{width:44px;height:44px;border-radius:12px;background:rgba(10,36,99,.12);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.info-label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
+.info-val{font-size:.92rem;color:var(--navy);font-weight:500}
+.career-box{background:rgba(10,36,99,.04);border:1px solid rgba(10,36,99,.15);border-radius:20px;padding:2rem;margin-top:1.5rem}
+.career-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.5rem}
+.career-desc{font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+.career-roles{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.role-pill{background:rgba(10,36,99,.07);border:1px solid rgba(10,36,99,.18);color:var(--navy);font-size:.75rem;font-weight:600;padding:.3rem .8rem;border-radius:25px}
+
+/* FOOTER */
+footer{background:#0A2463;padding:3rem 2rem 2rem;color:rgba(255,255,255,.55)}
+.footer-wrap{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.footer-brand{display:flex;flex-direction:column;gap:.85rem}
+.footer-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.4rem}
+.footer-tagline{font-size:.82rem;line-height:1.7;max-width:280px}
+.social-row{display:flex;gap:.7rem}
+.social-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);text-decoration:none;font-size:.9rem;transition:all .2s}
+.social-btn:hover{background:var(--red);color:#fff}
+.footer-col h4{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.88rem;color:#fff;margin-bottom:1rem;letter-spacing:.05em}
+.footer-col a{display:block;color:rgba(255,255,255,.5);font-size:.82rem;text-decoration:none;padding:.25rem 0;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-top:1.75rem;font-size:.78rem}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes orbPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 28px rgba(244,162,97,.5)}50%{box-shadow:0 0 48px rgba(244,162,97,.8)}}
+@keyframes dash{to{stroke-dashoffset:-20}}
+@keyframes ping{0%{r:18;opacity:.8}100%{r:36;opacity:0}}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .65s ease,transform .65s ease}
+.reveal-l.visible{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal-r.visible{opacity:1;transform:translateX(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{display:none}.hbg{display:flex}
+  .hero-wrap,.about-grid,.faq-grid,.contact-grid,.footer-top{grid-template-columns:1fr}
+  .hero-right,.about-stats{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .faq-cta-box{position:static}
+}
+@media(max-width:520px){
+  .form-row,.stats-grid,.footer-top{grid-template-columns:1fr}
+  .reviews-stat-bar{gap:1.5rem}
+}
+
+/* REVIEWS SLIDER */
+#reviews{
+  min-height:110vh !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  padding:5% 0 4% 0 !important;
+  box-sizing:border-box !important;
+}
+#reviews .reviews-grid.slider-track{
+  display:flex !important;
+  flex-direction:row !important;
+  gap:20px !important;
+  overflow-x:auto !important;
+  scroll-behavior:smooth !important;
+  padding-bottom:16px !important;
+  margin-top:24px !important;
+  margin-bottom:32px !important;
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+}
+#reviews .reviews-grid.slider-track::-webkit-scrollbar{display:none !important}
+#reviews .reviews-grid.slider-track .review-card{
+  min-width:380px !important;
+  max-width:380px !important;
+  flex-shrink:0 !important;
+  padding:24px !important;
+}
+#reviews .review-text{font-size:0.9rem !important;line-height:1.5 !important;margin-bottom:12px !important}
+#reviews .reviews-stat-bar{margin-top:16px !important;padding:20px 32px !important}
+#reviews .slider-arrow{
+  position:absolute;top:45%;transform:translateY(-50%);
+  background:#ffffff;color:#1e3a8a;border:1px solid #e5e7eb;
+  width:44px;height:44px;border-radius:50%;font-size:1.2rem;font-weight:bold;
+  cursor:pointer;z-index:100;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);
+  display:flex;align-items:center;justify-content:center;transition:all .2s ease;
+}
+#reviews .arrow-left{left:-20px}
+#reviews .arrow-right{right:-20px}
+
+@media(min-width:1025px){
+  #contact{padding:8% 0 6% 0 !important;box-sizing:border-box !important}
+}
+@media(max-width:991px){
+  #contact{min-height:auto !important;padding:50px 0 !important}
+  #contact div[style*="display: grid"],#contact .contact-grid{grid-template-columns:1fr !important;gap:1.25rem !important}
+  #contact div[style*="grid-column: span 2"]{grid-column:span 1 !important}
+  #contact .info-item{text-align:center !important;flex-direction:column !important;align-items:center !important;gap:0.5rem !important}
+}
+@media(max-width:768px){
+  #contact{padding:50px 0 !important}
+  #career{min-height:auto !important;padding:50px 0 !important}
+  #career .career-box{padding:1.5rem !important}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="hdr">
+  <a href="#home" class="logo"><span class="logo-we">Trade</span><span class="logo-connect">Link</span><span class="logo-lk"> Global</span></a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About Us</a>
+    <a href="#services">Services</a>
+    <a href="#faq">FAQ</a>
+    <a href="#reviews">Testimonials</a>
+    <a href="#contact">Contact Us</a>
+    <a href="#career">Careers</a>
+    <a href="/ie_backend_html.html" class="nav-cta">Partner With Us</a>
+  </nav>
+  <button class="hbg" id="hbgBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#home" onclick="closeMob()">Home</a>
+  <a href="#about" onclick="closeMob()">About Us</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#how-it-works" onclick="closeMob()">How It Works</a>
+  <a href="#faq" onclick="closeMob()">FAQ</a>
+  <a href="#reviews" onclick="closeMob()">Testimonials</a>
+  <a href="#contact" onclick="closeMob()">Contact Us</a>
+</div>
+
+<!-- ══ SECTION 1 — HERO ══ -->
+<section id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-wrap">
+
+    <div class="hero-left">
+      <div class="hero-badge"><span class="pulse-dot"></span>Asia's Trusted Import &amp; Export Partner</div>
+      <h1>Move Goods <span class="gold">Across Borders</span> with <span class="red">Zero Friction</span></h1>
+      <p class="hero-sub">TradeLink Global connects importers, exporters, and manufacturers with end-to-end freight, customs clearance, and supply chain solutions — built for speed, compliance, and reliability across 80+ countries.</p>
+      <div>
+        <p class="hero-platform-label">Licensed Freight Forwarder &amp; Customs Broker</p>
+        <div class="hero-btns">
+          <a class="btn-gold" href="#how-it-works">See How It Works</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card">
+        <p class="hc-title" style="margin-top: 60px; font-size: calc(var(--hc-title-size, 14px) + 6px);">Live Global Trade Network</p>
+        <svg class="conn-svg" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- Top icons: ship, plane, truck -->
+          <circle cx="195" cy="50" r="24" fill="rgba(10,36,99,0.15)" stroke="rgba(10,36,99,0.35)" stroke-width="1.5"/>
+          <text x="195" y="57" text-anchor="middle" font-size="21">🚢</text>
+          <line x1="195" y1="74" x2="240" y2="115" stroke="rgba(10,36,99,0.25)" stroke-width="1" stroke-dasharray="3 3"/>
+
+          <circle cx="315" cy="35" r="24" fill="rgba(10,36,99,0.15)" stroke="rgba(10,36,99,0.35)" stroke-width="1.5"/>
+          <text x="315" y="42" text-anchor="middle" font-size="21">✈️</text>
+          <line x1="315" y1="59" x2="315" y2="91" stroke="rgba(10,36,99,0.25)" stroke-width="1" stroke-dasharray="3 3"/>
+
+          <circle cx="435" cy="50" r="24" fill="rgba(10,36,99,0.15)" stroke="rgba(10,36,99,0.35)" stroke-width="1.5"/>
+          <text x="435" y="57" text-anchor="middle" font-size="21">🚛</text>
+          <line x1="435" y1="74" x2="397" y2="112" stroke="rgba(10,36,99,0.25)" stroke-width="1" stroke-dasharray="3 3"/>
+
+          <!-- Left: Importers node -->
+          <g>
+            <circle cx="120" cy="145" r="63" fill="rgba(230,57,70,0.15)" stroke="rgba(230,57,70,0.5)" stroke-width="2.5"/>
+            <circle cx="120" cy="145" r="42" fill="rgba(230,57,70,0.25)" stroke="rgba(230,57,70,0.5)" stroke-width="2.5"/>
+            <text x="120" y="140" text-anchor="middle" font-size="12" fill="rgba(10,36,99,0.85)" font-family="Inter,sans-serif" font-weight="600">GLOBAL</text>
+            <text x="120" y="160" text-anchor="middle" font-size="12" fill="rgba(10,36,99,0.85)" font-family="Inter,sans-serif" font-weight="600">IMPORTERS</text>
+            <circle cx="120" cy="145" r="27" fill="transparent" stroke="rgba(244,162,97,0.2)" stroke-width="1">
+              <animate attributeName="r" values="27;69" dur="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Center: TradeLink hub -->
+          <g>
+            <circle cx="315" cy="145" r="54" fill="rgba(10,36,99,0.12)" stroke="rgba(10,36,99,0.5)" stroke-width="2.5"/>
+            <circle cx="315" cy="145" r="36" fill="rgba(10,36,99,0.18)" stroke="rgba(10,36,99,0.5)" stroke-width="2.5"/>
+            <text x="315" y="140" text-anchor="middle" font-size="12" fill="#0A2463" font-family="Plus Jakarta Sans,sans-serif" font-weight="800">Trade</text>
+            <text x="315" y="160" text-anchor="middle" font-size="12" fill="rgba(10,36,99,0.75)" font-family="Inter,sans-serif" font-weight="600">LINK</text>
+          </g>
+
+          <!-- Right: Exporters node -->
+          <g>
+            <circle cx="510" cy="145" r="63" fill="rgba(230,57,70,0.12)" stroke="rgba(230,57,70, 0.5)" stroke-width="2.5"/>
+            <circle cx="510" cy="145" r="42" fill="rgba(230,57,70,0.18)" stroke="rgba(230,57,70, 0.5)" stroke-width="2.5"/>
+            <text x="510" y="140" text-anchor="middle" font-size="12" fill="rgba(10,36,99,0.85)" font-family="Inter,sans-serif" font-weight="600">GLOBAL</text>
+            <text x="510" y="160" text-anchor="middle" font-size="12" fill="rgba(10,36,99,0.85)" font-family="Inter,sans-serif" font-weight="600">EXPORTERS</text>
+            <circle cx="510" cy="145" r="27" fill="transparent" stroke="rgba(230,57,70,0.2)" stroke-width="1">
+              <animate attributeName="r" values="27;69" dur="2.5s" begin="1.25s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0" dur="2.5s" begin="1.25s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Animated connecting lines -->
+          <line x1="183" y1="145" x2="261" y2="145" stroke="rgba(230,57,70,0.6)" stroke-width="2.5" stroke-dasharray="6 4">
+            <animate attributeName="stroke-dashoffset" values="0;-20" dur="1s" repeatCount="indefinite"/>
+          </line>
+          <line x1="369" y1="145" x2="447" y2="145" stroke="rgba(230,57,70,0.6)" stroke-width="2.5" stroke-dasharray="6 4">
+            <animate attributeName="stroke-dashoffset" values="0;-20" dur="1s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Stat pills -->
+          <rect x="90" y="250" width="140" height="42" rx="21" fill="rgba(10,36,99,0.12)" stroke="rgba(10,36,99,0.25)" stroke-width="1"/>
+          <text x="160" y="278" text-anchor="middle" font-size="15" fill="rgba(10,36,99,0.85)" font-family="Inter,sans-serif" font-weight="600">80+ Countries</text>
+
+          <rect x="247" y="250" width="140" height="42" rx="21" fill="rgba(10,36,99,0.12)" stroke="rgba(10,36,99,0.25)" stroke-width="1"/>
+          <text x="320" y="278" text-anchor="middle" font-size="15" fill="rgba(10,36,99,0.85)" font-family="Inter,sans-serif" font-weight="600">Real-time Tracking</text>
+
+          <rect x="405" y="250" width="140" height="42" rx="21" fill="rgba(10,36,99,0.12)" stroke="rgba(10,36,99,0.25)" stroke-width="1"/>
+          <text x="475" y="278" text-anchor="middle" font-size="15" fill="rgba(10,36,99,0.85)" font-family="Inter,sans-serif" font-weight="600">200+ Ports</text>
+        </svg>
+        <div class="float-pill p1"><span class="gdot"></span> 1,200+ Shipments Active</div>
+        <div class="float-pill p2"><span class="bdot"></span> 40+ Live Trade Lanes</div>
+      </div>
+    </div>
+
+    <div class="scroll-arrow">
+      <a href="#about">&#8964;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 2 — ABOUT US ══ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal-l">
+        <span class="sec-badge">🌐 About TradeLink Global</span>
+        <h2 class="sec-title">Your End-to-End <span class="accent">Global Trade</span> Partner</h2>
+        <div class="divider"></div>
+        <p class="sec-sub">TradeLink Global is built to eliminate the complexity of cross-border commerce. Whether you're sourcing raw materials from Asia, exporting finished goods to Europe, or navigating the intricacies of customs in multiple jurisdictions — we handle every mile, every document, and every duty with precision.</p>
+        <p class="sec-sub" style="margin-top:1rem">Founded on a commitment to transparent logistics and trade compliance, we operate at the intersection of freight technology, regulatory expertise, and global supply chain intelligence — giving businesses of every size a competitive edge in international markets.</p>
+        <div class="trust-row">
+          <span class="t-pill">✅ Licensed Customs Broker</span>
+          <span class="t-pill">🔒 WTO Compliant</span>
+          <span class="t-pill">⚡ Live Shipment Tracking</span>
+          <span class="t-pill">🌍 GDPR Safe</span>
+          <span class="t-pill">📋 ISO 9001 Certified</span>
+        </div>
+      </div>
+      <div class="about-stats reveal-r">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num"><span class="counter" data-target="80">0</span><span class="stat-plus">+</span></div>
+            <div class="stat-lbl">Countries Covered</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num"><span class="counter" data-target="200">0</span><span class="stat-plus">+</span></div>
+            <div class="stat-lbl">Ports Reached</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num"><span class="counter" data-target="50">0</span><span class="stat-plus">K+</span></div>
+            <div class="stat-lbl">Containers Moved Annually</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num"><span class="counter" data-target="99">0</span><span class="stat-plus">%</span></div>
+            <div class="stat-lbl">On-Time Delivery Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 3 — SERVICES ══ -->
+<section id="services">
+  <div class="wrap">
+    <div class="svc-header reveal">
+      <span class="sec-badge">⚙️ What We Offer</span>
+      <h2 class="sec-title">Services Built for <span class="accent">Global Trade</span></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">Comprehensive import and export solutions — from first-mile pickup to last-mile delivery, with full compliance at every border.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal" style="transition-delay:.05s">
+        <div class="svc-icon" style="background:rgba(10,36,99,.1)">🚢</div>
+        <div class="svc-title">Ocean Freight</div>
+        <p class="svc-desc">Full container load (FCL) and less-than-container load (LCL) shipping across major global trade lanes. Competitive rates, reliable schedules, and real-time cargo tracking from port to port.</p>
+        <span class="svc-link">Learn more &rarr;</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.1s">
+        <div class="svc-icon" style="background:rgba(230,57,70,.1)">✈️</div>
+        <div class="svc-title">Air Freight</div>
+        <p class="svc-desc">Time-critical shipments handled with priority. Our air freight network covers 150+ airports worldwide, with express and economy options tailored to your cargo weight, urgency, and budget.</p>
+        <span class="svc-link">Learn more &rarr;</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.15s">
+        <div class="svc-icon" style="background:rgba(244,162,97,.15)">📋</div>
+        <div class="svc-title">Customs Brokerage</div>
+        <p class="svc-desc">Licensed customs specialists manage all import/export declarations, HS code classification, duty optimization, and regulatory compliance — so your goods clear borders without delays or penalties.</p>
+        <span class="svc-link">Learn more &rarr;</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.2s">
+        <div class="svc-icon" style="background:rgba(10,36,99,.08)">🏭</div>
+        <div class="svc-title">Warehousing & Distribution</div>
+        <p class="svc-desc">Strategically located fulfillment hubs across Asia, the Middle East, and Europe. Bonded warehousing, pick-and-pack, and last-mile distribution — all under one roof.</p>
+        <span class="svc-link">Learn more &rarr;</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.25s">
+        <div class="svc-icon" style="background:rgba(230,57,70,.08)">🔍</div>
+        <div class="svc-title">Sourcing & Supplier Vetting</div>
+        <p class="svc-desc">We identify, audit, and qualify manufacturing partners and suppliers across Asia. Factory audits, product inspections, and pre-shipment quality checks included as standard.</p>
+        <span class="svc-link">Learn more &rarr;</span>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.3s">
+        <div class="svc-icon" style="background:rgba(244,162,97,.12)">🛡️</div>
+        <div class="svc-title">Trade Finance & Insurance</div>
+        <p class="svc-desc">Protect every shipment with comprehensive cargo insurance and access flexible trade finance instruments — letters of credit, invoice financing, and documentary collections — to keep your cash flow healthy.</p>
+        <span class="svc-link">Learn more &rarr;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 4 — HOW IT WORKS ══ -->
+<section id="how-it-works">
+  <div class="wrap">
+    <span class="sec-badge">🔄 The Process</span>
+    <h2 class="sec-title">How <span class="accent">TradeLink</span> Works</h2>
+    <div class="divider"></div>
+    <p class="sec-sub">A streamlined four-step process that takes your cargo from origin to destination — fully compliant, fully tracked, on time.</p>
+
+    <div class="hiw-tabs" id="hiwTabs">
+      <button class="hiw-tab active" data-target="importer">For Importers</button>
+      <button class="hiw-tab" data-target="exporter">For Exporters</button>
+    </div>
+
+    <div class="hiw-steps active" id="hiw-importer">
+      <div class="hiw-step reveal" style="transition-delay:.05s">
+        <div class="step-num">01</div>
+        <div class="step-icon">📝</div>
+        <div class="step-title">Submit Your Requirement</div>
+        <p class="step-desc">Tell us what you're importing — commodity, origin country, volume, and target delivery date. Our team will prepare a tailored freight quote within 4 hours.</p>
+      </div>
+      <div class="hiw-step reveal" style="transition-delay:.1s">
+        <div class="step-num">02</div>
+        <div class="step-icon">🗂️</div>
+        <div class="step-title">Documentation & Compliance</div>
+        <p class="step-desc">We prepare all required import documents — commercial invoices, packing lists, bills of lading, certificates of origin — and handle customs entry filings in the destination country.</p>
+      </div>
+      <div class="hiw-step reveal" style="transition-delay:.15s">
+        <div class="step-num">03</div>
+        <div class="step-icon">📦</div>
+        <div class="step-title">Freight & Customs Clearance</div>
+        <p class="step-desc">Your cargo is booked, consolidated if needed, and dispatched via ocean or air. We manage customs clearance at the port of entry — duties assessed and paid on your behalf.</p>
+      </div>
+      <div class="hiw-step reveal" style="transition-delay:.2s">
+        <div class="step-num">04</div>
+        <div class="step-icon">🚀</div>
+        <div class="step-title">Last-Mile Delivery</div>
+        <p class="step-desc">From the port to your warehouse or customer's door. Live tracking updates at every milestone — you always know exactly where your goods are.</p>
+      </div>
+    </div>
+
+    <div class="hiw-steps" id="hiw-exporter">
+      <div class="hiw-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon">🏭</div>
+        <div class="step-title">Cargo Pickup & Inspection</div>
+        <p class="step-desc">We collect goods from your factory or warehouse, conduct pre-shipment inspection, and prepare compliant export documentation including export permits and certificates of origin.</p>
+      </div>
+      <div class="hiw-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-icon">🔔</div>
+        <div class="step-title">Export Customs Filing</div>
+        <p class="step-desc">Our licensed brokers handle export declarations, HS classification, and all regulatory filings with your country's customs authority — minimizing clearance time and compliance risk.</p>
+      </div>
+      <div class="hiw-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-icon">📤</div>
+        <div class="step-title">International Freight</div>
+        <p class="step-desc">Cargo is loaded and dispatched on the most cost-effective and time-efficient route. We negotiate rates with major carriers so you don't have to.</p>
+      </div>
+      <div class="hiw-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-icon">🤝</div>
+        <div class="step-title">Delivery Confirmation</div>
+        <p class="step-desc">Goods are delivered to your buyer with full proof-of-delivery documentation. We coordinate with the consignee's customs broker for seamless import clearance at destination.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.hiw-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.hiw-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.target;
+      document.getElementById('hiw-importer').classList.toggle('active', target === 'importer');
+      document.getElementById('hiw-exporter').classList.toggle('active', target === 'exporter');
+    });
+  });
+});
+</script>
+
+<!-- ══ SECTION 5 — FAQ ══ -->
+<section id="faq">
+  <div class="wrap">
+    <span class="sec-badge reveal">❓ FAQ</span>
+    <h2 class="sec-title reveal">Frequently Asked <span class="accent">Questions</span></h2>
+    <div class="divider reveal"></div>
+    <div class="faq-grid">
+      <div class="faq-list reveal-l">
+        <div class="faq-item">
+          <div class="faq-q">What types of goods can TradeLink handle? <span class="faq-arrow">&#8964;</span></div>
+          <div class="faq-a"><p>We handle a wide range of commodities including industrial machinery, consumer electronics, textiles and apparel, food and agricultural products, chemicals (non-hazardous), construction materials, and retail merchandise. Dangerous goods and specialized cargo can be arranged with prior notice.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do you ensure customs compliance? <span class="faq-arrow">&#8964;</span></div>
+          <div class="faq-a"><p>Our in-house licensed customs brokers have expertise in over 60 trade jurisdictions. We classify all goods using the Harmonized System (HS) code, calculate applicable duties and taxes, and prepare fully compliant declarations — reducing the risk of delays, fines, or seizures at the border.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How long does ocean freight typically take? <span class="faq-arrow">&#8964;</span></div>
+          <div class="faq-a"><p>Transit times depend on the trade lane. Asia to Europe typically takes 25–32 days; Asia to the Middle East 10–18 days; Asia to North America 14–22 days. Air freight cuts these times to 2–7 days for most routes. We provide estimated arrival dates with every booking confirmation.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Which countries and ports do you serve? <span class="faq-arrow">&#8964;</span></div>
+          <div class="faq-a"><p>We operate across 80+ countries with direct services into 200+ major seaports and 150+ airports. Key hubs include Singapore, Dubai, Hamburg, Rotterdam, Los Angeles, Shanghai, Mumbai, and Colombo. We also offer inland haulage solutions in most markets.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you offer cargo insurance? <span class="faq-arrow">&#8964;</span></div>
+          <div class="faq-a"><p>Yes. We offer all-risk cargo insurance covering physical loss or damage during transit. Coverage is available on a per-shipment or open-cover (annual) basis. Our insurance partners include globally rated underwriters, and claims are processed within 30 business days.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do I get a freight quote? <span class="faq-arrow">&#8964;</span></div>
+          <div class="faq-a"><p>Simply fill in the contact form on this page or call us directly. Provide the origin and destination, commodity type, approximate weight and dimensions, and your preferred shipping mode. We respond with a detailed quote within 4 business hours on all standard trade lanes.</p></div>
+        </div>
+      </div>
+
+      <div class="reveal-r">
+        <div class="faq-cta-box" style="padding-top: 2.75rem !important; padding-bottom: 2.5rem !important;">
+          <span class="sec-badge" style="background:rgba(244,162,97,.2);color:var(--gold);margin-bottom:1.1rem">💡 Need a freight solution?</span>
+          <h3>Talk to a Trade Specialist</h3>
+          <p style="margin-bottom: 1.25rem !important;">Our logistics experts are available Monday–Friday, 8 AM–7 PM (GST) to advise on routing, duty optimization, documentation, and cost-saving opportunities for your trade corridor.</p>
+          <a class="btn-gold" href="#contact" style="display:inline-flex;align-items:center;gap:.3rem;margin-bottom:0.75rem">Get a Freight Quote &rarr;</a>
+          <div style="margin-top:1.6rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1)">
+            <p style="font-size:.78rem; text-align: center; font-weight: bold; letter-spacing: 0.05em; color:var(--gold); margin-bottom:.75rem">TRUSTED BY</p>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem">
+              <span style="background:rgba(244,162,97,.12);border:1px solid rgba(244,162,97,.3);color:#ffffff;font-size:.75rem;padding:.3rem .8rem;border-radius:8px;font-weight:500">🏭 Atlas Manufacturing</span>
+              <span style="background:rgba(244,162,97,.12);border:1px solid rgba(244,162,97,.3);color:#ffffff;font-size:.75rem;padding:.3rem .8rem;border-radius:8px;font-weight:500">🌍 OceanBridge Trading</span>
+              <span style="background:rgba(244,162,97,.12);border:1px solid rgba(244,162,97,.3);color:#ffffff;font-size:.75rem;padding:.3rem .8rem;border-radius:8px;font-weight:500">📦 PrimeCargo Group</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 6 — TESTIMONIALS ══ -->
+<section id="reviews" style="padding: 1.5rem 0 !important;">
+  <div class="wrap" style="position: relative; max-width: 1200px; margin: 0 auto;">
+
+    <div class="reviews-header" style="margin-bottom: 1rem !important;">
+      <span class="sec-badge reveal">⭐ Client Stories</span>
+      <h2 class="sec-title reveal" style="margin-top: 0.25rem !important;">What Our <span class="accent">Clients</span> Say</h2>
+      <div class="divider reveal" style="margin: 0.5rem auto !important;"></div>
+      <p class="sec-sub reveal">Real results from importers, exporters, and manufacturers across our global network.</p>
+    </div>
+
+    <button onclick="scrollReviews('left')" class="slider-arrow arrow-left" aria-label="Previous">←</button>
+    <button onclick="scrollReviews('right')" class="slider-arrow arrow-right" aria-label="Next">→</button>
+
+    <div class="reviews-grid slider-track" id="reviews-track" style="margin-bottom: 1rem !important;">
+
+      <div class="review-card reveal" style="transition-delay:.05s">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"TradeLink handled our first large-scale import from China — 18 containers of industrial equipment — without a single customs delay. Their documentation team was meticulous and we cleared the port two days ahead of schedule."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:var(--navy)">MR</div>
+          <div>
+            <div class="reviewer-name">Mohammed Al-Rashid</div>
+            <div class="reviewer-role">Procurement Director — Gulf Industrial Supplies, UAE</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.1s">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"As a garment exporter shipping to Europe, compliance is everything. TradeLink knows every certificate of origin requirement, every textile quota, and every port inspection protocol. They've saved us thousands in avoided penalties."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:var(--red)">KA</div>
+          <div>
+            <div class="reviewer-name">Kavitha Arumugam</div>
+            <div class="reviewer-role">Export Manager — SilkRoute Apparels, Chennai</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.15s">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Their air freight division got our perishable medical supplies from Singapore to Frankfurt in 38 hours, cold-chain intact. That kind of execution is rare. We've moved our entire time-sensitive freight portfolio to TradeLink."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:#0f766e">BW</div>
+          <div>
+            <div class="reviewer-name">Brigitte Weber</div>
+            <div class="reviewer-role">Supply Chain Head — MedSupply Europe, Germany</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.2s">
+        <div class="stars">★★★★☆</div>
+        <p class="review-text">"The live shipment tracking dashboard is outstanding. I can see my container's position, estimated arrival, and any customs holds in real time. No more chasing agents for updates — everything is transparent and accessible."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:#7c3aed">LT</div>
+          <div>
+            <div class="reviewer-name">Lucas Tran</div>
+            <div class="reviewer-role">Operations Manager — Pacific Retail Group, Australia</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.25s">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"TradeLink's sourcing team found us three qualified manufacturers in Vietnam within a week, conducted factory audits, and arranged pre-shipment inspection. We went from brief to first delivery in 11 weeks — exceptional service."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:var(--gold-dark)">SP</div>
+          <div>
+            <div class="reviewer-name">Sarah Patterson</div>
+            <div class="reviewer-role">Founder — Homeware Direct, UK</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.3s">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"We'd been stuck paying over-market ocean freight rates for years. TradeLink renegotiated our carrier contracts and consolidated our LCL shipments into FCL — cutting our annual freight cost by 28%. That's real money."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:#0369a1">RN</div>
+          <div>
+            <div class="reviewer-name">Rajan Nair</div>
+            <div class="reviewer-role">CEO — Horizon Electronics, Mumbai</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="reviews-stat-bar reveal" style="margin-top: 0px !important;">
+      <div class="rstat"><div class="rstat-num">4.9 / 5</div><div class="rstat-lbl">Average Client Rating</div></div>
+      <div class="rstat"><div class="rstat-num">8,400+</div><div class="rstat-lbl">Shipments Completed</div></div>
+      <div class="rstat"><div class="rstat-num">99%</div><div class="rstat-lbl">On-Time Clearance Rate</div></div>
+      <div class="rstat"><div class="rstat-num">91%</div><div class="rstat-lbl">Clients Repeat Annually</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 7 — CONTACT ══ -->
+<section id="contact" style="min-height: 100vh !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 8% 0 8% 0 !important; box-sizing: border-box !important;">
+  <div class="wrap" style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+    <div style="text-align: center; margin-bottom: 2rem !important;">
+      <span class="sec-badge">📬 Get In Touch</span>
+      <h2 class="sec-title" style="margin-top: 0.25rem; margin-bottom: 0.25rem;">Request a Freight Quote</h2>
+      <div class="divider" style="margin: 0.5rem auto !important;"></div>
+    </div>
+
+    <!-- SEND A MESSAGE FORM -->
+    <div class="reveal-l" style="margin-bottom: 2.5rem !important;">
+      <div class="contact-form-wrap" style="padding: 1.5rem !important; border-radius: 16px;">
+        <div class="form-title" style="margin-bottom: 1.25rem !important; font-size: 1.25rem; text-align: left;">Tell Us About Your Shipment</div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; align-items: end;">
+
+          <div class="form-group" style="margin-bottom: 0 !important;">
+            <label style="margin-bottom: 0.35rem; font-size: 0.8rem; font-weight: 600;">First Name</label>
+            <input type="text" placeholder="John" style="padding: 0.5rem; font-size: 0.85rem; height: 38px; box-sizing: border-box; width: 100%; border-radius: 8px;"/>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0 !important;">
+            <label style="margin-bottom: 0.35rem; font-size: 0.8rem; font-weight: 600;">Last Name</label>
+            <input type="text" placeholder="Smith" style="padding: 0.5rem; font-size: 0.85rem; height: 38px; box-sizing: border-box; width: 100%; border-radius: 8px;"/>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0 !important;">
+            <label style="margin-bottom: 0.35rem; font-size: 0.8rem; font-weight: 600;">Email Address</label>
+            <input type="email" placeholder="john@company.com" style="padding: 0.5rem; font-size: 0.85rem; height: 38px; box-sizing: border-box; width: 100%; border-radius: 8px;"/>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0 !important;">
+            <label style="margin-bottom: 0.35rem; font-size: 0.8rem; font-weight: 600;">I am a...</label>
+            <select style="padding: 0.5rem; font-size: 0.85rem; height: 38px; box-sizing: border-box; width: 100%; border-radius: 8px;">
+              <option>Importer</option>
+              <option>Exporter</option>
+              <option>Freight Forwarder / Broker</option>
+              <option>Manufacturer / Supplier</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0 !important;">
+            <label style="margin-bottom: 0.35rem; font-size: 0.8rem; font-weight: 600;">Company / Organisation</label>
+            <input type="text" placeholder="Your company name" style="padding: 0.5rem; font-size: 0.85rem; height: 38px; box-sizing: border-box; width: 100%; border-radius: 8px;"/>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0 !important; grid-column: span 2;">
+            <label style="margin-bottom: 0.35rem; font-size: 0.8rem; font-weight: 600;">Shipment Details</label>
+            <input type="text" placeholder="Origin, destination, commodity, volume — tell us what you need to move..." style="padding: 0.5rem; font-size: 0.85rem; height: 38px; box-sizing: border-box; width: 100%; border-radius: 8px;"/>
+          </div>
+
+          <div style="margin-bottom: 0 !important;">
+            <button class="submit-btn" onclick="handleSubmit()" style="padding: 0.5rem 1rem; font-size: 0.9rem; width: 100%; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">Get My Quote 📦</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- OFFICE INFO ROW -->
+    <div class="contact-info reveal-r" style="border-top: 1px solid rgba(10,36,99,0.15); padding-top: 2rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; text-align: center;">
+
+        <div class="info-item" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
+          <div class="info-icon" style="font-size: 1.5rem; margin-bottom: 0.25rem;">📍</div>
+          <div>
+            <div class="info-label" style="font-size: 0.75rem; text-transform: uppercase; color: var(--muted); font-weight: bold;">Head Office</div>
+            <div class="info-val" style="font-size: 0.85rem; margin-top: 0.25rem;">TradeLink Global, Business Bay, Dubai, UAE</div>
+          </div>
+        </div>
+
+        <div class="info-item" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
+          <div class="info-icon" style="font-size: 1.5rem; margin-bottom: 0.25rem;">📧</div>
+          <div>
+            <div class="info-label" style="font-size: 0.75rem; text-transform: uppercase; color: var(--muted); font-weight: bold;">Email</div>
+            <div class="info-val" style="font-size: 0.85rem; margin-top: 0.25rem;"><a href="mailto:quotes@tradelinkglobal.com" style="color: inherit; text-decoration: none;">quotes@tradelinkglobal.com</a></div>
+          </div>
+        </div>
+
+        <div class="info-item" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
+          <div class="info-icon" style="font-size: 1.5rem; margin-bottom: 0.25rem;">📞</div>
+          <div>
+            <div class="info-label" style="font-size: 0.75rem; text-transform: uppercase; color: var(--muted); font-weight: bold;">WhatsApp / Phone</div>
+            <div class="info-val" style="font-size: 0.85rem; margin-top: 0.25rem;">+971 4 000 0000</div>
+          </div>
+        </div>
+
+        <div class="info-item" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
+          <div class="info-icon" style="font-size: 1.5rem; margin-bottom: 0.25rem;">🕐</div>
+          <div>
+            <div class="info-label" style="font-size: 0.75rem; text-transform: uppercase; color: var(--muted); font-weight: bold;">Office Hours</div>
+            <div class="info-val" style="font-size: 0.85rem; margin-top: 0.25rem;">Sun – Thu, 8:00 AM – 7:00 PM (GST)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 8 — CAREERS ══ -->
+<section id="career" style="min-height: 60vh !important; display: flex !important; flex-direction: column !important; justify-content: flex-end !important; padding: 6% 0 5% 0 !important; box-sizing: border-box !important; background-color: #ffffff;">
+  <div class="wrap" style="max-width: 900px; margin: 0 auto; width: 100%; padding: 0 1rem; text-align: center;">
+
+    <div class="career-box" style="padding: 1.25rem 2.5rem !important; border-radius: 16px; border: 1px solid rgba(10,36,99,0.12); background: var(--light); box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);">
+      <div class="career-title" style="margin-bottom: 0.5rem !important; font-size: 1.75rem; font-weight: 800;">🚀 Join Our Team</div>
+      <p class="career-desc" style="margin-bottom: 1rem !important; font-size: 0.95rem; line-height: 1.6; color: #6B7280; max-width: 650px; margin-left: auto; margin-right: auto;">
+        We're expanding our global operations team. If you have a passion for international trade, logistics, or customs compliance — we'd love to hear from you.
+      </p>
+      <div style="display: inline-block; padding: 0.75rem 1.5rem; border-radius: 8px;">
+        <p class="career-desc" style="margin-bottom: 0 !important; font-size: 1rem; font-weight: bold; color: var(--gold);">
+          📧 Send your CV to: <span style="text-decoration: underline; color: var(--navy);">careers@tradelinkglobal.com</span>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><span style="color:#fff">Trade</span><span style="color:var(--gold)">Link</span><span style="color:var(--red)"> Global</span></div>
+        <p class="footer-tagline">End-to-end import and export solutions — freight, customs, warehousing, and sourcing across 80+ countries. Compliance guaranteed.</p>
+        <div class="social-row">
+          <a class="social-btn" href="#" title="LinkedIn">in</a>
+          <a class="social-btn" href="#" title="Twitter/X">𝕏</a>
+          <a class="social-btn" href="#" title="Facebook">f</a>
+          <a class="social-btn" href="#" title="WhatsApp">w</a>
+          <a class="social-btn" href="#" title="Instagram">📷</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">Ocean Freight</a>
+        <a href="#services">Air Freight</a>
+        <a href="#services">Customs Brokerage</a>
+        <a href="#services">Warehousing</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About Us</a>
+        <a href="#reviews">Testimonials</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <div style="color:rgba(255,255,255,.35)">© 2025 TradeLink Global (Pvt) Ltd. All rights reserved. Licensed Freight Forwarder &amp; Customs Broker.</div>
+      <div class="footer-links">
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Privacy</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// HEADER SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('hdr').classList.toggle('scrolled',scrollY>50)
+})
+
+// HAMBURGER
+document.getElementById('hbgBtn').addEventListener('click',()=>{
+  document.getElementById('mobMenu').classList.add('open')
+})
+document.getElementById('mobClose').addEventListener('click',closeMob)
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+
+// SCROLL REVEAL
+const revealEls=document.querySelectorAll('.reveal,.reveal-l,.reveal-r')
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}})
+},{threshold:.12})
+revealEls.forEach(el=>io.observe(el))
+
+// COUNTER
+const counters=document.querySelectorAll('.counter')
+const cio=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !e.target.dataset.done){
+      e.target.dataset.done=1
+      const target=+e.target.dataset.target
+      let current=0
+      const step=Math.ceil(target/60)
+      const t=setInterval(()=>{
+        current=Math.min(current+step,target)
+        e.target.textContent=current
+        if(current>=target)clearInterval(t)
+      },25)
+    }
+  })
+},{threshold:.4})
+counters.forEach(el=>cio.observe(el))
+
+// FAQ ACCORDION
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const item=q.parentElement
+    const wasOpen=item.classList.contains('open')
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'))
+    if(!wasOpen)item.classList.add('open')
+  })
+})
+
+// HOW IT WORKS TABS
+document.querySelectorAll('.hiw-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.hiw-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.target;
+    if (target === 'importer') {
+      document.getElementById('hiw-importer').classList.add('active');
+      document.getElementById('hiw-exporter').classList.remove('active');
+    } else {
+      document.getElementById('hiw-exporter').classList.add('active');
+      document.getElementById('hiw-importer').classList.remove('active');
+    }
+  });
+});
+
+// FORM SUBMIT
+function handleSubmit() {
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = "✅ Quote Request Sent! We'll respond within 4 hours.";
+    btn.style.background = '#22c55e';
+    setTimeout(() => {
+      btn.textContent = 'Get My Quote 📦';
+      btn.disabled = false;
+      btn.style.background = '';
+    }, 4000);
+  }, 1500);
+}
+</script>
+
+<script>
+function scrollReviews(direction) {
+  const track = document.getElementById('reviews-track');
+  if (!track) return;
+  const cardWidth = track.firstElementChild.getBoundingClientRect().width + 24;
+  const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+  track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') scrollReviews('right');
+  if (e.key === 'ArrowLeft') scrollReviews('left');
+});
+</script>
+
+</body>
+</html>
