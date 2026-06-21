@@ -4759,6 +4759,18 @@ window.addEventListener('DOMContentLoaded', async function(){
     + '</span>';
 });
 
+(function checkAdminRoute() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('access') === 'internal_admin') {
+    APP.loginRole = 'admin';
+    showToast('Admin Authentication Channel Activated.', 'info');
+    
+    // Optional: Dynamically update login UI title text to confirm state
+    const title = document.querySelector('#loginForm h2');
+    if (title) title.textContent = 'TradeLink — Internal Administration';
+  }
+})();
+   
 /* ============================================================
    MODULE 21 — KEYBOARD ACCESSIBILITY ENFORCEMENT
    All modals trap focus within themselves when open.
