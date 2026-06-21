@@ -2264,7 +2264,7 @@ async function handleSignupSubmit(e, role){
   const sb = await initSupabase();
   if(!sb){ setButtonLoading(btn,false); return; }
 
- const { data, error } = await sb.auth.signUp({
+  const { data, error } = await sb.auth.signUp({
     email, password,
     options: { data: metadata, emailRedirectTo: window.location.href }
   });
@@ -2279,7 +2279,6 @@ async function handleSignupSubmit(e, role){
   if (data?.user?.id) {
     APP.pendingSignupData.uid = data.user.id;
   }
-  // --------------------------------------------------------
 
   // --- ARCHITECTURAL SHORT-CIRCUIT INTERCEPTOR ---
   if (DEV_CONFIG.BYPASS_OTP || data?.session) {
@@ -2296,10 +2295,7 @@ async function handleSignupSubmit(e, role){
 
   // Show OTP step fallback if bypass is turned off
   showSignupOtpStep(role);
-  }
-
-  // Show OTP step fallback
-  showSignupOtpStep(role);
+}
 
 // Extracted Database Provisioning Helper to maintain Single Source of Truth
 async function executeDatabaseProvisioning(sb, uid, email, meta, role) {
@@ -2323,7 +2319,7 @@ async function executeDatabaseProvisioning(sb, uid, email, meta, role) {
     mobile       : meta.mobile,
     plan         : meta.plan,
     plan_label   : plan.label,
-    status       : 'pending', // Admin must approve
+    status       : 'pending', 
     joined_at    : now.toISOString(),
   });
 
@@ -2366,32 +2362,24 @@ async function verifySignupOtp(){
     showToast('Please enter all 6 digits.','warning'); return;
   }
   
-  // Extract our updated state data payload containing the pre-captured uid
   const { email, metadata, role, uid } = APP.pendingSignupData || {};
   if(!email){ showToast('Session expired. Please restart.','error'); showScreen('signup'); return; }
 
   let finalizedUid = uid;
 
-  // --- ARCHITECTURAL VERIFICATION INTERCEPTOR ---
   if (DEV_CONFIG.BYPASS_OTP) {
     showToast('Development Mode: Intercepting "Verify & Complete"... Bypassing remote OTP.', 'info');
-    
     if (!finalizedUid) {
       showToast('Bypass failed: No pending User ID found in state machine. Please restart signup.', 'error');
       return;
     }
   } else {
-    // Production Path: Securely validate token against Supabase Auth Engine
     const { data, error } = await sb.auth.verifyOtp({ email, token:otp, type:'signup' });
     if(error){ showToast('Verification failed: '+error.message,'error'); return; }
     finalizedUid = data.user?.id;
   }
-  // ----------------------------------------------
 
-  // Insert profile record into Supabase using our single-source-of-truth helper
   await executeDatabaseProvisioning(sb, finalizedUid, email, metadata, role);
-  
-  // Reset state machines and route cleanly to login
   APP.pendingSignupData = null;
   showScreen('login');
 }
@@ -2420,32 +2408,27 @@ async function handleLoginSubmit(e){
   APP.session=data.session;
   APP.pendingLoginData={email, role:APP.loginRole};
 
-  // --- ARCHITECTURAL 2FA BYPASS INTERCEPTOR ---
   if (DEV_CONFIG.BYPASS_OTP) {
     showToast('Development Mode: Bypassing 2FA Challenge... Hydrating dashboard.', 'info');
     await executeSessionDashboardHydration(sb);
     return;
   }
 
-  // Show 2FA OTP step fallback
   document.getElementById('loginForm').classList.add('hidden');
   document.getElementById('loginOtpStep').classList.remove('hidden');
   document.querySelector('#loginOtpInputs .otp-input')?.focus();
   showToast('A verification code has been sent to your registered mobile.','success');
 }
 
-// Extracted Core Session and Dashboard Hydration Engine
 async function executeSessionDashboardHydration(sb) {
   const { data: { user } } = await sb.auth.getUser();
   if (!user) { showToast('Session expired. Please log in again.', 'error'); showScreen('login'); return; }
 
-  // 1. RESOLVE ROLE FIRST (Single Source of Truth)
   let role = user.app_metadata?.role || user.user_metadata?.role || APP.loginRole;
   if (user.app_metadata?.role === 'admin' || user.user_metadata?.role === 'admin') {
     role = 'admin';
   }
 
-  // 2. NOW EVALUATE TABLE DEPENDENCIES
   const table = role === 'exporter' ? 'exporters' : role === 'importer' ? 'importers' : null;
   let profile = null, subscription = null;
 
@@ -2458,13 +2441,11 @@ async function executeSessionDashboardHydration(sb) {
     subscription = sd;
   }
 
-  // 3. HYDRATE GLOBAL APPLICATION STATE
   APP.currentRole = role;
   APP.profile = profile || { company_name: (role === 'admin' ? 'Administrator' : 'Unknown'), role };
   APP.subscription = subscription;
   APP.usage = subscription ? { postsUsed: subscription.posts_used, eoisUsed: subscription.eois_used, postsLimit: subscription.posts_limit, eoisLimit: subscription.eois_limit, periodReset: subscription.period_reset } : null;
 
-  // 4. TRIGGER VIEW ENGINE
   buildDashboard(role);
   showScreen('dashboard');
   showToast('Welcome back, ' + esc(APP.profile.company_name || 'Admin') + '!', 'success');
@@ -2478,7 +2459,6 @@ async function verifyLoginOtp(){
   const sb=await initSupabase();
   if(!sb) return;
 
-  // Execute the shared dashboard loading engine cleanly
   await executeSessionDashboardHydration(sb);
 }
 
