@@ -2296,11 +2296,11 @@ async function handleSignupSubmit(e, role){
 
   // Show OTP step fallback if bypass is turned off
   showSignupOtpStep(role);
-
+}
 
   // Show OTP step fallback
   showSignupOtpStep(role);
-
+}
 
 // Extracted Database Provisioning Helper to maintain Single Source of Truth
 async function executeDatabaseProvisioning(sb, uid, email, meta, role) {
@@ -4388,6 +4388,7 @@ async function verifySignupOtp(){
     );
   }
 
+APP.pendingSignupData = null;
   showScreen('login');
 }
 
