@@ -2296,11 +2296,11 @@ async function handleSignupSubmit(e, role){
 
   // Show OTP step fallback if bypass is turned off
   showSignupOtpStep(role);
-}
+
 
   // Show OTP step fallback
   showSignupOtpStep(role);
-}
+
 
 // Extracted Database Provisioning Helper to maintain Single Source of Truth
 async function executeDatabaseProvisioning(sb, uid, email, meta, role) {
@@ -2437,31 +2437,36 @@ async function handleLoginSubmit(e){
 
 // Extracted Core Session and Dashboard Hydration Engine
 async function executeSessionDashboardHydration(sb) {
-  const {data:{user}} = await sb.auth.getUser();
-  if(!user){showToast('Session expired. Please log in again.','error');showScreen('login');return;}
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) { showToast('Session expired. Please log in again.', 'error'); showScreen('login'); return; }
 
-  const role = APP.loginRole;
-  const table = role==='exporter'?'exporters':role==='importer'?'importers':null;
-  let profile=null, subscription=null;
-
-  if(table){
-    const {data:pd} = await sb.from(table).select('*').eq('user_id',user.id).single();
-    profile=pd;
-    if(pd?.status==='revoked'){showToast('Your account has been revoked. Please contact support.','error');await sb.auth.signOut();return;}
-    if(pd?.status==='pending'){showToast('Your account is pending admin approval. You will be notified by email.','warning');await sb.auth.signOut();return;}
-    const {data:sd} = await sb.from('subscriptions').select('*').eq('user_id',user.id).single();
-    subscription=sd;
+  // Check roles
+  let role = user.app_metadata?.role || user.user_metadata?.role || APP.loginRole;
+  if (user.app_metadata?.role === 'admin' || user.user_metadata?.role === 'admin') {
+    role = 'admin';
   }
 
+  const table = role === 'exporter' ? 'exporters' : role === 'importer' ? 'importers' : null;
+  let profile = null, subscription = null;
+
+  if (table) {
+    const { data: pd } = await sb.from(table).select('*').eq('user_id', user.id).single();
+    profile = pd;
+    if (pd?.status === 'revoked') { showToast('Your account has been revoked.', 'error'); await sb.auth.signOut(); return; }
+    if (pd?.status === 'pending') { showToast('Your account is pending admin approval.', 'warning'); await sb.auth.signOut(); return; }
+    const { data: sd } = await sb.from('subscriptions').select('*').eq('user_id', user.id).single();
+    subscription = sd;
+  } // <-- Ensure this closes the "if (table)" block properly
+
   APP.currentRole = role;
-  APP.profile = profile || {company_name:(role==='admin'?'Administrator':'Unknown'), role};
+  APP.profile = profile || { company_name: (role === 'admin' ? 'Administrator' : 'Unknown'), role };
   APP.subscription = subscription;
-  APP.usage = subscription ? {postsUsed:subscription.posts_used,eoisUsed:subscription.eois_used,postsLimit:subscription.posts_limit,eoisLimit:subscription.eois_limit,periodReset:subscription.period_reset} : null;
+  APP.usage = subscription ? { postsUsed: subscription.posts_used, eoisUsed: subscription.eois_used, postsLimit: subscription.posts_limit, eoisLimit: subscription.eois_limit, periodReset: subscription.period_reset } : null;
 
   buildDashboard(role);
   showScreen('dashboard');
-  showToast('Welcome back, '+esc(APP.profile.company_name||'Partner')+'!','success');
-}
+  showToast('Welcome back, ' + esc(APP.profile.company_name || 'Partner') + '!', 'success');
+} // <-- This should be the single, final closing brace for the function
 
 async function verifyLoginOtp(){
   const otp=getOtpValue('loginOtpInputs');
