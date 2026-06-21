@@ -2264,7 +2264,7 @@ async function handleSignupSubmit(e, role){
   const sb = await initSupabase();
   if(!sb){ setButtonLoading(btn,false); return; }
 
-  const { data, error } = await sb.auth.signUp({
+ const { data, error } = await sb.auth.signUp({
     email, password,
     options: { data: metadata, emailRedirectTo: window.location.href }
   });
@@ -2275,8 +2275,13 @@ async function handleSignupSubmit(e, role){
     return;
   }
 
+  // --- ARCHITECTURE UPDATE: CAPTURE USER ID IMMEDIATELY ---
+  if (data?.user?.id) {
+    APP.pendingSignupData.uid = data.user.id;
+  }
+  // --------------------------------------------------------
+
   // --- ARCHITECTURAL SHORT-CIRCUIT INTERCEPTOR ---
-  // Triggers if bypass flag is true OR if your Supabase backend has "Confirm Email" turned off
   if (DEV_CONFIG.BYPASS_OTP || data?.session) {
     showToast('Development Mode: Auto-confirming registration profiles...', 'info');
     const targetUserId = data?.user?.id || data?.session?.user?.id;
@@ -2288,6 +2293,10 @@ async function handleSignupSubmit(e, role){
       return;
     }
   }
+
+  // Show OTP step fallback if bypass is turned off
+  showSignupOtpStep(role);
+}
 
   // Show OTP step fallback
   showSignupOtpStep(role);
@@ -2352,18 +2361,38 @@ function showSignupOtpStep(role){
 async function verifySignupOtp(){
   const sb = await initSupabase();
   if(!sb) return;
+  
   const otp = getOtpValue('signupOtpInputs');
   if(otp.length!==6 || !/^\d{6}$/.test(otp)){
     showToast('Please enter all 6 digits.','warning'); return;
   }
-  const { email, metadata, role } = APP.pendingSignupData || {};
+  
+  // Extract our updated state data payload containing the pre-captured uid
+  const { email, metadata, role, uid } = APP.pendingSignupData || {};
   if(!email){ showToast('Session expired. Please restart.','error'); showScreen('signup'); return; }
 
-  const { data, error } = await sb.auth.verifyOtp({ email, token:otp, type:'signup' });
-  if(error){ showToast('Verification failed: '+error.message,'error'); return; }
+  let finalizedUid = uid;
 
-  // Route directly to our single source of truth helper
-  await executeDatabaseProvisioning(sb, data.user.id, email, metadata, role);
+  // --- ARCHITECTURAL VERIFICATION INTERCEPTOR ---
+  if (DEV_CONFIG.BYPASS_OTP) {
+    showToast('Development Mode: Intercepting "Verify & Complete"... Bypassing remote OTP.', 'info');
+    
+    if (!finalizedUid) {
+      showToast('Bypass failed: No pending User ID found in state machine. Please restart signup.', 'error');
+      return;
+    }
+  } else {
+    // Production Path: Securely validate token against Supabase Auth Engine
+    const { data, error } = await sb.auth.verifyOtp({ email, token:otp, type:'signup' });
+    if(error){ showToast('Verification failed: '+error.message,'error'); return; }
+    finalizedUid = data.user?.id;
+  }
+  // ----------------------------------------------
+
+  // Insert profile record into Supabase using our single-source-of-truth helper
+  await executeDatabaseProvisioning(sb, finalizedUid, email, metadata, role);
+  
+  // Reset state machines and route cleanly to login
   APP.pendingSignupData = null;
   showScreen('login');
 }
