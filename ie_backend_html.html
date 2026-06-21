@@ -1940,17 +1940,65 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 const SUPABASE_URL  = 'https://brvbggvntopomqbkurhk.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJydmJnZ3ZudG9wb21xYmt1cmhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwMzc2OTQsImV4cCI6MjA5NzYxMzY5NH0.bOgU-H-11GI9XNWjtfack-YremnhALeJvah-tfNk_mg';
 
-/* Lazy-load the Supabase JS SDK from the official CDN */
-let supabase = null;
-function initSupabase(){
-  return new Promise((resolve)=>{
-    if(supabase){ resolve(supabase); return; }
-    const s=document.createElement('script');
-    s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-    s.onload=()=>{ supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON); resolve(supabase); };
-    s.onerror=()=>{ showToast('Network error: could not load authentication module.','error'); resolve(null); };
-    document.head.appendChild(s);
+/* Architecture-Grade Lazy-loader for Supabase JS SDK */
+window.supabaseInstance = null;
+let supabaseLoadingPromise = null;
+
+function initSupabase() {
+  // 1. If already initialized, return it immediately
+  if (window.supabaseInstance) {
+    return Promise.resolve(window.supabaseInstance);
+  }
+
+  // 2. If initialization is currently in flight, return the existing promise chain
+  if (supabaseLoadingPromise) {
+    return supabaseLoadingPromise;
+  }
+
+  // 3. Initiate the single-entry loading sequence
+  supabaseLoadingPromise = new Promise((resolve, reject) => {
+    // Check if the script somehow loaded via another concurrent process
+    if (window.supabase && typeof window.supabase.createClient === 'function') {
+      window.supabaseInstance = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+      resolve(window.supabaseInstance);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+    script.async = true;
+
+    script.onload = () => {
+      try {
+        // Double-check that the UMD bundle exported to the window object correctly
+        if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+          throw new Error('Supabase SDK loaded, but createClient interface was not found.');
+        }
+        
+        // Initialize and cache the instance
+        window.supabaseInstance = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+        
+        // Backwards compatibility link: ensures your legacy code can still read window.supabase
+        window.supabase = window.supabaseInstance; 
+        
+        resolve(window.supabaseInstance);
+      } catch (err) {
+        supabaseLoadingPromise = null; // Clear state to allow application recovery/retry
+        showToast('Initialization error: Authentication module corrupted.', 'error');
+        reject(err);
+      }
+    };
+
+    script.onerror = (error) => {
+      supabaseLoadingPromise = null; // Clear state to allow network retries
+      showToast('Network error: Could not load authentication module.', 'error');
+      reject(error);
+    };
+
+    document.head.appendChild(script);
   });
+
+  return supabaseLoadingPromise;
 }
 
 /* ============================================================
