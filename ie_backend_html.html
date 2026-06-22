@@ -240,29 +240,52 @@ button#choiceImporter.active,
   overflow:hidden;
 }
 
-.signup-inner {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 2.5rem 2rem !important;   /* Enhances spacing inside input container fields */
-  
-  /* CRITICAL CORRECTION: Pulls text and fields away from corners and borders */
-  width: 100% !important;
-  max-width: 520px !important;       /* Wraps form content width comfortably */
-  margin: 0 auto !important;         /* Perfectly centers the form container horizontally */
-  
-  /* VERTICAL ALIGNMENT REMEDIATION */
-  justify-content: flex-start !important; /* Positions content naturally starting from top */
-  align-items: stretch !important;        /* Ensures fields keep uniform widths within the max-width boundary */
+/* 1. Global structural wrapper alignment (Keeps layout centered) */
+.auth-container {
+  max-width: 540px !important;       
+  width: 92% !important;             
+  margin: 3rem auto !important;      
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;    
+  justify-content: center !important;
+  box-sizing: border-box;
 }
 
-/* Optional layout safety correction to ensure any direct children center correctly */
-.signup-inner form {
+/* 2. Split Wrapper Cleanup: Enforce fluid vertical layout flow, NEVER force block-level display here */
+.signup-split {
   width: 100% !important;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;                      /* Clean, uniform gaps between input groups */
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+/* 3. Form Inner: Controls padding and bounds natively */
+.signup-inner {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0 !important;
+  width: 100%;
+}
+
+/* 4. Form inputs containment sizing */
+#signupContainer form,
+.signup-inner form {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;                      
+}
+
+/* 5. ARCHITECTURAL SAFEGUARD: Enforce hidden selector over any conflicting flex container */
+.hidden,
+#signupRoleChoicePanel.hidden,
+#signupContainer.hidden,
+#signupOtpStep.hidden,
+.screen div.hidden {
+  display: none !important; /* Cascades with ultimate specificity priority */
 }
    
 /* Two-column form layout */
@@ -732,7 +755,7 @@ button#choiceImporter.active,
      SCREEN: SIGNUP
      ============================================================ -->
 
-   <div id="screen-signup" class="screen">
+<div id="screen-signup" class="screen">
   
   <div class="auth-container" id="signupRoleChoicePanel" style="max-width: 540px; margin: 4rem auto; padding: 3rem 2.5rem; text-align: center;">
     <div class="auth-logo-row">
@@ -741,7 +764,7 @@ button#choiceImporter.active,
     <h2 class="auth-title" style="margin-bottom: 0.75rem;">Create Your Account</h2>
     <p class="auth-sub" style="margin-bottom: 2rem;">Select your operational role below to customize your registration workflow and workspace access.</p>
     
-<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
       <button id="choiceExporter" class="btn-submit" type="button" onclick="selectInitialSignupRole('exporter')" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.1rem; font-size: 1rem; border-radius: var(--radius-md); background: #e2eafc !important; color: var(--navy) !important; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease;">
         🚢 Register as Exporter (Sri Lanka)
       </button>
@@ -755,7 +778,7 @@ button#choiceImporter.active,
     </p>
   </div>
 
-  <div class="auth-container hidden" id="signupContainer">
+  <div class="auth-container hidden" id="signupContainer" style="max-width: 540px; margin: 4rem auto; padding: 3rem 2.5rem;">
        
       <!-- EXPORTER FORM — two columns -->
       <form id="exporterForm" onsubmit="handleSignupSubmit(event,'exporter')" novalidate style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden">
