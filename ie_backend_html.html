@@ -171,7 +171,15 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 .plan-slider .plan-card .plan-features li {
   color: #000000 !important;          /* Features description kept in clean black */
 }
-
+/* UI TOGGLE OVERRIDES FOR INITIAL ROLE BUTTON CHOICE MATRIX */
+#choiceExporter.active, #choiceImporter.active {
+  background-color: var(--navy) !important;
+  color: var(--white) !important;
+  border-color: var(--gold) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(10, 36, 99, 0.2);
+}
+   
 .landing-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1.2rem;border-radius:25px;margin-bottom:1.4rem;width:max-content;max-width:100%}   
 .landing-h1{font-family:var(--font-display);font-size:clamp(2.2rem,3.8vw,3.4rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:1.1rem}
 .landing-h1 .gold{color:var(--gold)}.landing-h1 .red{color:var(--red)}
@@ -706,11 +714,11 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
     <h2 class="auth-title" style="margin-bottom: 0.75rem;">Create Your Account</h2>
     <p class="auth-sub" style="margin-bottom: 2rem;">Select your operational role below to customize your registration workflow and workspace access.</p>
     
-    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
-      <button class="btn-submit" type="button" onclick="selectInitialSignupRole('exporter')" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.1rem; font-size: 1rem; border-radius: var(--radius-md);">
+<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+      <button id="choiceExporter" class="btn-submit" type="button" onclick="selectInitialSignupRole('exporter')" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.1rem; font-size: 1rem; border-radius: var(--radius-md); background: var(--light-blue); color: var(--navy); border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease;">
         🚢 Register as Exporter (Sri Lanka)
       </button>
-      <button class="btn-submit" type="button" onclick="selectInitialSignupRole('importer')" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.1rem; font-size: 1rem; border-radius: var(--radius-md); background: var(--navy); color: var(--white);">
+      <button id="choiceImporter" class="btn-submit" type="button" onclick="selectInitialSignupRole('importer')" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.1rem; font-size: 1rem; border-radius: var(--radius-md); background: var(--light-blue); color: var(--navy); border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease;">
         🌍 Register as Global Importer
       </button>
     </div>
@@ -2438,15 +2446,24 @@ function selectInitialSignupRole(role) {
     // 1. Assign local UI reactive runtime memory configuration state
     APP.signupRole = role;
     
-    // 2. Invoke pre-compiled core panel layout swapper mechanics (Uses function above!)
+    // 2. Toggle active styles on the initial selection choice panels immediately
+    const btnExporter = document.getElementById('choiceExporter');
+    const btnImporter = document.getElementById('choiceImporter');
+    
+    if (btnExporter) btnExporter.classList.toggle('active', role === 'exporter');
+    if (btnImporter) btnImporter.classList.toggle('active', role === 'importer');
+    
+    // 3. Invoke pre-compiled core panel layout swapper mechanics to set up the inner tabs
     switchSignupRole(role);
     
-    // 3. Clear the initial selector panel, display core identity fields
-    const choicePanel = document.getElementById('signupRoleChoicePanel');
-    const formContainer = document.getElementById('signupContainer');
-    
-    if (choicePanel) choicePanel.classList.add('hidden');
-    if (formContainer) formContainer.classList.remove('hidden');
+    // 4. Introduce a brief 250ms visual delay so the user clearly sees their choice highlight before view swap
+    setTimeout(() => {
+        const choicePanel = document.getElementById('signupRoleChoicePanel');
+        const formContainer = document.getElementById('signupContainer');
+        
+        if (choicePanel) choicePanel.classList.add('hidden');
+        if (formContainer) formContainer.classList.remove('hidden');
+    }, 250);
 }
 
 /* ============================================================
