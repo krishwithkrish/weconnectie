@@ -51,7 +51,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);overflow-x:hidden;min-height:110vh}
+body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);overflow-x:hidden;min-height:98vh}
 
 /* ============================================================
    UTILITY CLASSES
@@ -112,7 +112,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 /* ============================================================
    SCREENS SYSTEM
    ============================================================ */
-.screen{display:none;min-height:110vh;padding-top:52px}
+.screen{display:none;min-height:98vh;padding-top:52px}
 .screen.active{display:block}
 
 /* ============================================================
@@ -123,7 +123,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:0;position:relative;overflow:hidden;
 }
-#screen-landing.active{display:flex;height:calc(110vh - 52px);min-height:0;max-height:calc(110vh - 52px)}
+#screen-landing.active{display:flex;height:calc(98vh - 52px);min-height:0;max-height:calc(98vh - 52px)}
 .landing-grid-bg{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
 .landing-orb1{position:absolute;top:-10%;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(244,162,97,.12) 0%,transparent 70%);animation:orbPulse 6s ease-in-out infinite;pointer-events:none}
 .landing-orb2{position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(230,57,70,.1) 0%,transparent 70%);animation:orbPulse 8s ease-in-out infinite reverse;pointer-events:none}
@@ -192,7 +192,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   align-items:stretch;justify-content:stretch;
   padding:0;
 }
-#screen-signup.active{display:flex;height:calc(110vh - 52px);overflow:hidden}
+#screen-signup.active{display:flex;height:calc(98vh - 52px);overflow:hidden}
 #signupContainer{
   flex:1;
   max-width:none;width:100%;
@@ -322,11 +322,11 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
    DASHBOARD LAYOUT
    ============================================================ */
 #screen-dashboard{padding-top:0}
-.dash-layout{display:flex;min-height:110vh;padding-top:52px}
+.dash-layout{display:flex;min-height:98vh;padding-top:52px}
 .dash-sidebar{
   width:260px;flex-shrink:0;background:var(--navy-deep);
   padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.35rem;
-  position:sticky;top:52px;height:calc(110vh - 52px);overflow-y:auto;
+  position:sticky;top:52px;height:calc(98vh - 52px);overflow-y:auto;
 }
 .dash-sidebar-header{padding:.5rem .75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:.5rem}
 .dash-user-role{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.25rem}
