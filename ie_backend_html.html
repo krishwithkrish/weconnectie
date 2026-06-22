@@ -681,14 +681,14 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
     <div class="signup-inner">
       <div class="signup-form-header">
         <div>
-          <div class"auth-title" style="margin:0;text-align:left;font-size:1.2rem">Create Your Account</h2>
+          <div class="auth-title" style="margin:0;text-align:left;font-size:1.2rem">Create Your Account</h2>
         </div>
         <div class="role-selector" style="margin-bottom:0;width:auto">
           <button class="role-btn active" id="roleExporter" onclick="switchSignupRole('exporter')">🇱🇰 Exporter (Sri Lanka)</button>
           <button class="role-btn" id="roleImporter" onclick="switchSignupRole('importer')">🌍 Importer (Global)</button>
         </div>
       </div>
-
+       
       <!-- EXPORTER FORM — two columns -->
       <form id="exporterForm" onsubmit="handleSignupSubmit(event,'exporter')" novalidate style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden">
         <div class="signup-cols">
