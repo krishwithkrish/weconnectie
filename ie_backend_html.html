@@ -2430,11 +2430,20 @@ async function approveSubscription(userId) {
    ============================================================ */
 function switchSignupRole(role){
   APP.signupRole = role;
-  document.getElementById('roleExporter').classList.toggle('active', role==='exporter');
-  document.getElementById('roleImporter').classList.toggle('active', role==='importer');
-  document.getElementById('exporterForm').classList.toggle('hidden', role!=='exporter');
-  document.getElementById('importerForm').classList.toggle('hidden', role!=='importer');
-  document.getElementById('signupOtpStep').classList.add('hidden');
+  
+  // Defensive Check: Only toggle inner form tabs if they exist in the DOM tree
+  const tabExporter = document.getElementById('roleExporter');
+  const tabImporter = document.getElementById('roleImporter');
+  if (tabExporter) tabExporter.classList.toggle('active', role==='exporter');
+  if (tabImporter) tabImporter.classList.toggle('active', role==='importer');
+  
+  const formExporter = document.getElementById('exporterForm');
+  const formImporter = document.getElementById('importerForm');
+  if (formExporter) formExporter.classList.toggle('hidden', role!=='exporter');
+  if (formImporter) formImporter.classList.toggle('hidden', role!=='importer');
+  
+  const otpStep = document.getElementById('signupOtpStep');
+  if (otpStep) otpStep.classList.add('hidden');
 }
 function switchLoginRole(role){
   APP.loginRole = role;
@@ -2448,10 +2457,9 @@ function switchLoginRole(role){
    INITIAL SIGNUP ROLE SELECTOR HOOKS (NEW ADDITION)
    ============================================================ */
 function selectInitialSignupRole(role) {
-    // 1. Assign local UI reactive runtime memory configuration state
     APP.signupRole = role;
     
-    // 2. Clear state explicit overrides and evaluate structural active matches
+    // 1. Safe Button Toggle Matrix
     const btnExporter = document.getElementById('choiceExporter');
     const btnImporter = document.getElementById('choiceImporter');
     
@@ -2464,10 +2472,10 @@ function selectInitialSignupRole(role) {
         else btnImporter.classList.remove('active');
     }
     
-    // 3. Invoke core panel layout swapper mechanics to set up the inner fields
+    // 2. Safely set inner roles using the corrected function above
     switchSignupRole(role);
     
-    // 4. Use 350ms delay so the color toggle transitions smoothly before sliding panels out
+    // 3. Hold view for 350ms so active toggle animation displays
     setTimeout(() => {
         const choicePanel = document.getElementById('signupRoleChoicePanel');
         const formContainer = document.getElementById('signupContainer');
