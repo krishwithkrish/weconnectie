@@ -211,67 +211,66 @@ button#choiceImporter.active,
 .plan-features li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0}
 
 /* ============================================================
-   AUTH SCREENS
+   AUTH SCREENS — ISOLATED VIEWPORT ROUTING ENGINE
    ============================================================ */
-#screen-signup,#screen-login{
-  background:linear-gradient(135deg,#06163d 0%,var(--navy) 55%,#1a3a8f 100%);
-  align-items:flex-start;justify-content:center;
-  padding:5rem 1.5rem 3rem;
-}
-#screen-signup.active,#screen-login.active{display:flex}
-/* Item 3: Login form centered middle of page */
-#screen-login{align-items:center;padding-top:50px}
-
-/* Change 3: Signup screen fills full viewport below header */
-#screen-signup{
-  align-items:stretch;justify-content:stretch;
-  padding:45px 5px 5px 5px;
-}
-#screen-signup.active{display:flex;height:calc(100vh - 0px);overflow:hidden}
-#signupContainer{
-  flex:1;
-  max-width:none;width:100%;
-  border-radius:0;
-  padding:0;
-  box-shadow:none;
-  margin:1.25rem;
-  border-radius:var(--radius-xl);
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-
-/* 1. FORCE THE SIGNUP SCREEN WRAPPER TO FULL LANDING VIEWPORT SIZE */
-#screen-signup.screen {
-  width: 100% !important;
+#screen-login,
+#screen-signup {
+  background: linear-gradient(135deg, #06163d 0%, var(--navy) 55%, #1a3a8f 100%);
+  width: 100vw !important;
   min-height: 100vh !important;
   box-sizing: border-box;
   margin: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;    /* Centers the card horizontally on the full viewport */
-  justify-content: flex-start !important; /* Flows naturally from top down */
-  
-  /* WINDOW BOUNDARY SPECIFICATION OFFSET */
-  padding: 60px 10px 10px 10px !important; /* 50px top (header offset), 10px on all other sides */
+  display: none; /* Controlled via .active */
 }
 
-/* 2. RESTORE INTERIOR CONTAINER CARDS TO COMPACT, CLEAN BLOCKS */
-#screen-signup .auth-container {
-  width: 100% !important;
-  max-width: 540px !important;       /* Keeps the forms and cards at a readable width */
-  margin: 0 auto !important;         /* Centers the element horizontally */
+#screen-login.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 1.5rem 3rem;
+}
+
+/* SIGNUP VIEWPORT SPECIFICATION: Full viewport landing space with explicit boundary offsets */
+#screen-signup.active {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 50px 10px 10px 10px !important; /* 50px Top for landing header protection, 10px gutters */
+  overflow: hidden;
+}
+
+/* STRUCTURAL SEGREGATION FIX: Protect the wide form layout engine */
+#signupContainer {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px; /* Expands smoothly into full size layout footprint */
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   box-sizing: border-box;
-  display: flex !important;
-  flex-direction: column !important;
+  margin: 0;
 }
 
-/* 3. Split elements spacing rules context reset */
+/* CARDS ISOLATION: Keep the small panels compact without touching wide workspace panels */
+#signupRoleChoicePanel,
+#signupOtpStep {
+  width: 100% !important;
+  max-width: 540px !important; /* Caps picker and OTP from blowing up into wide blocks */
+  margin: 2rem auto !important;
+  box-sizing: border-box;
+}
+
 .signup-split {
   width: 100% !important;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   box-sizing: border-box;
+  min-height: 0;
 }
 
 /* 4. Form inputs structural alignment uniformity adjustments */
