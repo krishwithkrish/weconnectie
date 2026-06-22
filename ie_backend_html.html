@@ -135,12 +135,64 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 .landing-content .landing-ctas{justify-content:flex-start}
 
 /* Plan card slider — fills 80% of left column */
-.plan-slider{position:relative;width:90%;max-width:600px;height:50vh}
-.plan-slider .plan-card{position:absolute;inset:0;width:100%;height:100%;opacity:0;visibility:hidden;transition:opacity .6s ease;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
-.plan-slider .plan-card.active{opacity:1;visibility:visible}
-.plan-slider-dots{display:flex;gap:.6rem;justify-content:center;margin-top:1rem}
-.plan-slider-dot{width:15px;height:15px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;padding:0;transition:background var(--transition)}
-.plan-slider-dot.active{background:var(--gold)}
+/* Ensure the absolute container stays perfectly relative */
+.plan-slider {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-slider .plan-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .6s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.plan-slider .plan-card.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* CORRECTIVE FIX: Bind dots to the vertical layout center of the absolute slider system */
+.plan-slider-dots {
+  position: absolute;
+  bottom: 2rem;               /* Positions them precisely inside the card bounds near the bottom */
+  left: 50%;                  /* Positions the container start at horizontal center */
+  transform: translateX(-50%);/* Shifts the element back by half its width to center it perfectly */
+  display: flex;
+  gap: .6rem;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;                /* Forces indicator dots above background images or gradients */
+  margin-top: 0;              /* Removes conflicting external static margins */
+}
+
+.plan-slider-dot {
+  width: 12px;                /* Sleeker visual footprint */
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), transform 0.2s ease;
+}
+
+.plan-slider-dot.active {
+  background: var(--gold);
+  transform: scale(1.15);     /* Subtle interactive scaling hint for active state */
+}
 
 @media (max-width:960px){
   .landing-split{flex-direction:column;align-items:center;height:auto}
