@@ -164,18 +164,17 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   visibility: visible;
 }
 
-/* CORRECTIVE FIX: Bind dots to the vertical layout center of the absolute slider system */
+/* CORRECTIVE FIX: Centers dots horizontally inside the 35% left pane, positioned directly under the card */
 .plan-slider-dots {
-  position: absolute;
-  bottom: 2rem;               /* Positions them precisely inside the card bounds near the bottom */
-  left: 50%;                  /* Positions the container start at horizontal center */
-  transform: translateX(-50%);/* Shifts the element back by half its width to center it perfectly */
+  position: relative;         /* Takes it out of full-screen absolute context */
   display: flex;
   gap: .6rem;
-  justify-content: center;
+  justify-content: center;    /* Automatically centers them horizontally within the 35% column width */
   align-items: center;
-  z-index: 10;                /* Forces indicator dots above background images or gradients */
-  margin-top: 0;              /* Removes conflicting external static margins */
+  margin-top: 1.5rem !important; /* Pushes the dots clean and uniform right below the card */
+  width: 90%;                 /* Matches the exact width boundary of your .plan-slider element */
+  max-width: 600px;           /* Prevents grid boundary drifting */
+  z-index: 10;
 }
 
 .plan-slider-dot {
