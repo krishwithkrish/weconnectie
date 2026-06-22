@@ -240,37 +240,58 @@ button#choiceImporter.active,
   overflow: hidden;
 }
 
-/* STRUCTURAL SEGREGATION FIX: Protect the wide form layout engine */
-#signupContainer {
-  flex: 1;
-  width: 100%;
-  max-width: 1500px; /* Expands smoothly into full size layout footprint */
-  background: #ffffff;
-  border-radius: var(--radius-xl);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-sizing: border-box;
-  margin: 0;
-}
+/* ============================================================
+   ARCHITECTURAL SEPARATION OF SIGNUP WORKSPACE LAYOUTS
+   ============================================================ */
 
-/* CARDS ISOLATION: Keep the small panels compact without touching wide workspace panels */
-#signupRoleChoicePanel,
-#signupOtpStep {
-  width: 100% !important;
-  max-width: 540px !important; /* Caps picker and OTP from blowing up into wide blocks */
-  margin: 2rem auto !important;
-  box-sizing: border-box;
-}
-
+/* 1. Reset the layout split wrapper to expand 100% full width */
 .signup-split {
   width: 100% !important;
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center; /* Horizontally center whatever layout pane is active */
+  justify-content: flex-start;
   box-sizing: border-box;
   min-height: 0;
+}
+
+/* 2. ROLE SELECTOR & OTP MODAL VIEWS: Strict 540px constraints */
+#signupRoleChoicePanel,
+#signupOtpStep {
+  width: 100% !important;
+  max-width: 540px !important;       /* Explicitly bound narrow card profile */
+  background: #ffffff !important;    /* Restores pristine panel background */
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem !important;
+  margin: 2rem auto !important;
+  box-shadow: var(--shadow-lg);
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box;
+}
+
+/* 3. FORM FILLING WORKSPACE PANEL: Giant 1500px workspace layout */
+#signupContainer {
+  flex: 1;
+  width: 100% !important;
+  max-width: 1500px !important;      /* Massive architecture headroom for dual-columns */
+  background: #ffffff !important;
+  border-radius: var(--radius-xl);
+  padding: 0 !important;             /* Let header and footer handle split boundaries */
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Ensure that when any element receives the .hidden class, it drops out of calculations immediately */
+#signupRoleChoicePanel.hidden,
+#signupContainer.hidden,
+#signupOtpStep.hidden {
+  display: none !important;
 }
 
 /* 4. Form inputs structural alignment uniformity adjustments */
