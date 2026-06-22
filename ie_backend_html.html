@@ -102,6 +102,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 .btn-header-ghost:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.08)}
 .btn-header-home{color:rgba(255,255,255,.65);background:transparent;border:none}
 .btn-header-home:hover{color:#fff;background:rgba(255,255,255,.1)}
+.btn-header-mainsite{background:var(--gold);color:var(--navy-deep);border:none;font-weight:700;padding:.45rem 1.2rem;border-radius:50px;font-size:.85rem;cursor:pointer;font-family:var(--font-body);transition:all var(--transition)}
+.btn-header-mainsite:hover{background:var(--gold-dark);transform:translateY(-1px)}
 .btn-header-signup{background:var(--gold);color:var(--navy-deep);border:none;font-weight:700}
 .btn-header-signup:hover{background:var(--gold-dark);transform:translateY(-1px)}
 .btn-header-login{background:var(--gold);color:var(--navy-deep);border:none;font-weight:700}
@@ -119,39 +121,39 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 #screen-landing{
   background:linear-gradient(135deg,#06163d 0%,var(--navy) 55%,#1a3a8f 100%);
   flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:1rem 3rem;position:relative;overflow:hidden;
+  text-align:center;padding:0;position:relative;overflow:hidden;
 }
 #screen-landing.active{display:flex;height:calc(100vh - 52px);min-height:0;max-height:calc(100vh - 52px)}
 .landing-grid-bg{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
 .landing-orb1{position:absolute;top:-10%;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(244,162,97,.12) 0%,transparent 70%);animation:orbPulse 6s ease-in-out infinite;pointer-events:none}
 .landing-orb2{position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(230,57,70,.1) 0%,transparent 70%);animation:orbPulse 8s ease-in-out infinite reverse;pointer-events:none}
 /* Two-half landing layout: slider left, hero content right */
-.landing-split{display:flex;align-items:center;justify-content:center;gap:3.5rem;width:100%;max-width:1180px;position:relative;z-index:1}
-.landing-slider-col{flex:0 0 320px;display:flex;flex-direction:column;align-items:center}
-.landing-content{position:relative;z-index:1;max-width:560px;flex:1;text-align:left;animation:fadeUp .9s ease both}
+.landing-split{display:flex;align-items:stretch;justify-content:center;width:100%;height:100%;position:relative;z-index:1}
+.landing-slider-col{flex:0 0 50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 3rem}
+.landing-content{position:relative;z-index:1;flex:0 0 50%;text-align:left;animation:fadeUp .9s ease both;display:flex;flex-direction:column;justify-content:center;padding:2.5rem 3.5rem 2.5rem 2.5rem;border-left:1px solid rgba(255,255,255,.08)}
 .landing-content .landing-sub{margin-left:0;margin-right:0}
 .landing-content .landing-ctas{justify-content:flex-start}
 
-/* Plan card slider: one card visible at a time, auto-advances every 5s */
-.plan-slider{position:relative;width:300px;height:320px}
-.plan-slider .plan-card{position:absolute;inset:0;width:100%;opacity:0;visibility:hidden;transition:opacity .6s ease;display:flex;flex-direction:column;box-sizing:border-box}
+/* Plan card slider — fills 80% of left column */
+.plan-slider{position:relative;width:80%;max-width:380px;height:76vh}
+.plan-slider .plan-card{position:absolute;inset:0;width:100%;height:100%;opacity:0;visibility:hidden;transition:opacity .6s ease;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .plan-slider .plan-card.active{opacity:1;visibility:visible}
-.plan-slider-dots{display:flex;gap:.5rem;justify-content:center;margin-top:.85rem}
-.plan-slider-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;padding:0;transition:background var(--transition)}
+.plan-slider-dots{display:flex;gap:.6rem;justify-content:center;margin-top:1rem}
+.plan-slider-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;padding:0;transition:background var(--transition)}
 .plan-slider-dot.active{background:var(--gold)}
 
 @media (max-width:960px){
-  .landing-split{flex-direction:column;gap:1.5rem}
-  .landing-slider-col{flex:0 0 auto;width:100%}
-  .landing-content{text-align:center;max-width:100%}
+  .landing-split{flex-direction:column;align-items:center;height:auto}
+  .landing-slider-col{flex:0 0 auto;width:100%;padding:1.5rem 1.5rem .5rem}
+  .landing-content{flex:0 0 auto;width:100%;border-left:none;border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:1.5rem}
   .landing-content .landing-sub{margin-left:auto;margin-right:auto}
   .landing-content .landing-ctas{justify-content:center}
-  .plan-slider{width:100%;max-width:340px;margin:0 auto}
+  .plan-slider{width:85%;max-width:340px;height:280px}
 }
-.landing-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.32rem 1.1rem;border-radius:25px;margin-bottom:.9rem}
-.landing-h1{font-family:var(--font-display);font-size:clamp(1.6rem,3.6vh,3rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:.6rem}
+.landing-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1.2rem;border-radius:25px;margin-bottom:1.4rem}
+.landing-h1{font-family:var(--font-display);font-size:clamp(2.2rem,3.8vw,3.4rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:1.1rem}
 .landing-h1 .gold{color:var(--gold)}.landing-h1 .red{color:var(--red)}
-.landing-sub{font-size:clamp(.85rem,1.6vh,1.05rem);color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:1rem;max-width:600px;margin-left:auto;margin-right:auto}
+.landing-sub{font-size:clamp(1rem,1.3vw,1.15rem);color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:1.8rem;max-width:600px;margin-left:auto;margin-right:auto}
 .landing-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 .btn-gold{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--navy-deep);font-weight:800;font-size:.95rem;padding:.85rem 1.9rem;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-family:var(--font-body);box-shadow:0 0 28px rgba(244,162,97,.5);animation:glowPulse 2.5s ease-in-out infinite;transition:transform var(--transition),box-shadow var(--transition)}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(244,162,97,.8)}
@@ -161,16 +163,16 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.55)}
 
 .plan-cards{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;margin-top:0;position:relative;z-index:1}
-.plan-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);padding:1.75rem 1.5rem;width:200px;text-align:center;transition:all var(--transition);backdrop-filter:blur(8px)}
+.plan-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);padding:2.5rem 2rem;width:200px;text-align:center;transition:all var(--transition);backdrop-filter:blur(8px)}
 .plan-card:hover,.plan-card.popular{transform:translateY(-6px);background:rgba(255,255,255,.1);border-color:rgba(244,162,97,.45);box-shadow:0 16px 48px rgba(0,0,0,.3)}
 .plan-card.popular{border-color:var(--gold);position:relative}
-.plan-popular-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy-deep);font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .85rem;border-radius:25px}
-.plan-name{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
-.plan-price{font-family:var(--font-display);font-size:1.9rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:.2rem}
-.plan-price span{font-size:.78rem;font-weight:500;color:rgba(255,255,255,.5)}
-.plan-period{font-size:.7rem;color:rgba(255,255,255,.45);margin-bottom:.85rem}
-.plan-features{list-style:none;text-align:left;display:flex;flex-direction:column;gap:.45rem}
-.plan-features li{font-size:.79rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:.45rem}
+.plan-popular-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy-deep);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .85rem;border-radius:25px}
+.plan-name{font-family:var(--font-display);font-weight:800;font-size:1.5rem;color:#fff;margin-bottom:.6rem}
+.plan-price{font-family:var(--font-display);font-size:2.6rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:.3rem}
+.plan-price span{font-size:.9rem;font-weight:500;color:rgba(255,255,255,.5)}
+.plan-period{font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:1.25rem}
+.plan-features{list-style:none;text-align:left;display:flex;flex-direction:column;gap:.65rem}
+.plan-features li{font-size:.9rem;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:.55rem}
 .plan-features li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0}
 
 /* ============================================================
@@ -184,14 +186,58 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 #screen-signup.active,#screen-login.active{display:flex}
 /* Item 3: Login form centered middle of page */
 #screen-login{align-items:center;padding-top:52px}
+
+/* Change 3: Signup screen fills full viewport below header */
+#screen-signup{
+  align-items:stretch;justify-content:stretch;
+  padding:0;
+}
+#screen-signup.active{display:flex;height:calc(100vh - 52px);overflow:hidden}
+#signupContainer{
+  flex:1;
+  max-width:none;width:100%;
+  border-radius:0;
+  padding:0;
+  box-shadow:none;
+  margin:1.25rem;
+  border-radius:var(--radius-xl);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.signup-inner{
+  flex:1;display:flex;flex-direction:column;overflow:hidden;
+  padding:1.5rem 2rem .75rem;
+}
+/* Two-column form layout */
+.signup-cols{
+  flex:1;display:grid;grid-template-columns:1fr 1fr;gap:2rem;overflow:hidden;
+  min-height:0;
+}
+.signup-col{
+  display:flex;flex-direction:column;gap:0;overflow-y:auto;
+  padding-right:.5rem;
+}
+.signup-col::-webkit-scrollbar{width:4px}
+.signup-col::-webkit-scrollbar-track{background:transparent}
+.signup-col::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.signup-col-divider{width:1px;background:var(--border)}
+.signup-form-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;flex-shrink:0;
+}
+.signup-form-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 2rem;border-top:1px solid var(--border);flex-shrink:0;
+}
+#signupContainer .form-section{margin-bottom:.7rem}
+#signupContainer .form-group{margin-bottom:.45rem}
+#signupContainer .checkbox-group{gap:.35rem .75rem}
+#signupContainer .auth-sub{margin-bottom:.5rem}
+#signupContainer .form-input,#signupContainer .form-select,#signupContainer .form-textarea{
+  max-width:100%;
+}
+/* Keep auth-container for login + forgot screens (not signup) */
 .auth-container{background:#fff;border-radius:var(--radius-xl);padding:2.5rem;width:100%;max-width:580px;box-shadow:var(--shadow-lg);animation:fadeUp .5s ease both}
-/* Item 2: Create Your Account — wider + more compact so it fits one view */
-#signupContainer{max-width:900px;padding:1.75rem 2.25rem;max-height:calc(100vh - 100px);overflow-y:auto}
-#screen-signup{align-items:center}
-#signupContainer .form-section{margin-bottom:.85rem}
-#signupContainer .form-group{margin-bottom:.55rem}
-#signupContainer .checkbox-group{gap:.4rem .9rem}
-#signupContainer .auth-sub{margin-bottom:1rem}
 .auth-logo-row{text-align:center;margin-bottom:1.75rem}
 .auth-logo-row .logo-text{font-family:var(--font-display);font-size:1.5rem;font-weight:800}
 .auth-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--navy);text-align:center;margin-bottom:.35rem}
@@ -500,8 +546,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
     <span class="logo-badge">Partner Portal</span>
   </a>
   <nav class="header-nav" id="headerNav">
-    <button class="btn-header-home" onclick="goFrontend()">← Main Site</button>
-    <button class="btn-header-login hidden" id="hdrLoginBtn" onclick="showScreen('login')">Log In</button>
+    <button class="btn-header-mainsite" onclick="goFrontend()">← Main Site</button>
     <span id="hdrUserInfo" class="hidden" style="display:flex;align-items:center;gap:.65rem;font-size:.82rem;color:rgba(255,255,255,.75);font-weight:500"></span>
   </nav>
 </header>
@@ -604,11 +649,25 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
     slider.addEventListener('mouseleave', start);
     start();
   }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+
+  /* Admin login via URL hash: portal.html#admin-login */
+  function checkAdminHash(){
+    if(window.location.hash === '#admin-login'){
+      var adminBtn = document.getElementById('loginRoleAdmin');
+      if(adminBtn){
+        adminBtn.classList.remove('hidden');
+        showScreen('login');
+        if(typeof switchLoginRole === 'function') switchLoginRole('admin');
+      }
+    }
   }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ init(); checkAdminHash(); });
+  } else {
+    init(); checkAdminHash();
+  }
+  window.addEventListener('hashchange', checkAdminHash);
 })();
 </script>
 
@@ -617,345 +676,373 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
      ============================================================ -->
 <div id="screen-signup" class="screen">
   <div class="auth-container" id="signupContainer">
-    <div class="auth-logo-row">
-      <div class="logo-text">
-        <span class="logo-trade" style="color:var(--navy)">Trade</span><span class="logo-link" style="color:var(--gold-dark)">Link</span><span class="logo-global"> Global</span>
-      </div>
-    </div>
-    <h2 class="auth-title">Create Your Account</h2>
-    <p class="auth-sub">Select your role to get started on Sri Lanka's B2B trade marketplace</p>
 
-    <!-- Role selector -->
-    <div class="role-selector">
-      <button class="role-btn active" id="roleExporter" onclick="switchSignupRole('exporter')">🇱🇰 Exporter (Sri Lanka)</button>
-      <button class="role-btn" id="roleImporter" onclick="switchSignupRole('importer')">🌍 Importer (Global)</button>
-    </div>
-
-    <!-- EXPORTER FORM -->
-    <form id="exporterForm" onsubmit="handleSignupSubmit(event,'exporter')" novalidate>
-      <div class="form-section">
-        <div class="form-section-title">Company Information</div>
-        <div class="form-group">
-          <label for="exp-company">Company Name <span class="req">*</span></label>
-          <input type="text" id="exp-company" class="form-input" placeholder="e.g. Ceylon Spice Exports (Pvt) Ltd" autocomplete="organization" maxlength="200" required>
-          <div class="field-error" id="err-exp-company"></div>
+    <!-- Fixed header: logo + title + role switcher -->
+    <div class="signup-inner">
+      <div class="signup-form-header">
+        <div>
+          <div class="logo-text" style="font-family:var(--font-display);font-size:1.25rem;font-weight:800">
+            <span style="color:var(--navy)">Trade</span><span style="color:var(--gold-dark)">Link</span><span style="color:var(--red)"> Global</span>
+          </div>
+          <h2 class="auth-title" style="margin:0;text-align:left;font-size:1.2rem">Create Your Account</h2>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="exp-brn">Business Registration No. <span class="req">*</span></label>
-            <input type="text" id="exp-brn" class="form-input" placeholder="e.g. PV/LK/2019/XXXXX" maxlength="60" required>
-            <div class="field-error" id="err-exp-brn"></div>
-          </div>
-          <div class="form-group">
-            <label for="exp-location">Location <span class="req">*</span></label>
-            <input type="text" id="exp-location" class="form-input" placeholder="e.g. Colombo 03, Western Province" maxlength="120" required>
-            <div class="field-error" id="err-exp-location"></div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="exp-type">Company Type <span class="req">*</span></label>
-            <select id="exp-type" class="form-select" required>
-              <option value="">Select type…</option>
-              <option value="manufacturer">Manufacturer</option>
-              <option value="trader">Trader</option>
-              <option value="consultant">Consultant</option>
-            </select>
-            <div class="field-error" id="err-exp-type"></div>
-          </div>
-          <div class="form-group">
-            <label for="exp-since">Company Established <span class="req">*</span></label>
-            <select id="exp-since" class="form-select" required>
-              <option value="">Select years…</option>
-              <option value="1">1 year</option>
-              <option value="2">2 years</option>
-              <option value="3">3 years</option>
-              <option value="4">4 years</option>
-              <option value="5">5 years</option>
-              <option value="6">6 years</option>
-              <option value="7">7 years</option>
-              <option value="8">8 years</option>
-              <option value="9">9 years</option>
-              <option value="10+">10+ years</option>
-            </select>
-            <div class="field-error" id="err-exp-since"></div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Business Sector(s) <span class="req">*</span></label>
-          <div class="checkbox-group" id="exp-sectors">
-            <label class="checkbox-option"><input type="checkbox" value="agriculture"> <span>Agriculture &amp; Food</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="textile"> <span>Textile &amp; Apparel</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="spices"> <span>Spices &amp; Herbs</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="gems"> <span>Gems &amp; Jewellery</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="rubber"> <span>Rubber Products</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="electronics"> <span>Electronics</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="coconut"> <span>Coconut Products</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="tea"> <span>Tea &amp; Beverages</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="seafood"> <span>Seafood</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="other"> <span>Other</span></label>
-          </div>
-          <div class="field-error" id="err-exp-sectors"></div>
+        <div class="role-selector" style="margin-bottom:0;width:auto">
+          <button class="role-btn active" id="roleExporter" onclick="switchSignupRole('exporter')">🇱🇰 Exporter (Sri Lanka)</button>
+          <button class="role-btn" id="roleImporter" onclick="switchSignupRole('importer')">🌍 Importer (Global)</button>
         </div>
       </div>
 
-      <div class="form-section">
-        <div class="form-section-title">Contact Details</div>
-        <div class="form-group">
-          <label>Company Telephone</label>
-          <div class="phone-row">
-            <div class="phone-code-col">
-              <label>Code</label>
-              <div class="country-code-locked">🇱🇰 +94</div>
+      <!-- EXPORTER FORM — two columns -->
+      <form id="exporterForm" onsubmit="handleSignupSubmit(event,'exporter')" novalidate style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden">
+        <div class="signup-cols">
+          <!-- Left col: Company + Contact -->
+          <div class="signup-col">
+            <div class="form-section">
+              <div class="form-section-title">🏢 Company Information</div>
+              <div class="form-group">
+                <label for="exp-company">Company Name <span class="req">*</span></label>
+                <input type="text" id="exp-company" class="form-input" placeholder="Ceylon Spice Exports (Pvt) Ltd" autocomplete="organization" maxlength="50" required>
+                <div class="field-error" id="err-exp-company"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="exp-brn">Business Reg. No. <span class="req">*</span></label>
+                  <input type="text" id="exp-brn" class="form-input" placeholder="PV/LK/2019/XXXXX" maxlength="50" required>
+                  <div class="field-error" id="err-exp-brn"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exp-location">Location <span class="req">*</span></label>
+                  <input type="text" id="exp-location" class="form-input" placeholder="Colombo 03, Western Province" maxlength="50" required>
+                  <div class="field-error" id="err-exp-location"></div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="exp-type">Company Type <span class="req">*</span></label>
+                  <select id="exp-type" class="form-select" required>
+                    <option value="">Select type…</option>
+                    <option value="manufacturer">Manufacturer</option>
+                    <option value="trader">Trader</option>
+                    <option value="consultant">Consultant</option>
+                  </select>
+                  <div class="field-error" id="err-exp-type"></div>
+                </div>
+                <div class="form-group">
+                  <label for="exp-since">Established <span class="req">*</span></label>
+                  <select id="exp-since" class="form-select" required>
+                    <option value="">Select years…</option>
+                    <option value="1">1 year</option><option value="2">2 years</option>
+                    <option value="3">3 years</option><option value="4">4 years</option>
+                    <option value="5">5 years</option><option value="6">6 years</option>
+                    <option value="7">7 years</option><option value="8">8 years</option>
+                    <option value="9">9 years</option><option value="10+">10+ years</option>
+                  </select>
+                  <div class="field-error" id="err-exp-since"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Business Sector(s) <span class="req">*</span></label>
+                <div class="checkbox-group" id="exp-sectors">
+                  <label class="checkbox-option"><input type="checkbox" value="agriculture"> <span>Agriculture &amp; Food</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="textile"> <span>Textile &amp; Apparel</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="spices"> <span>Spices &amp; Herbs</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="gems"> <span>Gems &amp; Jewellery</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="rubber"> <span>Rubber Products</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="electronics"> <span>Electronics</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="coconut"> <span>Coconut Products</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="tea"> <span>Tea &amp; Beverages</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="seafood"> <span>Seafood</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="other"> <span>Other</span></label>
+                </div>
+                <div class="field-error" id="err-exp-sectors"></div>
+              </div>
             </div>
-            <div class="form-group" style="flex:1;margin-bottom:0">
-              <label for="exp-tel">Number</label>
-              <input type="tel" id="exp-tel" class="form-input" placeholder="011 2345678" maxlength="15" pattern="[0-9\s\-]{7,12}">
-              <div class="field-error" id="err-exp-tel"></div>
+            <div class="form-section">
+              <div class="form-section-title">📞 Contact Details</div>
+              <div class="form-group">
+                <label>Company Telephone</label>
+                <div class="phone-row">
+                  <div class="phone-code-col"><label>Code</label><div class="country-code-locked">🇱🇰 +94</div></div>
+                  <div class="form-group" style="flex:1;margin-bottom:0">
+                    <label for="exp-tel">Number</label>
+                    <input type="tel" id="exp-tel" class="form-input" placeholder="011 2345678" maxlength="15" pattern="[0-9\s\-]{7,12}">
+                    <div class="field-error" id="err-exp-tel"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Mobile Number <span class="req">*</span></label>
+                <div class="phone-row">
+                  <div class="phone-code-col"><label>Code</label><div class="country-code-locked">🇱🇰 +94</div></div>
+                  <div class="form-group" style="flex:1;margin-bottom:0">
+                    <label for="exp-mobile">Number <span class="req">*</span></label>
+                    <input type="tel" id="exp-mobile" class="form-input" placeholder="071 2345678" maxlength="12" required pattern="[0-9]{9,10}">
+                    <div class="field-error" id="err-exp-mobile"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exp-email">Company Email <span class="req">*</span></label>
+                <input type="email" id="exp-email" class="form-input" placeholder="info@yourcompany.lk" autocomplete="email" maxlength="50" required>
+                <div class="field-error" id="err-exp-email"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Authorised Mobile Number <span class="req">*</span></label>
-          <div class="phone-row">
-            <div class="phone-code-col">
-              <label>Code</label>
-              <div class="country-code-locked">🇱🇰 +94</div>
+
+          <!-- Right col: Account Security + Plan -->
+          <div class="signup-col">
+            <div class="form-section">
+              <div class="form-section-title">🔐 Account Security</div>
+              <div class="form-group">
+                <label for="exp-pw">Secure Password <span class="req">*</span></label>
+                <div class="password-wrap">
+                  <input type="password" id="exp-pw" class="form-input" placeholder="Min. 12 chars, upper, lower, number, symbol" autocomplete="new-password" maxlength="128" required oninput="checkStrength(this,'exp-strength')">
+                  <button type="button" class="toggle-pw" onclick="togglePw('exp-pw',this)" aria-label="Show/hide password">👁</button>
+                </div>
+                <div class="strength-bar"><div class="strength-fill" id="exp-strength"></div></div>
+                <div class="field-error" id="err-exp-pw"></div>
+              </div>
+              <div class="form-group">
+                <label for="exp-cpw">Confirm Password <span class="req">*</span></label>
+                <div class="password-wrap">
+                  <input type="password" id="exp-cpw" class="form-input" placeholder="Re-enter your password" autocomplete="new-password" maxlength="128" required>
+                  <button type="button" class="toggle-pw" onclick="togglePw('exp-cpw',this)" aria-label="Show/hide password">👁</button>
+                </div>
+                <div class="field-error" id="err-exp-cpw"></div>
+              </div>
             </div>
-            <div class="form-group" style="flex:1;margin-bottom:0">
-              <label for="exp-mobile">Number <span class="req">*</span></label>
-              <input type="tel" id="exp-mobile" class="form-input" placeholder="071 2345678" maxlength="12" required pattern="[0-9]{9,10}">
-              <div class="field-error" id="err-exp-mobile"></div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="exp-email">Company Email <span class="req">*</span></label>
-          <input type="email" id="exp-email" class="form-input" placeholder="info@yourcompany.lk" autocomplete="email" maxlength="150" required>
-          <div class="field-error" id="err-exp-email"></div>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <div class="form-section-title">Account Security</div>
-        <div class="form-group">
-          <label for="exp-pw">Secure Password <span class="req">*</span></label>
-          <div class="password-wrap">
-            <input type="password" id="exp-pw" class="form-input" placeholder="Min. 12 chars, upper, lower, number, symbol" autocomplete="new-password" maxlength="128" required oninput="checkStrength(this,'exp-strength')">
-            <button type="button" class="toggle-pw" onclick="togglePw('exp-pw',this)" aria-label="Show/hide password">👁</button>
-          </div>
-          <div class="strength-bar"><div class="strength-fill" id="exp-strength"></div></div>
-          <div class="field-error" id="err-exp-pw"></div>
-        </div>
-        <div class="form-group">
-          <label for="exp-cpw">Confirm Password <span class="req">*</span></label>
-          <div class="password-wrap">
-            <input type="password" id="exp-cpw" class="form-input" placeholder="Re-enter your password" autocomplete="new-password" maxlength="128" required>
-            <button type="button" class="toggle-pw" onclick="togglePw('exp-cpw',this)" aria-label="Show/hide password">👁</button>
-          </div>
-          <div class="field-error" id="err-exp-cpw"></div>
-        </div>
-        <div class="form-group">
-          <label>Subscription Plan <span class="req">*</span></label>
-          <select id="exp-plan" class="form-select" required>
-            <option value="">Select a plan…</option>
-            <option value="standard">Standard — LKR 9,999/mo (5 posts, 5 EOIs)</option>
-            <option value="premium">Premium — LKR 19,999/mo (10 posts, 10 EOIs)</option>
-            <option value="platinum">Platinum — LKR 29,999/mo (25 posts, 25 EOIs)</option>
-          </select>
-          <div class="field-error" id="err-exp-plan"></div>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button type="button" class="btn-cancel" onclick="showScreen('landing')">Cancel</button>
-        <button type="submit" class="btn-submit" id="expSubmitBtn">Create Exporter Account</button>
-      </div>
-    </form>
-
-    <!-- IMPORTER FORM -->
-    <form id="importerForm" class="hidden" onsubmit="handleSignupSubmit(event,'importer')" novalidate>
-      <div class="form-section">
-        <div class="form-section-title">Company Information</div>
-        <div class="form-group">
-          <label for="imp-company">Company Name <span class="req">*</span></label>
-          <input type="text" id="imp-company" class="form-input" placeholder="e.g. Global Foods Distribution GmbH" autocomplete="organization" maxlength="200" required>
-          <div class="field-error" id="err-imp-company"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="imp-brn">Business Registration No. <span class="req">*</span></label>
-            <input type="text" id="imp-brn" class="form-input" placeholder="Your country's registration no." maxlength="80" required>
-            <div class="field-error" id="err-imp-brn"></div>
-          </div>
-          <div class="form-group">
-            <label for="imp-country">Destination Country <span class="req">*</span></label>
-            <select id="imp-country" class="form-select" required>
-              <option value="">Select country…</option>
-              <option>Australia</option><option>Canada</option><option>China</option>
-              <option>France</option><option>Germany</option><option>India</option>
-              <option>Indonesia</option><option>Italy</option><option>Japan</option>
-              <option>Malaysia</option><option>Netherlands</option><option>New Zealand</option>
-              <option>Saudi Arabia</option><option>Singapore</option><option>South Korea</option>
-              <option>UAE</option><option>United Kingdom</option><option>United States</option>
-              <option>Other</option>
-            </select>
-            <div class="field-error" id="err-imp-country"></div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="imp-type">Company Type <span class="req">*</span></label>
-            <select id="imp-type" class="form-select" required>
-              <option value="">Select type…</option>
-              <option value="end_user">End User</option>
-              <option value="trader">Trader</option>
-              <option value="consultant">Consultant</option>
-            </select>
-            <div class="field-error" id="err-imp-type"></div>
-          </div>
-          <div class="form-group">
-            <label for="imp-since">Company Established <span class="req">*</span></label>
-            <select id="imp-since" class="form-select" required>
-              <option value="">Select years…</option>
-              <option value="1">1 year</option><option value="2">2 years</option>
-              <option value="3">3 years</option><option value="4">4 years</option>
-              <option value="5">5 years</option><option value="6">6 years</option>
-              <option value="7">7 years</option><option value="8">8 years</option>
-              <option value="9">9 years</option><option value="10+">10+ years</option>
-            </select>
-            <div class="field-error" id="err-imp-since"></div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Business Sector(s) <span class="req">*</span></label>
-          <div class="checkbox-group" id="imp-sectors">
-            <label class="checkbox-option"><input type="checkbox" value="agriculture"> <span>Agriculture &amp; Food</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="textile"> <span>Textile &amp; Apparel</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="spices"> <span>Spices &amp; Herbs</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="gems"> <span>Gems &amp; Jewellery</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="rubber"> <span>Rubber Products</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="electronics"> <span>Electronics</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="coconut"> <span>Coconut Products</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="tea"> <span>Tea &amp; Beverages</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="seafood"> <span>Seafood</span></label>
-            <label class="checkbox-option"><input type="checkbox" value="other"> <span>Other</span></label>
-          </div>
-          <div class="field-error" id="err-imp-sectors"></div>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <div class="form-section-title">Contact Details</div>
-        <div class="form-group">
-          <label>Company Telephone</label>
-          <div class="phone-row">
-            <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
-              <label for="imp-tel-code">Code</label>
-              <select id="imp-tel-code" class="form-select" style="padding:.7rem .5rem">
-                <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
-                <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
-                <option value="+81">🇯🇵 +81</option><option value="+86">🇨🇳 +86</option>
-                <option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option>
-                <option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option>
-                <option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option>
-                <option value="+82">🇰🇷 +82</option><option value="+39">🇮🇹 +39</option>
-                <option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option>
-              </select>
-            </div>
-            <div class="form-group" style="flex:1;margin-bottom:0">
-              <label for="imp-tel">Number</label>
-              <input type="tel" id="imp-tel" class="form-input" placeholder="Local number" maxlength="15" pattern="[0-9\s\-]{7,12}">
+            <div class="form-section">
+              <div class="form-section-title">📦 Subscription Plan</div>
+              <div class="form-group">
+                <label>Select Plan <span class="req">*</span></label>
+                <select id="exp-plan" class="form-select" required>
+                  <option value="">Select a plan…</option>
+                  <option value="standard">Standard — LKR 9,999/mo (5 posts, 5 EOIs)</option>
+                  <option value="premium">Premium — LKR 19,999/mo (10 posts, 10 EOIs)</option>
+                  <option value="platinum">Platinum — LKR 29,999/mo (25 posts, 25 EOIs)</option>
+                </select>
+                <div class="field-error" id="err-exp-plan"></div>
+              </div>
+              <div style="background:rgba(10,36,99,.04);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);margin-top:.5rem">
+                <p style="font-size:.78rem;color:var(--muted);line-height:1.6;margin:0">
+                  🇱🇰 <strong>Sri Lankan Exporters</strong> — List your products and connect with verified global buyers. Your profile will be reviewed and approved by our team within 24 hours of submission.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label>Authorised Mobile Number <span class="req">*</span></label>
-          <div class="phone-row">
-            <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
-              <label for="imp-mob-code">Code <span class="req">*</span></label>
-              <select id="imp-mob-code" class="form-select" style="padding:.7rem .5rem" required>
-                <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
-                <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
-                <option value="+81">🇯🇵 +81</option><option value="+86">🇨🇳 +86</option>
-                <option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option>
-                <option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option>
-                <option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option>
-                <option value="+82">🇰🇷 +82</option><option value="+39">🇮🇹 +39</option>
-                <option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option>
-              </select>
+
+        <!-- Fixed footer: actions + auth-switch -->
+        <div class="signup-form-footer">
+          <p class="auth-switch" style="margin:0;font-size:.82rem">Already have an account? <a onclick="showScreen('login')">Log in here</a></p>
+          <div style="display:flex;gap:.75rem">
+            <button type="button" class="btn-cancel" onclick="showScreen('landing')">Cancel</button>
+            <button type="submit" class="btn-submit" id="expSubmitBtn" style="flex:none">Create Exporter Account</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- IMPORTER FORM — two columns -->
+      <form id="importerForm" class="hidden" onsubmit="handleSignupSubmit(event,'importer')" novalidate style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden">
+        <div class="signup-cols">
+          <!-- Left col: Company + Contact -->
+          <div class="signup-col">
+            <div class="form-section">
+              <div class="form-section-title">🏢 Company Information</div>
+              <div class="form-group">
+                <label for="imp-company">Company Name <span class="req">*</span></label>
+                <input type="text" id="imp-company" class="form-input" placeholder="Global Foods Distribution GmbH" autocomplete="organization" maxlength="50" required>
+                <div class="field-error" id="err-imp-company"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="imp-brn">Business Reg. No. <span class="req">*</span></label>
+                  <input type="text" id="imp-brn" class="form-input" placeholder="Your country's reg. no." maxlength="50" required>
+                  <div class="field-error" id="err-imp-brn"></div>
+                </div>
+                <div class="form-group">
+                  <label for="imp-country">Destination Country <span class="req">*</span></label>
+                  <select id="imp-country" class="form-select" required>
+                    <option value="">Select country…</option>
+                    <option>Australia</option><option>Canada</option><option>China</option>
+                    <option>France</option><option>Germany</option><option>India</option>
+                    <option>Indonesia</option><option>Italy</option><option>Japan</option>
+                    <option>Malaysia</option><option>Netherlands</option><option>New Zealand</option>
+                    <option>Saudi Arabia</option><option>Singapore</option><option>South Korea</option>
+                    <option>UAE</option><option>United Kingdom</option><option>United States</option>
+                    <option>Other</option>
+                  </select>
+                  <div class="field-error" id="err-imp-country"></div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="imp-type">Company Type <span class="req">*</span></label>
+                  <select id="imp-type" class="form-select" required>
+                    <option value="">Select type…</option>
+                    <option value="end_user">End User</option>
+                    <option value="trader">Trader</option>
+                    <option value="consultant">Consultant</option>
+                  </select>
+                  <div class="field-error" id="err-imp-type"></div>
+                </div>
+                <div class="form-group">
+                  <label for="imp-since">Established <span class="req">*</span></label>
+                  <select id="imp-since" class="form-select" required>
+                    <option value="">Select years…</option>
+                    <option value="1">1 year</option><option value="2">2 years</option>
+                    <option value="3">3 years</option><option value="4">4 years</option>
+                    <option value="5">5 years</option><option value="6">6 years</option>
+                    <option value="7">7 years</option><option value="8">8 years</option>
+                    <option value="9">9 years</option><option value="10+">10+ years</option>
+                  </select>
+                  <div class="field-error" id="err-imp-since"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Business Sector(s) <span class="req">*</span></label>
+                <div class="checkbox-group" id="imp-sectors">
+                  <label class="checkbox-option"><input type="checkbox" value="agriculture"> <span>Agriculture &amp; Food</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="textile"> <span>Textile &amp; Apparel</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="spices"> <span>Spices &amp; Herbs</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="gems"> <span>Gems &amp; Jewellery</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="rubber"> <span>Rubber Products</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="electronics"> <span>Electronics</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="coconut"> <span>Coconut Products</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="tea"> <span>Tea &amp; Beverages</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="seafood"> <span>Seafood</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="other"> <span>Other</span></label>
+                </div>
+                <div class="field-error" id="err-imp-sectors"></div>
+              </div>
             </div>
-            <div class="form-group" style="flex:1;margin-bottom:0">
-              <label for="imp-mobile">Number <span class="req">*</span></label>
-              <input type="tel" id="imp-mobile" class="form-input" placeholder="Local mobile number" maxlength="15" required>
-              <div class="field-error" id="err-imp-mobile"></div>
+            <div class="form-section">
+              <div class="form-section-title">📞 Contact Details</div>
+              <div class="form-group">
+                <label>Company Telephone</label>
+                <div class="phone-row">
+                  <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
+                    <label for="imp-tel-code">Code</label>
+                    <select id="imp-tel-code" class="form-select" style="padding:.7rem .5rem">
+                      <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
+                      <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
+                      <option value="+81">🇯🇵 +81</option><option value="+86">🇨🇳 +86</option>
+                      <option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option>
+                      <option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option>
+                      <option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option>
+                      <option value="+82">🇰🇷 +82</option><option value="+39">🇮🇹 +39</option>
+                      <option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex:1;margin-bottom:0">
+                    <label for="imp-tel">Number</label>
+                    <input type="tel" id="imp-tel" class="form-input" placeholder="Local number" maxlength="15" pattern="[0-9\s\-]{7,12}">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Mobile Number <span class="req">*</span></label>
+                <div class="phone-row">
+                  <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
+                    <label for="imp-mob-code">Code <span class="req">*</span></label>
+                    <select id="imp-mob-code" class="form-select" style="padding:.7rem .5rem" required>
+                      <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
+                      <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
+                      <option value="+81">🇯🇵 +81</option><option value="+86">🇨🇳 +86</option>
+                      <option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option>
+                      <option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option>
+                      <option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option>
+                      <option value="+82">🇰🇷 +82</option><option value="+39">🇮🇹 +39</option>
+                      <option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex:1;margin-bottom:0">
+                    <label for="imp-mobile">Number <span class="req">*</span></label>
+                    <input type="tel" id="imp-mobile" class="form-input" placeholder="Local mobile number" maxlength="15" required>
+                    <div class="field-error" id="err-imp-mobile"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="imp-email">Company Email <span class="req">*</span></label>
+                <input type="email" id="imp-email" class="form-input" placeholder="procurement@yourcompany.com" autocomplete="email" maxlength="50" required>
+                <div class="field-error" id="err-imp-email"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right col: Account Security + Plan -->
+          <div class="signup-col">
+            <div class="form-section">
+              <div class="form-section-title">🔐 Account Security</div>
+              <div class="form-group">
+                <label for="imp-pw">Secure Password <span class="req">*</span></label>
+                <div class="password-wrap">
+                  <input type="password" id="imp-pw" class="form-input" placeholder="Min. 12 chars, upper, lower, number, symbol" autocomplete="new-password" maxlength="128" required oninput="checkStrength(this,'imp-strength')">
+                  <button type="button" class="toggle-pw" onclick="togglePw('imp-pw',this)" aria-label="Show/hide password">👁</button>
+                </div>
+                <div class="strength-bar"><div class="strength-fill" id="imp-strength"></div></div>
+                <div class="field-error" id="err-imp-pw"></div>
+              </div>
+              <div class="form-group">
+                <label for="imp-cpw">Confirm Password <span class="req">*</span></label>
+                <div class="password-wrap">
+                  <input type="password" id="imp-cpw" class="form-input" placeholder="Re-enter your password" autocomplete="new-password" maxlength="128" required>
+                  <button type="button" class="toggle-pw" onclick="togglePw('imp-cpw',this)" aria-label="Show/hide password">👁</button>
+                </div>
+                <div class="field-error" id="err-imp-cpw"></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <div class="form-section-title">📦 Subscription Plan</div>
+              <div class="form-group">
+                <label>Select Plan <span class="req">*</span></label>
+                <select id="imp-plan" class="form-select" required>
+                  <option value="">Select a plan…</option>
+                  <option value="standard">Standard — LKR 9,999/mo (5 posts, 5 EOIs)</option>
+                  <option value="premium">Premium — LKR 19,999/mo (10 posts, 10 EOIs)</option>
+                  <option value="platinum">Platinum — LKR 29,999/mo (25 posts, 25 EOIs)</option>
+                </select>
+                <div class="field-error" id="err-imp-plan"></div>
+              </div>
+              <div style="background:rgba(10,36,99,.04);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);margin-top:.5rem">
+                <p style="font-size:.78rem;color:var(--muted);line-height:1.6;margin:0">
+                  🌍 <strong>Global Importers</strong> — Post your sourcing requirements and connect with verified Sri Lankan exporters. Your profile will be reviewed and matched within 24 hours of submission.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="imp-email">Company Email <span class="req">*</span></label>
-          <input type="email" id="imp-email" class="form-input" placeholder="procurement@yourcompany.com" autocomplete="email" maxlength="150" required>
-          <div class="field-error" id="err-imp-email"></div>
-        </div>
-      </div>
 
-      <div class="form-section">
-        <div class="form-section-title">Account Security</div>
-        <div class="form-group">
-          <label for="imp-pw">Secure Password <span class="req">*</span></label>
-          <div class="password-wrap">
-            <input type="password" id="imp-pw" class="form-input" placeholder="Min. 12 chars, upper, lower, number, symbol" autocomplete="new-password" maxlength="128" required oninput="checkStrength(this,'imp-strength')">
-            <button type="button" class="toggle-pw" onclick="togglePw('imp-pw',this)" aria-label="Show/hide password">👁</button>
+        <!-- Fixed footer: actions + auth-switch -->
+        <div class="signup-form-footer">
+          <p class="auth-switch" style="margin:0;font-size:.82rem">Already have an account? <a onclick="showScreen('login')">Log in here</a></p>
+          <div style="display:flex;gap:.75rem">
+            <button type="button" class="btn-cancel" onclick="showScreen('landing')">Cancel</button>
+            <button type="submit" class="btn-submit" id="impSubmitBtn" style="flex:none">Create Importer Account</button>
           </div>
-          <div class="strength-bar"><div class="strength-fill" id="imp-strength"></div></div>
-          <div class="field-error" id="err-imp-pw"></div>
         </div>
-        <div class="form-group">
-          <label for="imp-cpw">Confirm Password <span class="req">*</span></label>
-          <div class="password-wrap">
-            <input type="password" id="imp-cpw" class="form-input" placeholder="Re-enter your password" autocomplete="new-password" maxlength="128" required>
-            <button type="button" class="toggle-pw" onclick="togglePw('imp-cpw',this)" aria-label="Show/hide password">👁</button>
+      </form>
+
+      <!-- 2FA OTP Step -->
+      <div id="signupOtpStep" class="hidden">
+        <div class="otp-section">
+          <div class="otp-icon">📱</div>
+          <h3 style="font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--navy);margin-bottom:.5rem">Verify Your Mobile</h3>
+          <p class="otp-desc">A 6-digit verification code has been sent to your authorised mobile number via SMS. Enter it below to complete registration.</p>
+          <div class="otp-inputs" id="signupOtpInputs">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 1" onInput="otpAutoNext(this,0,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,0,'signupOtpInputs')">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 2" onInput="otpAutoNext(this,1,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,1,'signupOtpInputs')">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 3" onInput="otpAutoNext(this,2,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,2,'signupOtpInputs')">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 4" onInput="otpAutoNext(this,3,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,3,'signupOtpInputs')">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 5" onInput="otpAutoNext(this,4,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,4,'signupOtpInputs')">
+            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 6" onInput="otpAutoNext(this,5,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,5,'signupOtpInputs')">
           </div>
-          <div class="field-error" id="err-imp-cpw"></div>
-        </div>
-        <div class="form-group">
-          <label>Subscription Plan <span class="req">*</span></label>
-          <select id="imp-plan" class="form-select" required>
-            <option value="">Select a plan…</option>
-            <option value="standard">Standard — LKR 9,999/mo (5 posts, 5 EOIs)</option>
-            <option value="premium">Premium — LKR 19,999/mo (10 posts, 10 EOIs)</option>
-            <option value="platinum">Platinum — LKR 29,999/mo (25 posts, 25 EOIs)</option>
-          </select>
-          <div class="field-error" id="err-imp-plan"></div>
+          <button class="btn-submit" style="max-width:280px;margin:0 auto" onclick="verifySignupOtp()">Verify &amp; Complete Registration</button>
+          <p class="otp-resend mt-2">Didn't receive it? <a onclick="resendOtp('signup')">Resend code</a></p>
         </div>
       </div>
-
-      <div class="form-actions">
-        <button type="button" class="btn-cancel" onclick="showScreen('landing')">Cancel</button>
-        <button type="submit" class="btn-submit" id="impSubmitBtn">Create Importer Account</button>
-      </div>
-    </form>
-
-    <!-- 2FA OTP Step -->
-    <div id="signupOtpStep" class="hidden">
-      <div class="otp-section">
-        <div class="otp-icon">📱</div>
-        <h3 style="font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--navy);margin-bottom:.5rem">Verify Your Mobile</h3>
-        <p class="otp-desc">A 6-digit verification code has been sent to your authorised mobile number via SMS. Enter it below to complete registration.</p>
-        <div class="otp-inputs" id="signupOtpInputs">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 1" onInput="otpAutoNext(this,0,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,0,'signupOtpInputs')">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 2" onInput="otpAutoNext(this,1,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,1,'signupOtpInputs')">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 3" onInput="otpAutoNext(this,2,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,2,'signupOtpInputs')">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 4" onInput="otpAutoNext(this,3,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,3,'signupOtpInputs')">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 5" onInput="otpAutoNext(this,4,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,4,'signupOtpInputs')">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="OTP digit 6" onInput="otpAutoNext(this,5,'signupOtpInputs')" onKeyDown="otpKeyNav(event,this,5,'signupOtpInputs')">
-        </div>
-        <button class="btn-submit" style="max-width:280px;margin:0 auto" onclick="verifySignupOtp()">Verify &amp; Complete Registration</button>
-        <p class="otp-resend mt-2">Didn't receive it? <a onclick="resendOtp('signup')">Resend code</a></p>
-      </div>
-    </div>
-
-    <p class="auth-switch">Already have an account? <a onclick="showScreen('login')">Log in here</a></p>
+    </div><!-- /.signup-inner -->
   </div>
 </div>
 
@@ -975,7 +1062,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
     <div class="role-selector">
       <button class="role-btn active" id="loginRoleExporter" onclick="switchLoginRole('exporter')">🇱🇰 Exporter</button>
       <button class="role-btn" id="loginRoleImporter" onclick="switchLoginRole('importer')">🌍 Importer</button>
-      <button class="role-btn" id="loginRoleAdmin" onclick="switchLoginRole('admin')">🔐 Admin</button>
+      <!-- Admin login accessible via URL: portal.html#admin-login -->
+      <button class="role-btn hidden" id="loginRoleAdmin" onclick="switchLoginRole('admin')">🔐 Admin</button>
     </div>
 
     <form id="loginForm" onsubmit="handleLoginSubmit(event)" novalidate>
@@ -2136,16 +2224,13 @@ function showScreen(name){
   window.scrollTo(0,0);
 }
 function updateHeader(screen){
-  const loginBtn  = document.getElementById('hdrLoginBtn');
   const userInfo  = document.getElementById('hdrUserInfo');
   if(screen === 'dashboard'){
-    loginBtn.classList.add('hidden');
     userInfo.classList.remove('hidden');
     userInfo.innerHTML = '<span class="pulse-dot pulse-dot-green" style="display:inline-block;margin-right:4px"></span>'
       + esc(APP.profile?.company_name || 'Partner') + ' &nbsp;|&nbsp; '
       + '<span style="color:var(--gold)">' + esc(APP.currentRole) + '</span>';
   } else {
-    loginBtn.classList.remove('hidden');
     userInfo.classList.add('hidden');
   }
 }
@@ -3465,7 +3550,6 @@ window.addEventListener('DOMContentLoaded',async function(){
   }
 
   // Header initial state
-  document.getElementById('hdrLoginBtn').classList.remove('hidden');
 });
 
 /* ============================================================
@@ -4749,7 +4833,6 @@ window.addEventListener('DOMContentLoaded', async function(){
   const sb = await initSupabase();
   if(!sb){
     // Supabase unavailable — show landing with a warning
-    document.getElementById('hdrLoginBtn').classList.remove('hidden');
     showToast('Backend services are temporarily unavailable. Please try again shortly.','warning');
     return;
   }
@@ -4758,7 +4841,6 @@ window.addEventListener('DOMContentLoaded', async function(){
 
   if(sessErr || !session || !session.user){
     // No valid session — show header buttons and landing screen
-    document.getElementById('hdrLoginBtn').classList.remove('hidden');
     return; // Landing screen is shown by default
   }
 
@@ -4773,7 +4855,6 @@ window.addEventListener('DOMContentLoaded', async function(){
   if(!role){
     // Unknown/missing role — sign out and send to login
     await sb.auth.signOut();
-    document.getElementById('hdrLoginBtn').classList.remove('hidden');
     return;
   }
 
@@ -4832,7 +4913,6 @@ window.addEventListener('DOMContentLoaded', async function(){
   }
 
   // Set header UI
-  document.getElementById('hdrLoginBtn').classList.add('hidden');
   document.getElementById('hdrUserInfo').classList.remove('hidden');
   document.getElementById('hdrUserInfo').innerHTML =
     '<span class="pulse-dot pulse-dot-green" style="display:inline-block;margin-right:4px"></span>'
