@@ -129,16 +129,16 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 .landing-orb2{position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(230,57,70,.1) 0%,transparent 70%);animation:orbPulse 8s ease-in-out infinite reverse;pointer-events:none}
 /* Two-half landing layout: slider left, hero content right */
 .landing-split{display:flex;align-items:stretch;justify-content:center;width:100%;height:100%;position:relative;z-index:1}
-.landing-slider-col{flex:0 0 35%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 3rem}
+.landing-slider-col{flex:0 0 35%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 2rem}
 .landing-content{position:relative;z-index:1;flex:0 0 65%;text-align:left;animation:fadeUp .9s ease both;display:flex;flex-direction:column;justify-content:center;padding:2.5rem 3.5rem 2.5rem 2.5rem;border-left:1px solid rgba(255,255,255,.08)}
 .landing-content .landing-sub{margin-left:0;margin-right:0}
 .landing-content .landing-ctas{justify-content:flex-start}
 
 /* Plan card slider — fills 90% of left column */
-.plan-slider{position:relative;width:90%;max-width:500px;height:60vh}
+.plan-slider{position:relative;width:90%;max-width:600px;height:60vh}
 .plan-slider .plan-card{position:absolute;inset:0;width:100%;height:100%;opacity:0;visibility:hidden;transition:opacity .6s ease;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .plan-slider .plan-card.active{opacity:1;visibility:visible}
-.plan-slider-dots{display:flex;gap:.6rem;justify-content:center;margin-top:2rem}
+.plan-slider-dots{display:flex;gap:.6rem;justify-content:center;margin-top:1rem}
 .plan-slider-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;padding:0;transition:background var(--transition)}
 .plan-slider-dot.active{background:var(--gold)}
 
@@ -150,7 +150,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   .landing-content .landing-ctas{justify-content:center}
   .plan-slider{width:85%;max-width:340px;height:280px}
 }
-.landing-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 0.4rem;border-radius:25px;margin-bottom:1.4rem}
+.landing-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1.2rem;border-radius:25px;margin-bottom:1.4rem}
 .landing-h1{font-family:var(--font-display);font-size:clamp(2.2rem,3.8vw,3.4rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:1.1rem}
 .landing-h1 .gold{color:var(--gold)}.landing-h1 .red{color:var(--red)}
 .landing-sub{font-size:clamp(1rem,1.3vw,1.15rem);color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:1.8rem;max-width:600px;margin-left:auto;margin-right:auto}
@@ -681,6 +681,9 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
     <div class="signup-inner">
       <div class="signup-form-header">
         <div>
+          <div class="logo-text" style="font-family:var(--font-display);font-size:1.25rem;font-weight:800">
+            <span style="color:var(--navy)">Trade</span><span style="color:var(--gold-dark)">Link</span><span style="color:var(--red)"> Global</span>
+          </div>
           <h2 class="auth-title" style="margin:0;text-align:left;font-size:1.2rem">Create Your Account</h2>
         </div>
         <div class="role-selector" style="margin-bottom:0;width:auto">
@@ -823,6 +826,188 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
               <div style="background:rgba(10,36,99,.04);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);margin-top:.5rem">
                 <p style="font-size:.78rem;color:var(--muted);line-height:1.6;margin:0">
                   🇱🇰 <strong>Sri Lankan Exporters</strong> — List your products and connect with verified global buyers. Your profile will be reviewed and approved by our team within 24 hours of submission.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fixed footer: actions + auth-switch -->
+        <div class="signup-form-footer">
+          <p class="auth-switch" style="margin:0;font-size:.82rem">Already have an account? <a onclick="showScreen('login')">Log in here</a></p>
+          <div style="display:flex;gap:.75rem">
+            <button type="button" class="btn-cancel" onclick="showScreen('landing')">Cancel</button>
+            <button type="submit" class="btn-submit" id="expSubmitBtn" style="flex:none">Create Exporter Account</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- IMPORTER FORM — two columns -->
+      <form id="importerForm" class="hidden" onsubmit="handleSignupSubmit(event,'importer')" novalidate style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden">
+        <div class="signup-cols">
+          <!-- Left col: Company + Contact -->
+          <div class="signup-col">
+            <div class="form-section">
+              <div class="form-section-title">🏢 Company Information</div>
+              <div class="form-group">
+                <label for="imp-company">Company Name <span class="req">*</span></label>
+                <input type="text" id="imp-company" class="form-input" placeholder="Global Foods Distribution GmbH" autocomplete="organization" maxlength="50" required>
+                <div class="field-error" id="err-imp-company"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="imp-brn">Business Reg. No. <span class="req">*</span></label>
+                  <input type="text" id="imp-brn" class="form-input" placeholder="Your country's reg. no." maxlength="50" required>
+                  <div class="field-error" id="err-imp-brn"></div>
+                </div>
+                <div class="form-group">
+                  <label for="imp-country">Destination Country <span class="req">*</span></label>
+                  <select id="imp-country" class="form-select" required>
+                    <option value="">Select country…</option>
+                    <option>Australia</option><option>Canada</option><option>China</option>
+                    <option>France</option><option>Germany</option><option>India</option>
+                    <option>Indonesia</option><option>Italy</option><option>Japan</option>
+                    <option>Malaysia</option><option>Netherlands</option><option>New Zealand</option>
+                    <option>Saudi Arabia</option><option>Singapore</option><option>South Korea</option>
+                    <option>UAE</option><option>United Kingdom</option><option>United States</option>
+                    <option>Other</option>
+                  </select>
+                  <div class="field-error" id="err-imp-country"></div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="imp-type">Company Type <span class="req">*</span></label>
+                  <select id="imp-type" class="form-select" required>
+                    <option value="">Select type…</option>
+                    <option value="end_user">End User</option>
+                    <option value="trader">Trader</option>
+                    <option value="consultant">Consultant</option>
+                  </select>
+                  <div class="field-error" id="err-imp-type"></div>
+                </div>
+                <div class="form-group">
+                  <label for="imp-since">Established <span class="req">*</span></label>
+                  <select id="imp-since" class="form-select" required>
+                    <option value="">Select years…</option>
+                    <option value="1">1 year</option><option value="2">2 years</option>
+                    <option value="3">3 years</option><option value="4">4 years</option>
+                    <option value="5">5 years</option><option value="6">6 years</option>
+                    <option value="7">7 years</option><option value="8">8 years</option>
+                    <option value="9">9 years</option><option value="10+">10+ years</option>
+                  </select>
+                  <div class="field-error" id="err-imp-since"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Business Sector(s) <span class="req">*</span></label>
+                <div class="checkbox-group" id="imp-sectors">
+                  <label class="checkbox-option"><input type="checkbox" value="agriculture"> <span>Agriculture &amp; Food</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="textile"> <span>Textile &amp; Apparel</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="spices"> <span>Spices &amp; Herbs</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="gems"> <span>Gems &amp; Jewellery</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="rubber"> <span>Rubber Products</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="electronics"> <span>Electronics</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="coconut"> <span>Coconut Products</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="tea"> <span>Tea &amp; Beverages</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="seafood"> <span>Seafood</span></label>
+                  <label class="checkbox-option"><input type="checkbox" value="other"> <span>Other</span></label>
+                </div>
+                <div class="field-error" id="err-imp-sectors"></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <div class="form-section-title">📞 Contact Details</div>
+              <div class="form-group">
+                <label>Company Telephone</label>
+                <div class="phone-row">
+                  <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
+                    <label for="imp-tel-code">Code</label>
+                    <select id="imp-tel-code" class="form-select" style="padding:.7rem .5rem">
+                      <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
+                      <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
+                      <option value="+81">🇯🇵 +81</option><option value="+86">🇨🇳 +86</option>
+                      <option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option>
+                      <option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option>
+                      <option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option>
+                      <option value="+82">🇰🇷 +82</option><option value="+39">🇮🇹 +39</option>
+                      <option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex:1;margin-bottom:0">
+                    <label for="imp-tel">Number</label>
+                    <input type="tel" id="imp-tel" class="form-input" placeholder="Local number" maxlength="15" pattern="[0-9\s\-]{7,12}">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Mobile Number <span class="req">*</span></label>
+                <div class="phone-row">
+                  <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
+                    <label for="imp-mob-code">Code <span class="req">*</span></label>
+                    <select id="imp-mob-code" class="form-select" style="padding:.7rem .5rem" required>
+                      <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
+                      <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
+                      <option value="+81">🇯🇵 +81</option><option value="+86">🇨🇳 +86</option>
+                      <option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option>
+                      <option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option>
+                      <option value="+60">🇲🇾 +60</option><option value="+966">🇸🇦 +966</option>
+                      <option value="+82">🇰🇷 +82</option><option value="+39">🇮🇹 +39</option>
+                      <option value="+31">🇳🇱 +31</option><option value="+64">🇳🇿 +64</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex:1;margin-bottom:0">
+                    <label for="imp-mobile">Number <span class="req">*</span></label>
+                    <input type="tel" id="imp-mobile" class="form-input" placeholder="Local mobile number" maxlength="15" required>
+                    <div class="field-error" id="err-imp-mobile"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="imp-email">Company Email <span class="req">*</span></label>
+                <input type="email" id="imp-email" class="form-input" placeholder="procurement@yourcompany.com" autocomplete="email" maxlength="50" required>
+                <div class="field-error" id="err-imp-email"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right col: Account Security + Plan -->
+          <div class="signup-col">
+            <div class="form-section">
+              <div class="form-section-title">🔐 Account Security</div>
+              <div class="form-group">
+                <label for="imp-pw">Secure Password <span class="req">*</span></label>
+                <div class="password-wrap">
+                  <input type="password" id="imp-pw" class="form-input" placeholder="Min. 12 chars, upper, lower, number, symbol" autocomplete="new-password" maxlength="128" required oninput="checkStrength(this,'imp-strength')">
+                  <button type="button" class="toggle-pw" onclick="togglePw('imp-pw',this)" aria-label="Show/hide password">👁</button>
+                </div>
+                <div class="strength-bar"><div class="strength-fill" id="imp-strength"></div></div>
+                <div class="field-error" id="err-imp-pw"></div>
+              </div>
+              <div class="form-group">
+                <label for="imp-cpw">Confirm Password <span class="req">*</span></label>
+                <div class="password-wrap">
+                  <input type="password" id="imp-cpw" class="form-input" placeholder="Re-enter your password" autocomplete="new-password" maxlength="128" required>
+                  <button type="button" class="toggle-pw" onclick="togglePw('imp-cpw',this)" aria-label="Show/hide password">👁</button>
+                </div>
+                <div class="field-error" id="err-imp-cpw"></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <div class="form-section-title">📦 Subscription Plan</div>
+              <div class="form-group">
+                <label>Select Plan <span class="req">*</span></label>
+                <select id="imp-plan" class="form-select" required>
+                  <option value="">Select a plan…</option>
+                  <option value="standard">Standard — LKR 9,999/mo (5 posts, 5 EOIs)</option>
+                  <option value="premium">Premium — LKR 19,999/mo (10 posts, 10 EOIs)</option>
+                  <option value="platinum">Platinum — LKR 29,999/mo (25 posts, 25 EOIs)</option>
+                </select>
+                <div class="field-error" id="err-imp-plan"></div>
+              </div>
+              <div style="background:rgba(10,36,99,.04);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);margin-top:.5rem">
+                <p style="font-size:.78rem;color:var(--muted);line-height:1.6;margin:0">
+                  🌍 <strong>Global Importers</strong> — Post your sourcing requirements and connect with verified Sri Lankan exporters. Your profile will be reviewed and matched within 24 hours of submission.
                 </p>
               </div>
             </div>
