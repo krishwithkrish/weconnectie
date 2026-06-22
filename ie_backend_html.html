@@ -240,19 +240,32 @@ button#choiceImporter.active,
   overflow:hidden;
 }
 
-/* 1. Global structural wrapper alignment (Keeps layout centered) */
-.auth-container {
-  max-width: 540px !important;       
-  width: 92% !important;             
-  margin: 3rem auto !important;      
+/* 1. FORCE THE SIGNUP SCREEN WRAPPER TO FULL LANDING VIEWPORT SIZE */
+#screen-signup.screen {
+  width: 100vw !important;
+  min-height: 100vh !important;
+  box-sizing: border-box;
+  margin: 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  align-items: center !important;    
-  justify-content: center !important;
-  box-sizing: border-box;
+  align-items: center !important;    /* Centers the card horizontally on the full viewport */
+  justify-content: flex-start !important; /* Flows naturally from top down */
+  
+  /* WINDOW BOUNDARY SPECIFICATION OFFSET */
+  padding: 50px 10px 10px 10px !important; /* 50px top (header offset), 10px on all other sides */
 }
 
-/* 2. Split Wrapper Cleanup: Enforce fluid vertical layout flow, NEVER force block-level display here */
+/* 2. RESTORE INTERIOR CONTAINER CARDS TO COMPACT, CLEAN BLOCKS */
+#screen-signup .auth-container {
+  width: 100% !important;
+  max-width: 540px !important;       /* Keeps the forms and cards at a readable width */
+  margin: 0 auto !important;         /* Centers the element horizontally */
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 3. Split elements spacing rules context reset */
 .signup-split {
   width: 100% !important;
   display: flex;
@@ -261,15 +274,7 @@ button#choiceImporter.active,
   box-sizing: border-box;
 }
 
-/* 3. Form Inner: Controls padding and bounds natively */
-.signup-inner {
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem 0 !important;
-  width: 100%;
-}
-
-/* 4. Form inputs containment sizing */
+/* 4. Form inputs structural alignment uniformity adjustments */
 #signupContainer form,
 .signup-inner form {
   width: 100% !important;
@@ -279,13 +284,13 @@ button#choiceImporter.active,
   gap: 1.25rem;                      
 }
 
-/* 5. ARCHITECTURAL SAFEGUARD: Enforce hidden selector over any conflicting flex container */
+/* 5. ARCHITECTURAL SAFEGUARD: Structural override preventing multi-layer panel overlap crashes */
 .hidden,
 #signupRoleChoicePanel.hidden,
 #signupContainer.hidden,
 #signupOtpStep.hidden,
 .screen div.hidden {
-  display: none !important; /* Cascades with ultimate specificity priority */
+  display: none !important;          /* Keeps hidden blocks cleanly collapsed */
 }
    
 /* Two-column form layout */
