@@ -915,7 +915,11 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 <div class="field-error" id="err-imp-sectors"></div>
               </div>
             </div>
-            <div class="form-section">
+          </div>
+
+          <!-- Right col: Account Security + Plan -->
+          <div class="signup-col">
+                         <div class="form-section">
               <div class="form-section-title">📞 Contact Details</div>
               <div class="form-group">
                 <label>Company Telephone</label>
@@ -968,13 +972,10 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 <div class="field-error" id="err-imp-email"></div>
               </div>
             </div>
-          </div>
-
-          <!-- Right col: Account Security + Plan -->
-          <div class="signup-col">
             <div class="form-section">
               <div class="form-section-title">🔐 Account Security</div>
-              <div class="form-group">
+              <div class="form-row">
+               <div class="form-group">
                 <label for="imp-pw">Secure Password <span class="req">*</span></label>
                 <div class="password-wrap">
                   <input type="password" id="imp-pw" class="form-input" placeholder="Min. 12 chars, upper, lower, number, symbol" autocomplete="new-password" maxlength="128" required oninput="checkStrength(this,'imp-strength')">
@@ -991,6 +992,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 </div>
                 <div class="field-error" id="err-imp-cpw"></div>
               </div>
+            </div>     
             </div>
             <div class="form-section">
               <div class="form-section-title">📦 Subscription Plan</div>
@@ -1003,11 +1005,6 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                   <option value="platinum">Platinum — LKR 29,999/mo (40 posts, 40 EOIs)</option>
                 </select>
                 <div class="field-error" id="err-imp-plan"></div>
-              </div>
-              <div style="background:rgba(10,36,99,.04);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);margin-top:.5rem">
-                <p style="font-size:.78rem;color:var(--muted);line-height:1.6;margin:0">
-                  🌍 <strong>Global Importers</strong> — Post your sourcing requirements and connect with verified Sri Lankan exporters. Your profile will be reviewed and matched within 24 hours of submission.
-                </p>
               </div>
             </div>
           </div>
