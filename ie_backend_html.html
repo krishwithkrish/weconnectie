@@ -790,7 +790,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
           <div class="signup-col">
             <div class="form-section">
               <div class="form-section-title">🔐 Account Security</div>
-              <div class="form-group">
+             <div class="form-row">
+               <div class="form-group">
                 <label for="exp-pw">Secure Password <span class="req">*</span></label>
                 <div class="password-wrap">
                   <input type="password" id="exp-pw" class="form-input" placeholder="Min. 12 chars, upper, lower, number, symbol" autocomplete="new-password" maxlength="128" required oninput="checkStrength(this,'exp-strength')">
@@ -807,6 +808,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 </div>
                 <div class="field-error" id="err-exp-cpw"></div>
               </div>
+            </div>
             </div>
             <div class="form-section">
               <div class="form-section-title">📦 Subscription Plan</div>
