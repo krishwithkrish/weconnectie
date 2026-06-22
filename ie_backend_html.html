@@ -112,7 +112,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 /* ============================================================
    SCREENS SYSTEM
    ============================================================ */
-.screen{display:none;min-height:100vh;padding-top:52px}
+.screen{display:none;min-height:100vh;padding-top:0px}
 .screen.active{display:block}
 
 /* ============================================================
@@ -123,19 +123,19 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:0;position:relative;overflow:hidden;
 }
-#screen-landing.active{display:flex;height:calc(100vh - 52px);min-height:0;max-height:calc(100vh - 52px)}
+#screen-landing.active{display:flex;height:calc(100vh - 0px);min-height:0;max-height:calc(100vh - 0px)}
 .landing-grid-bg{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
 .landing-orb1{position:absolute;top:-10%;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(244,162,97,.12) 0%,transparent 70%);animation:orbPulse 6s ease-in-out infinite;pointer-events:none}
 .landing-orb2{position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(230,57,70,.1) 0%,transparent 70%);animation:orbPulse 8s ease-in-out infinite reverse;pointer-events:none}
 /* Two-half landing layout: slider left, hero content right */
 .landing-split{display:flex;align-items:stretch;justify-content:center;width:100%;height:100%;position:relative;z-index:1}
-.landing-slider-col{flex:0 0 50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 3rem}
-.landing-content{position:relative;z-index:1;flex:0 0 50%;text-align:left;animation:fadeUp .9s ease both;display:flex;flex-direction:column;justify-content:center;padding:2.5rem 3.5rem 2.5rem 2.5rem;border-left:1px solid rgba(255,255,255,.08)}
+.landing-slider-col{flex:0 0 35%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 3rem}
+.landing-content{position:relative;z-index:1;flex:0 0 65%;text-align:left;animation:fadeUp .9s ease both;display:flex;flex-direction:column;justify-content:center;padding:2.5rem 3.5rem 2.5rem 2.5rem;border-left:1px solid rgba(255,255,255,.08)}
 .landing-content .landing-sub{margin-left:0;margin-right:0}
 .landing-content .landing-ctas{justify-content:flex-start}
 
 /* Plan card slider — fills 80% of left column */
-.plan-slider{position:relative;width:80%;max-width:380px;height:76vh}
+.plan-slider{position:relative;width:90%;max-width:600px;height:60vh}
 .plan-slider .plan-card{position:absolute;inset:0;width:100%;height:100%;opacity:0;visibility:hidden;transition:opacity .6s ease;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .plan-slider .plan-card.active{opacity:1;visibility:visible}
 .plan-slider-dots{display:flex;gap:.6rem;justify-content:center;margin-top:1rem}
@@ -185,14 +185,14 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 }
 #screen-signup.active,#screen-login.active{display:flex}
 /* Item 3: Login form centered middle of page */
-#screen-login{align-items:center;padding-top:52px}
+#screen-login{align-items:center;padding-top:0px}
 
 /* Change 3: Signup screen fills full viewport below header */
 #screen-signup{
   align-items:stretch;justify-content:stretch;
   padding:0;
 }
-#screen-signup.active{display:flex;height:calc(100vh - 52px);overflow:hidden}
+#screen-signup.active{display:flex;height:calc(100vh - 0px);overflow:hidden}
 #signupContainer{
   flex:1;
   max-width:none;width:100%;
@@ -322,11 +322,11 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
    DASHBOARD LAYOUT
    ============================================================ */
 #screen-dashboard{padding-top:0}
-.dash-layout{display:flex;min-height:100vh;padding-top:52px}
+.dash-layout{display:flex;min-height:100vh;padding-top:0px}
 .dash-sidebar{
   width:260px;flex-shrink:0;background:var(--navy-deep);
   padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.35rem;
-  position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;
+  position:sticky;top:0px;height:calc(100vh - 0px);overflow-y:auto;
 }
 .dash-sidebar-header{padding:.5rem .75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:.5rem}
 .dash-user-role{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.25rem}
@@ -468,7 +468,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 #screen-forgot{
   background:linear-gradient(135deg,#06163d 0%,var(--navy) 55%,#1a3a8f 100%);
   align-items:center;justify-content:center;
-  padding:52px 1.5rem 3rem;
+  padding:0px 1.5rem 3rem;
 }
 #screen-forgot.active{display:flex}
 
@@ -569,8 +569,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
             <div class="plan-price">LKR 9,999<span>/mo</span></div>
             <div class="plan-period">per month, billed monthly</div>
             <ul class="plan-features">
-              <li>5 Product / Requirement Posts</li>
-              <li>5 Expressions of Interest</li>
+              <li>10 Buying / Selling Posts</li>
+              <li>10 Expressions of Interest</li>
               <li>Profile Listing &amp; Visibility</li>
               <li>Basic Dashboard Analytics</li>
               <li>Email Support</li>
@@ -582,8 +582,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
             <div class="plan-price">LKR 19,999<span>/mo</span></div>
             <div class="plan-period">per month, billed monthly</div>
             <ul class="plan-features">
-              <li>10 Product / Requirement Posts</li>
-              <li>10 Expressions of Interest</li>
+              <li>20 Buying / Selling Posts</li>
+              <li>20 Expressions of Interest</li>
               <li>Priority Profile Placement</li>
               <li>Advanced Dashboard Analytics</li>
               <li>Priority Support</li>
@@ -594,8 +594,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
             <div class="plan-price">LKR 29,999<span>/mo</span></div>
             <div class="plan-period">per month, billed monthly</div>
             <ul class="plan-features">
-              <li>25 Product / Requirement Posts</li>
-              <li>25 Expressions of Interest</li>
+              <li>40 Buying / Selling Posts</li>
+              <li>40 Expressions of Interest</li>
               <li>Featured Badge &amp; Top Placement</li>
               <li>Full Analytics Suite</li>
               <li>Dedicated Account Manager</li>
@@ -817,9 +817,9 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 <label>Select Plan <span class="req">*</span></label>
                 <select id="exp-plan" class="form-select" required>
                   <option value="">Select a plan…</option>
-                  <option value="standard">Standard — LKR 9,999/mo (5 posts, 5 EOIs)</option>
-                  <option value="premium">Premium — LKR 19,999/mo (10 posts, 10 EOIs)</option>
-                  <option value="platinum">Platinum — LKR 29,999/mo (25 posts, 25 EOIs)</option>
+                  <option value="standard">Standard — LKR 9,999/mo (10 posts, 10 EOIs)</option>
+                  <option value="premium">Premium — LKR 19,999/mo (20 posts, 20 EOIs)</option>
+                  <option value="platinum">Platinum — LKR 29,999/mo (40 posts, 40 EOIs)</option>
                 </select>
                 <div class="field-error" id="err-exp-plan"></div>
               </div>
@@ -999,9 +999,9 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 <label>Select Plan <span class="req">*</span></label>
                 <select id="imp-plan" class="form-select" required>
                   <option value="">Select a plan…</option>
-                  <option value="standard">Standard — LKR 9,999/mo (5 posts, 5 EOIs)</option>
-                  <option value="premium">Premium — LKR 19,999/mo (10 posts, 10 EOIs)</option>
-                  <option value="platinum">Platinum — LKR 29,999/mo (25 posts, 25 EOIs)</option>
+                  <option value="standard">Standard — LKR 9,999/mo (10 posts, 10 EOIs)</option>
+                  <option value="premium">Premium — LKR 19,999/mo (20 posts, 20 EOIs)</option>
+                  <option value="platinum">Platinum — LKR 29,999/mo (40 posts, 40 EOIs)</option>
                 </select>
                 <div class="field-error" id="err-imp-plan"></div>
               </div>
@@ -2164,9 +2164,9 @@ function initSupabase() {
    SUBSCRIPTION CONFIG
    ============================================================ */
 const PLANS = {
-  standard : { label:'Standard',  price:9999,  posts:5,  eois:5  },
-  premium  : { label:'Premium',   price:19999, posts:10, eois:10 },
-  platinum : { label:'Platinum',  price:29999, posts:25, eois:25 }
+  standard : { label:'Standard',  price:9999,  posts:10,  eois:10  },
+  premium  : { label:'Premium',   price:19999, posts:20, eois:20 },
+  platinum : { label:'Platinum',  price:29999, posts:40, eois:40 }
 };
 
 /* ============================================================
@@ -4595,8 +4595,8 @@ function checkUpgradeCTA(){
 
   const nextPlan   = currentPlan === 'standard' ? 'Premium' : 'Platinum';
   const nextPrice  = currentPlan === 'standard' ? '19,999'  : '29,999';
-  const nextPosts  = currentPlan === 'standard' ? 10 : 25;
-  const nextEOIs   = currentPlan === 'standard' ? 10 : 25;
+  const nextPosts  = currentPlan === 'standard' ? 20 : 40;
+  const nextEOIs   = currentPlan === 'standard' ? 20 : 40;
 
   const trackerId = APP.currentRole === 'exporter' ? 'panelExpOverview' : 'panelImpOverview';
   const tracker   = document.getElementById(trackerId)?.querySelector('.sub-tracker');
