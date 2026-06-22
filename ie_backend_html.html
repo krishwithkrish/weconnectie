@@ -2715,18 +2715,18 @@ async function verifySignupOtp(){
     return;
   }
 
-  try {
+try {
     showLoader();
     
-    let uid = pending.uid;
+let uid = pending.uid;
     
-    // With Supabase email verification disabled, confirm user registration state cleanly
+    // SECURITY CORRECTIONS PROTOCOL: Verify if the current browser session matches the actual registering email
     if(!uid) {
       const { data: sessionData } = await sb.auth.getSession();
-      if(sessionData?.session?.user) {
+      if(sessionData?.session?.user && sessionData.session.user.email === pending.email) {
         uid = sessionData.session.user.id;
       } else {
-        // Fallback: execute an direct registration sign-up which returns an immediate user record
+        // Safe context isolation: force explicit signup to extract the unique ID securely
         const { data: authUp, error: authErr } = await sb.auth.signUp({
           email: pending.email,
           password: pending.password,
@@ -2744,7 +2744,7 @@ async function verifySignupOtp(){
     }
 
     if(!uid) {
-      throw new Error("Unable to establish or map authenticated user identification record context.");
+      throw new Error("Security verification failure: Unable to align authenticated user ID profile context.");
     }
 
     const meta = pending.metadata;
@@ -2756,16 +2756,16 @@ async function verifySignupOtp(){
     const profilePrefix = role === 'exporter' ? 'EXPL-' : 'IMPL-';
     const profileId = await generateSequentialId(profileTable, profilePrefix);
 
-    // Populate actual parameters for production DB tables without dummy stubs
+// ARCHITECTURAL UNIFORMITY CORRECTIONS: Re-sanitize properties using your validation framework
     const profilePayload = {
       user_id: uid,
       id_code: profileId,
-      company_name: meta.company_name,
-      brn: meta.brn,
+      company_name: typeof sanitizeText === 'function' ? sanitizeText(meta.company_name) : meta.company_name.trim(),
+      brn: typeof sanitizeText === 'function' ? sanitizeText(meta.brn) : meta.brn.trim(),
       company_type: meta.company_type,
-      since: meta.since,
+      since: parseInt(meta.since, 10) || meta.since,
       sectors: meta.sectors,
-      email: pending.email,
+      email: pending.email.toLowerCase().trim(),
       tel: meta.tel,
       mobile: meta.mobile,
       plan: meta.plan,
@@ -2778,11 +2778,11 @@ async function verifySignupOtp(){
     if(role === 'exporter') profilePayload.location = meta.location || '';
     if(role === 'importer') profilePayload.destination_country = meta.destination_country || '';
 
-    // Save live data to Supabase database
+    // Step 1: Write core database registration row entry
     const { error: profileErr } = await sb.from(profileTable).insert(profilePayload);
     if(profileErr) throw profileErr;
 
-    // Save the subscription state line item
+    // Step 2: Write complementary access restriction table lines
     const { error: subErr } = await sb.from('subscriptions').insert({
       user_id: uid,
       role: role,
@@ -2793,11 +2793,17 @@ async function verifySignupOtp(){
       eois_limit: plan.eois,
       posts_used: 0,
       eois_used: 0,
-      status: 'pending', // Pending approval by admin before allowing buying/selling posts
+      status: 'pending', 
       created_at: now.toISOString(),
       updated_at: now.toISOString()
     });
-    if(subErr) throw subErr;
+    
+    // TRANSACTION SAFE PROTOCOL: If the subscription creation fails, execute rollback on the orphaned profile row
+    if(subErr) {
+      console.error("Critical Execution Intercept: Subscription tracking failed. Rolling back created entity row.");
+      await sb.from(profileTable).delete().eq('user_id', uid);
+      throw subErr;
+    }
 
     showToast('Account registration successfully completed!', 'success');
     
