@@ -2810,11 +2810,10 @@ async function handleSignupSubmit(e, role){
     APP.pendingSignupData.uid = data.user.id;
   }
 
-  // --- ARCHITECTURAL SHORT-CIRCUIT INTERCEPTOR ---
-  if (DEV_CONFIG.BYPASS_OTP || data?.session) {
-    showToast('Development Mode: Auto-confirming registration profiles...', 'info');
-    const targetUserId = data?.user?.id || data?.session?.user?.id;
-    
+// --- LIVE PRODUCTION VERIFICATION DISPATCHER ---
+  if (data?.session) {
+    // If the session is already established immediately, provision data and bypass
+    const targetUserId = data.session.user?.id || data.user?.id;
     if (targetUserId) {
       await executeDatabaseProvisioning(sb, targetUserId, email, metadata, role);
       APP.pendingSignupData = null;
@@ -2823,7 +2822,8 @@ async function handleSignupSubmit(e, role){
     }
   }
 
-  // Show OTP step fallback if bypass is turned off
+  // Direct the user cleanly to your mobile numeric OTP container interface
+  showToast('Verification token dispatched to your mobile device.', 'success');
   showSignupOtpStep(role);
 }
 
