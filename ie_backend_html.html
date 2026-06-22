@@ -89,7 +89,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   position:fixed;top:0;left:0;right:0;z-index:1000;
   background:rgba(10,36,99,.97);backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.08);
-  padding:.9rem 2rem;
+  padding:.5rem 2rem;
   display:flex;align-items:center;justify-content:space-between;
   box-shadow:0 2px 30px rgba(0,0,0,.25);
 }
@@ -110,7 +110,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 /* ============================================================
    SCREENS SYSTEM
    ============================================================ */
-.screen{display:none;min-height:100vh;padding-top:70px}
+.screen{display:none;min-height:100vh;padding-top:52px}
 .screen.active{display:block}
 
 /* ============================================================
@@ -118,14 +118,36 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
    ============================================================ */
 #screen-landing{
   background:linear-gradient(135deg,#06163d 0%,var(--navy) 55%,#1a3a8f 100%);
-  flex-direction:column;align-items:center;justify-content:space-evenly;
-  text-align:center;padding:1.25rem 2rem .75rem;position:relative;overflow:hidden;
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:1rem 3rem;position:relative;overflow:hidden;
 }
-#screen-landing.active{display:flex;height:calc(100vh - 70px);min-height:0;max-height:calc(100vh - 70px)}
+#screen-landing.active{display:flex;height:calc(100vh - 52px);min-height:0;max-height:calc(100vh - 52px)}
 .landing-grid-bg{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
 .landing-orb1{position:absolute;top:-10%;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(244,162,97,.12) 0%,transparent 70%);animation:orbPulse 6s ease-in-out infinite;pointer-events:none}
 .landing-orb2{position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(230,57,70,.1) 0%,transparent 70%);animation:orbPulse 8s ease-in-out infinite reverse;pointer-events:none}
-.landing-content{position:relative;z-index:1;max-width:780px;animation:fadeUp .9s ease both}
+/* Two-half landing layout: slider left, hero content right */
+.landing-split{display:flex;align-items:center;justify-content:center;gap:3.5rem;width:100%;max-width:1180px;position:relative;z-index:1}
+.landing-slider-col{flex:0 0 320px;display:flex;flex-direction:column;align-items:center}
+.landing-content{position:relative;z-index:1;max-width:560px;flex:1;text-align:left;animation:fadeUp .9s ease both}
+.landing-content .landing-sub{margin-left:0;margin-right:0}
+.landing-content .landing-ctas{justify-content:flex-start}
+
+/* Plan card slider: one card visible at a time, auto-advances every 5s */
+.plan-slider{position:relative;width:300px;height:320px}
+.plan-slider .plan-card{position:absolute;inset:0;width:100%;opacity:0;visibility:hidden;transition:opacity .6s ease;display:flex;flex-direction:column;box-sizing:border-box}
+.plan-slider .plan-card.active{opacity:1;visibility:visible}
+.plan-slider-dots{display:flex;gap:.5rem;justify-content:center;margin-top:.85rem}
+.plan-slider-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;padding:0;transition:background var(--transition)}
+.plan-slider-dot.active{background:var(--gold)}
+
+@media (max-width:960px){
+  .landing-split{flex-direction:column;gap:1.5rem}
+  .landing-slider-col{flex:0 0 auto;width:100%}
+  .landing-content{text-align:center;max-width:100%}
+  .landing-content .landing-sub{margin-left:auto;margin-right:auto}
+  .landing-content .landing-ctas{justify-content:center}
+  .plan-slider{width:100%;max-width:340px;margin:0 auto}
+}
 .landing-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.32rem 1.1rem;border-radius:25px;margin-bottom:.9rem}
 .landing-h1{font-family:var(--font-display);font-size:clamp(1.6rem,3.6vh,3rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:.6rem}
 .landing-h1 .gold{color:var(--gold)}.landing-h1 .red{color:var(--red)}
@@ -139,16 +161,16 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.55)}
 
 .plan-cards{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;margin-top:0;position:relative;z-index:1}
-.plan-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);padding:1.25rem 1.1rem;width:200px;text-align:center;transition:all var(--transition);backdrop-filter:blur(8px)}
+.plan-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);padding:1.75rem 1.5rem;width:200px;text-align:center;transition:all var(--transition);backdrop-filter:blur(8px)}
 .plan-card:hover,.plan-card.popular{transform:translateY(-6px);background:rgba(255,255,255,.1);border-color:rgba(244,162,97,.45);box-shadow:0 16px 48px rgba(0,0,0,.3)}
 .plan-card.popular{border-color:var(--gold);position:relative}
 .plan-popular-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy-deep);font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .85rem;border-radius:25px}
-.plan-name{font-family:var(--font-display);font-weight:800;font-size:.95rem;color:#fff;margin-bottom:.3rem}
-.plan-price{font-family:var(--font-display);font-size:1.55rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:.2rem}
-.plan-price span{font-size:.75rem;font-weight:500;color:rgba(255,255,255,.5)}
-.plan-period{font-size:.68rem;color:rgba(255,255,255,.45);margin-bottom:.6rem}
-.plan-features{list-style:none;text-align:left;display:flex;flex-direction:column;gap:.35rem}
-.plan-features li{font-size:.74rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:.4rem}
+.plan-name{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
+.plan-price{font-family:var(--font-display);font-size:1.9rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:.2rem}
+.plan-price span{font-size:.78rem;font-weight:500;color:rgba(255,255,255,.5)}
+.plan-period{font-size:.7rem;color:rgba(255,255,255,.45);margin-bottom:.85rem}
+.plan-features{list-style:none;text-align:left;display:flex;flex-direction:column;gap:.45rem}
+.plan-features li{font-size:.79rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:.45rem}
 .plan-features li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0}
 
 /* ============================================================
@@ -161,7 +183,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 }
 #screen-signup.active,#screen-login.active{display:flex}
 /* Item 3: Login form centered middle of page */
-#screen-login{align-items:center;padding-top:70px}
+#screen-login{align-items:center;padding-top:52px}
 .auth-container{background:#fff;border-radius:var(--radius-xl);padding:2.5rem;width:100%;max-width:580px;box-shadow:var(--shadow-lg);animation:fadeUp .5s ease both}
 /* Item 2: Create Your Account — wider + more compact so it fits one view */
 #signupContainer{max-width:900px;padding:1.75rem 2.25rem;max-height:calc(100vh - 100px);overflow-y:auto}
@@ -254,11 +276,11 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
    DASHBOARD LAYOUT
    ============================================================ */
 #screen-dashboard{padding-top:0}
-.dash-layout{display:flex;min-height:100vh;padding-top:70px}
+.dash-layout{display:flex;min-height:100vh;padding-top:52px}
 .dash-sidebar{
   width:260px;flex-shrink:0;background:var(--navy-deep);
   padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.35rem;
-  position:sticky;top:70px;height:calc(100vh - 70px);overflow-y:auto;
+  position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;
 }
 .dash-sidebar-header{padding:.5rem .75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:.5rem}
 .dash-user-role{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.25rem}
@@ -400,7 +422,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 #screen-forgot{
   background:linear-gradient(135deg,#06163d 0%,var(--navy) 55%,#1a3a8f 100%);
   align-items:center;justify-content:center;
-  padding:70px 1.5rem 3rem;
+  padding:52px 1.5rem 3rem;
 }
 #screen-forgot.active{display:flex}
 
@@ -491,62 +513,104 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   <div class="landing-grid-bg"></div>
   <div class="landing-orb1"></div>
   <div class="landing-orb2"></div>
-  <div class="landing-content">
-    <div class="landing-eyebrow">
-      <span class="pulse-dot pulse-dot-gold"></span>
-      Sri Lanka's Premier B2B Trade Marketplace
-    </div>
-    <h1 class="landing-h1">
-      Connect Sri Lankan <span class="gold">Exporters</span><br>with Global <span class="red">Importers</span>
-    </h1>
-    <p class="landing-sub">A secure, subscription-based B2B portal where Sri Lanka's finest exporters list their products and global importers post their sourcing requirements — matched in real time.</p>
-    <div class="landing-ctas">
-      <button class="btn-gold" onclick="showScreen('signup')">Join as Partner &rarr;</button>
-      <button class="btn-ghost" onclick="showScreen('login')">Already a Member? Log In</button>
-    </div>
-  </div>
 
-  <!-- Subscription Plans -->
-  <div class="plan-cards">
-    <div class="plan-card">
-      <div class="plan-name">Standard</div>
-      <div class="plan-price">LKR 9,999<span>/mo</span></div>
-      <div class="plan-period">per month, billed monthly</div>
-      <ul class="plan-features">
-        <li>5 Product / Requirement Posts</li>
-        <li>5 Expressions of Interest</li>
-        <li>Profile Listing &amp; Visibility</li>
-        <li>Basic Dashboard Analytics</li>
-        <li>Email Support</li>
-      </ul>
+  <div class="landing-split">
+    <!-- Left half: auto-sliding subscription plan cards -->
+    <div class="landing-slider-col">
+      <div>
+        <div class="plan-slider" id="planSlider">
+          <div class="plan-card active">
+            <div class="plan-name">Standard</div>
+            <div class="plan-price">LKR 9,999<span>/mo</span></div>
+            <div class="plan-period">per month, billed monthly</div>
+            <ul class="plan-features">
+              <li>5 Product / Requirement Posts</li>
+              <li>5 Expressions of Interest</li>
+              <li>Profile Listing &amp; Visibility</li>
+              <li>Basic Dashboard Analytics</li>
+              <li>Email Support</li>
+            </ul>
+          </div>
+          <div class="plan-card popular">
+            <div class="plan-popular-tag">Most Popular</div>
+            <div class="plan-name">Premium</div>
+            <div class="plan-price">LKR 19,999<span>/mo</span></div>
+            <div class="plan-period">per month, billed monthly</div>
+            <ul class="plan-features">
+              <li>10 Product / Requirement Posts</li>
+              <li>10 Expressions of Interest</li>
+              <li>Priority Profile Placement</li>
+              <li>Advanced Dashboard Analytics</li>
+              <li>Priority Support</li>
+            </ul>
+          </div>
+          <div class="plan-card">
+            <div class="plan-name">Platinum</div>
+            <div class="plan-price">LKR 29,999<span>/mo</span></div>
+            <div class="plan-period">per month, billed monthly</div>
+            <ul class="plan-features">
+              <li>25 Product / Requirement Posts</li>
+              <li>25 Expressions of Interest</li>
+              <li>Featured Badge &amp; Top Placement</li>
+              <li>Full Analytics Suite</li>
+              <li>Dedicated Account Manager</li>
+            </ul>
+          </div>
+        </div>
+        <div class="plan-slider-dots" id="planSliderDots">
+          <button class="plan-slider-dot active" onclick="window.__planSliderGo(0)" aria-label="Standard plan"></button>
+          <button class="plan-slider-dot" onclick="window.__planSliderGo(1)" aria-label="Premium plan"></button>
+          <button class="plan-slider-dot" onclick="window.__planSliderGo(2)" aria-label="Platinum plan"></button>
+        </div>
+      </div>
     </div>
-    <div class="plan-card popular">
-      <div class="plan-popular-tag">Most Popular</div>
-      <div class="plan-name">Premium</div>
-      <div class="plan-price">LKR 19,999<span>/mo</span></div>
-      <div class="plan-period">per month, billed monthly</div>
-      <ul class="plan-features">
-        <li>10 Product / Requirement Posts</li>
-        <li>10 Expressions of Interest</li>
-        <li>Priority Profile Placement</li>
-        <li>Advanced Dashboard Analytics</li>
-        <li>Priority Support</li>
-      </ul>
-    </div>
-    <div class="plan-card">
-      <div class="plan-name">Platinum</div>
-      <div class="plan-price">LKR 29,999<span>/mo</span></div>
-      <div class="plan-period">per month, billed monthly</div>
-      <ul class="plan-features">
-        <li>25 Product / Requirement Posts</li>
-        <li>25 Expressions of Interest</li>
-        <li>Featured Badge &amp; Top Placement</li>
-        <li>Full Analytics Suite</li>
-        <li>Dedicated Account Manager</li>
-      </ul>
+
+    <!-- Right half: hero content -->
+    <div class="landing-content">
+      <div class="landing-eyebrow">
+        <span class="pulse-dot pulse-dot-gold"></span>
+        Sri Lanka's Premier B2B Trade Marketplace
+      </div>
+      <h1 class="landing-h1">
+        Connect Sri Lankan <span class="gold">Exporters</span><br>with Global <span class="red">Importers</span>
+      </h1>
+      <p class="landing-sub">A secure, subscription-based B2B portal where Sri Lanka's finest exporters list their products and global importers post their sourcing requirements — matched in real time.</p>
+      <div class="landing-ctas">
+        <button class="btn-gold" onclick="showScreen('signup')">Join as Partner &rarr;</button>
+        <button class="btn-ghost" onclick="showScreen('login')">Already a Member? Log In</button>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+/* Landing plan-card slider: auto-advance every 5s, pauses on hover, dot navigation */
+(function(){
+  function init(){
+    var slider = document.getElementById('planSlider');
+    if(!slider) return;
+    var cards = slider.querySelectorAll('.plan-card');
+    var dots = document.querySelectorAll('#planSliderDots .plan-slider-dot');
+    var idx = 0, timer = null;
+    function show(i){
+      idx = (i + cards.length) % cards.length;
+      cards.forEach(function(c,n){ c.classList.toggle('active', n===idx); });
+      dots.forEach(function(d,n){ d.classList.toggle('active', n===idx); });
+    }
+    function start(){ timer = setInterval(function(){ show(idx+1); }, 5000); }
+    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+    window.__planSliderGo = function(i){ show(i); stop(); start(); };
+    slider.addEventListener('mouseenter', stop);
+    slider.addEventListener('mouseleave', start);
+    start();
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 
 <!-- ============================================================
      SCREEN: SIGNUP
