@@ -239,37 +239,32 @@ button#choiceImporter.active,
   display:flex;flex-direction:column;
   overflow:hidden;
 }
-/* Revert the inner selector back to a simple vertical layout flow */
+
 .signup-inner {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 2rem !important;
-  width: 100%;
+  overflow: hidden;
+  padding: 2.5rem 2rem !important;   /* Enhances spacing inside input container fields */
+  
+  /* CRITICAL CORRECTION: Pulls text and fields away from corners and borders */
+  width: 100% !important;
+  max-width: 520px !important;       /* Wraps form content width comfortably */
+  margin: 0 auto !important;         /* Perfectly centers the form container horizontally */
+  
+  /* VERTICAL ALIGNMENT REMEDIATION */
+  justify-content: flex-start !important; /* Positions content naturally starting from top */
+  align-items: stretch !important;        /* Ensures fields keep uniform widths within the max-width boundary */
 }
 
-/* CORRECTIVE FIX: Target the actual container or split wrapper to center and limit size */
-#signupContainer,
-.auth-container,
-.signup-split {
-  max-width: 540px !important;       /* Comfortably bundles fields together */
-  width: 92% !important;             /* Maintains clean responsive gutters on mobile */
-  margin: 3rem auto !important;      /* Force drops it vertically and isolates horizontally */
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;    /* Pulls all inner nested children directly to the center */
-  justify-content: center !important;
-  box-sizing: border-box;
-}
-
-/* Ensure any internal form blocks conform to the exact structural center width */
-#signupContainer form,
+/* Optional layout safety correction to ensure any direct children center correctly */
 .signup-inner form {
   width: 100% !important;
-  max-width: 100% !important;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;                      /* Clean spacing structure between input fields */
+  gap: 1.25rem;                      /* Clean, uniform gaps between input groups */
 }
+   
 /* Two-column form layout */
 .signup-cols{
   flex:1;display:grid;grid-template-columns:1fr 1fr;gap:2rem;overflow:hidden;
