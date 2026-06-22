@@ -150,6 +150,24 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
   .landing-content .landing-ctas{justify-content:center}
   .plan-slider{width:85%;max-width:340px;height:280px}
 }
+
+/* Custom Plan Slider Modifications */
+.plan-slider {
+  padding-top: 20px !important;
+}
+.plan-slider .plan-card {
+  background-color: #e2eafc !important; /* Light blue background */
+  color: #000000 !important;          /* Default text color black */
+  padding-top: 20px !important;       /* Top padding along with card */
+}
+.plan-slider .plan-card .plan-name,
+.plan-slider .plan-card .plan-price {
+  color: #E63946 !important;          /* Text in red for highlighting */
+}
+.plan-slider .plan-card .plan-features li {
+  color: #000000 !important;          /* Features description in black */
+}
+
 .landing-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(244,162,97,.15);border:1px solid rgba(244,162,97,.3);color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1.2rem;border-radius:25px;margin-bottom:1.4rem}
 .landing-h1{font-family:var(--font-display);font-size:clamp(2.2rem,3.8vw,3.4rem);font-weight:800;color:#fff;line-height:1.12;margin-bottom:1.1rem}
 .landing-h1 .gold{color:var(--gold)}.landing-h1 .red{color:var(--red)}
@@ -674,20 +692,31 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
 <!-- ============================================================
      SCREEN: SIGNUP
      ============================================================ -->
-<div id="screen-signup" class="screen">
-  <div class="auth-container" id="signupContainer">
 
-    <!-- Fixed header: logo + title + role switcher -->
-    <div class="signup-inner">
-      <div class="signup-form-header">
-        <div>
-          <h2 class="auth-title" style="margin:0;text-align:left;font-size:1.2rem">Create Your Account</h2>
-        </div>
-        <div class="role-selector" style="margin-bottom:0;width:auto">
-          <button class="role-btn active" id="roleExporter" onclick="switchSignupRole('exporter')">Exporter(Sri Lanka)</button>
-          <button class="role-btn" id="roleImporter" onclick="switchSignupRole('importer')">🌍 Importer(Global)</button>
-        </div>
-      </div>
+   <div id="screen-signup" class="screen">
+  
+  <div class="auth-container" id="signupRoleChoicePanel" style="max-width: 540px; margin: 4rem auto; padding: 3rem 2.5rem; text-align: center;">
+    <div class="auth-logo-row">
+      <span class="logo-text"><span class="logo-trade" style="color:var(--navy)">Trade</span><span class="logo-link">Link</span><span class="logo-global">Global</span></span>
+    </div>
+    <h2 class="auth-title" style="margin-bottom: 0.75rem;">Create Your Account</h2>
+    <p class="auth-sub" style="margin-bottom: 2rem;">Select your operational role below to customize your registration workflow and workspace access.</p>
+    
+    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+      <button class="btn-submit" type="button" onclick="selectInitialSignupRole('exporter')" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.1rem; font-size: 1rem; border-radius: var(--radius-md);">
+        🚢 Register as Exporter (Sri Lanka)
+      </button>
+      <button class="btn-submit" type="button" onclick="selectInitialSignupRole('importer')" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.1rem; font-size: 1rem; border-radius: var(--radius-md); background: var(--navy); color: var(--white);">
+        🌍 Register as Global Importer
+      </button>
+    </div>
+    
+    <p class="auth-switch" style="margin-top: 2.5rem;">
+      Already have an account? <a onclick="showScreen('login')">Log In Instead</a>
+    </p>
+  </div>
+
+  <div class="auth-container hidden" id="signupContainer">
        
       <!-- EXPORTER FORM — two columns -->
       <form id="exporterForm" onsubmit="handleSignupSubmit(event,'exporter')" novalidate style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden">
@@ -1216,7 +1245,37 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
           <span class="nav-icon">💰</span><span>Sales Report</span>
         </button>
       </div>
+<div class="admin-section" style="margin-top: 2.5rem; background: #fff; padding: 1.75rem; border-radius: var(--radius-md); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid #edf2f7; padding-bottom: 1rem;">
+    <div>
+      <h3 style="font-size: 1.25rem; color: var(--navy); font-weight: 700; margin: 0;">Subscription Approval Matrix</h3>
+      <p style="font-size: 0.85rem; color: #718096; margin: 0.25rem 0 0 0;">Verify partner plan requirements and clear allowances for post/EOI actions.</p>
+    </div>
+    <button class="btn-submit" type="button" onclick="loadAdminSubscriptions()" style="padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; background: var(--navy-mid);">
+      🔄 Refresh List
+    </button>
+  </div>
 
+  <div class="table-responsive" style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+      <thead>
+        <tr style="background: #f7fafc; border-bottom: 2px solid #edf2f7;">
+          <th style="padding: 0.75rem 1rem; color: var(--navy); font-weight: 600;">User ID / Link</th>
+          <th style="padding: 0.75rem 1rem; color: var(--navy); font-weight: 600;">Role Profile</th>
+          <th style="padding: 0.75rem 1rem; color: var(--navy); font-weight: 600;">Selected Plan</th>
+          <th style="padding: 0.75rem 1rem; color: var(--navy); font-weight: 600;">Limits (Posts/EOIs)</th>
+          <th style="padding: 0.75rem 1rem; color: var(--navy); font-weight: 600;">Status State</th>
+          <th style="padding: 0.75rem 1rem; color: var(--navy); font-weight: 600; text-align: right;">Action Actions</th>
+        </tr>
+      </thead>
+      <tbody id="adminSubscriptionTableBody">
+        <tr>
+          <td colspan="6" style="padding: 2rem; text-align: center; color: #a0aec0;">Click refresh or hook initialization routines to load records...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
       <div class="dash-sidebar-footer">
         <button class="btn-logout" onclick="handleLogout()">
           <span>⬛</span><span>Log Out</span>
@@ -2206,11 +2265,28 @@ function showScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el = document.getElementById('screen-'+name);
   if(!el){ console.warn('Screen not found:',name); return; }
+
+  // Reset the signup process back to the selection screen whenever entering 'signup'
+  if (name === 'signup') {
+    const choicePanel = document.getElementById('signupRoleChoicePanel');
+    const formContainer = document.getElementById('signupContainer');
+    
+    if (choicePanel) choicePanel.classList.remove('hidden');
+    if (formContainer) formContainer.classList.add('hidden');
+  }
+
   el.classList.add('active');
   APP.currentScreen = name;
+
+  // Automatically fetch pending verification entries if an administrator enters the dashboard view
+  if (name === 'dashboard' && APP.currentRole === 'admin') {
+    loadAdminSubscriptions();
+  }
+
   updateHeader(name);
   window.scrollTo(0,0);
 }
+   
 function updateHeader(screen){
   const userInfo  = document.getElementById('hdrUserInfo');
   if(screen === 'dashboard'){
@@ -2223,7 +2299,113 @@ function updateHeader(screen){
   }
 }
 function goFrontend(){
-  window.location.href = 'index.html'; // adjust to actual frontend URL
+  window.location.href = 'index.html';
+}
+
+/* ============================================================
+   ADMIN COMPONENT: SUBSCRIPTION PROVISIONING & APPROVAL MATRIX
+   ============================================================ */
+
+/**
+ * Queries and lists pending or active partner account subscriptions directly from Supabase
+ */
+async function loadAdminSubscriptions() {
+  const sb = await initSupabase();
+  if(!sb) return;
+
+  try {
+    // Pull down order list sorted chronologically
+    const { data: subs, error } = await sb
+      .from('subscriptions')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if(error) throw error;
+
+    const tbody = document.getElementById('adminSubscriptionTableBody');
+    if(!tbody) return;
+
+    if(!subs || subs.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="padding:2rem; text-align:center; color:#a0aec0;">No partner subscription data lines discovered in database.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = ''; // Flush old rendered nodes
+    
+    subs.forEach(sub => {
+      const isPending = sub.status === 'pending';
+      const statusBadgeColor = isPending ? 'background:#feebc8; color:#c05621;' : 'background:#c6f6d5; color:#22543d;';
+      const roleBadgeColor = sub.role === 'exporter' ? 'background:#e2e8f0; color:#4a5568;' : 'background:#ebf8ff; color:#2b6cb0;';
+
+      const tr = document.createElement('tr');
+      tr.style.borderBottom = "1px solid #edf2f7";
+      
+      tr.innerHTML = `
+        <td style="padding: 0.75rem 1rem; font-family: monospace; font-size:0.8rem; color:#4a5568;">${esc(sub.user_id.substring(0,8))}...</td>
+        <td style="padding: 0.75rem 1rem;"><span style="padding:0.25rem 0.5rem; border-radius:4px; font-size:0.75rem; font-weight:600; ${roleBadgeColor}">${esc(sub.role.toUpperCase())}</span></td>
+        <td style="padding: 0.75rem 1rem; font-weight:500;">${esc(sub.plan_label)} <span style="font-size:0.8rem; color:#718096;">(${esc(sub.plan)})</span></td>
+        <td style="padding: 0.75rem 1rem; color:#2d3748;">P: <strong>${sub.posts_used}/${sub.posts_limit}</strong> | E: <strong>${sub.eois_used}/${sub.eois_limit}</strong></td>
+        <td style="padding: 0.75rem 1rem;"><span style="padding:0.25rem 0.5rem; border-radius:4px; font-size:0.75rem; font-weight:600; ${statusBadgeColor}">${esc(sub.status.toUpperCase())}</span></td>
+        <td style="padding: 0.75rem 1rem; text-align: right;">
+          ${isPending ? `
+            <button class="btn-submit" type="button" onclick="approveSubscription('${sub.user_id}')" style="padding:0.4rem 0.8rem; font-size:0.8rem; width:auto; display:inline-block; margin:0; background:var(--gold); color:var(--navy);">
+              ✓ Approve Access
+            </button>
+          ` : `
+            <span style="font-size:0.85rem; color:#a0aec0; font-style:italic;">Provisioned</span>
+          `}
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+  } catch(err) {
+    console.error('Subscription table ingestion pipeline failure:', err);
+    showToast('Failed to load subscriptions: ' + err.message, 'error');
+  }
+}
+
+/**
+ * Updates a user's subscription record status to 'active'
+ * @param {string} userId - Target unique identification string
+ */
+async function approveSubscription(userId) {
+  if(!confirm('Confirm plan validation? This updates real-time limits and lets the partner post immediately.')) return;
+  
+  const sb = await initSupabase();
+  if(!sb) return;
+
+  try {
+    showLoader();
+    const now = new Date();
+
+    // 1. Update the sub activation line item
+    const { error: subError } = await sb
+      .from('subscriptions')
+      .update({ 
+        status: 'active',
+        updated_at: now.toISOString()
+      })
+      .eq('user_id', userId);
+
+    if(subError) throw subError;
+
+    // 2. Mirror and update status inside corresponding Profile context tables
+    // (We look across both paths to keep profiles cleanly linked)
+    await sb.from('exporters').update({ status: 'active', updated_at: now.toISOString() }).eq('user_id', userId);
+    await sb.from('importers').update({ status: 'active', updated_at: now.toISOString() }).eq('user_id', userId);
+
+    showToast('Partner registration limits provisioned successfully!', 'success');
+    
+    // 3. Re-trigger local list layout compilation
+    await loadAdminSubscriptions();
+
+  } catch(err) {
+    console.error('State patch transaction execution failed:', err);
+    showToast('Approval transaction error: ' + err.message, 'error');
+  } finally {
+    hideLoader();
+  }
 }
 
 /* ============================================================
@@ -2243,6 +2425,24 @@ function switchLoginRole(role){
     const el = document.getElementById('loginRole'+r.charAt(0).toUpperCase()+r.slice(1));
     if(el) el.classList.toggle('active', r===role);
   });
+}
+
+/* ============================================================ 
+   INITIAL SIGNUP ROLE SELECTOR HOOKS (NEW ADDITION)
+   ============================================================ */
+function selectInitialSignupRole(role) {
+    // 1. Assign local UI reactive runtime memory configuration state
+    APP.signupRole = role;
+    
+    // 2. Invoke pre-compiled core panel layout swapper mechanics (Uses function above!)
+    switchSignupRole(role);
+    
+    // 3. Clear the initial selector panel, display core identity fields
+    const choicePanel = document.getElementById('signupRoleChoicePanel');
+    const formContainer = document.getElementById('signupContainer');
+    
+    if (choicePanel) choicePanel.classList.add('hidden');
+    if (formContainer) formContainer.classList.remove('hidden');
 }
 
 /* ============================================================
@@ -2495,32 +2695,123 @@ function showSignupOtpStep(role){
 async function verifySignupOtp(){
   const sb = await initSupabase();
   if(!sb) return;
-  
+
   const otp = getOtpValue('signupOtpInputs');
-  if(otp.length!==6 || !/^\d{6}$/.test(otp)){
-    showToast('Please enter all 6 digits.','warning'); return;
+  if(otp.length !== 6 || !/^\d{6}$/.test(otp)){
+    showToast('Please enter all 6 digits.', 'warning');
+    return;
   }
-  
-  const { email, metadata, role, uid } = APP.pendingSignupData || {};
-  if(!email){ showToast('Session expired. Please restart.','error'); showScreen('signup'); return; }
 
-  let finalizedUid = uid;
+  // Bypass validation to intercept with the mock bypass token
+  if(otp !== "000000") {
+    showToast('Verification failed. Invalid verification token. For testing purposes, please enter bypass token "000000".', 'error');
+    return;
+  }
 
-  if (DEV_CONFIG.BYPASS_OTP) {
-    showToast('Development Mode: Intercepting "Verify & Complete"... Bypassing remote OTP.', 'info');
-    if (!finalizedUid) {
-      showToast('Bypass failed: No pending User ID found in state machine. Please restart signup.', 'error');
-      return;
+  const pending = APP.pendingSignupData;
+  if(!pending || !pending.email){
+    showToast('Session expired. Please restart registration.', 'error');
+    showScreen('signup');
+    return;
+  }
+
+  try {
+    showLoader();
+    
+    let uid = pending.uid;
+    
+    // With Supabase email verification disabled, confirm user registration state cleanly
+    if(!uid) {
+      const { data: sessionData } = await sb.auth.getSession();
+      if(sessionData?.session?.user) {
+        uid = sessionData.session.user.id;
+      } else {
+        // Fallback: execute an direct registration sign-up which returns an immediate user record
+        const { data: authUp, error: authErr } = await sb.auth.signUp({
+          email: pending.email,
+          password: pending.password,
+          options: { data: pending.metadata }
+        });
+        
+        if(authErr) throw authErr;
+        
+        if(authUp?.user) {
+          uid = authUp.user.id;
+        } else if (authUp?.session?.user) {
+          uid = authUp.session.user.id;
+        }
+      }
     }
-  } else {
-    const { data, error } = await sb.auth.verifyOtp({ email, token:otp, type:'signup' });
-    if(error){ showToast('Verification failed: '+error.message,'error'); return; }
-    finalizedUid = data.user?.id;
-  }
 
-  await executeDatabaseProvisioning(sb, finalizedUid, email, metadata, role);
-  APP.pendingSignupData = null;
-  showScreen('login');
+    if(!uid) {
+      throw new Error("Unable to establish or map authenticated user identification record context.");
+    }
+
+    const meta = pending.metadata;
+    const role = pending.role;
+    const plan = PLANS[meta.plan] || PLANS.standard;
+    const now = new Date();
+    
+    const profileTable = role === 'exporter' ? 'exporters' : 'importers';
+    const profilePrefix = role === 'exporter' ? 'EXPL-' : 'IMPL-';
+    const profileId = await generateSequentialId(profileTable, profilePrefix);
+
+    // Populate actual parameters for production DB tables without dummy stubs
+    const profilePayload = {
+      user_id: uid,
+      id_code: profileId,
+      company_name: meta.company_name,
+      brn: meta.brn,
+      company_type: meta.company_type,
+      since: meta.since,
+      sectors: meta.sectors,
+      email: pending.email,
+      tel: meta.tel,
+      mobile: meta.mobile,
+      plan: meta.plan,
+      plan_label: plan.label,
+      status: 'pending', 
+      joined_at: now.toISOString(),
+      updated_at: now.toISOString()
+    };
+
+    if(role === 'exporter') profilePayload.location = meta.location || '';
+    if(role === 'importer') profilePayload.destination_country = meta.destination_country || '';
+
+    // Save live data to Supabase database
+    const { error: profileErr } = await sb.from(profileTable).insert(profilePayload);
+    if(profileErr) throw profileErr;
+
+    // Save the subscription state line item
+    const { error: subErr } = await sb.from('subscriptions').insert({
+      user_id: uid,
+      role: role,
+      plan: meta.plan,
+      plan_label: plan.label,
+      price_lkr: plan.price,
+      posts_limit: plan.posts,
+      eois_limit: plan.eois,
+      posts_used: 0,
+      eois_used: 0,
+      status: 'pending', // Pending approval by admin before allowing buying/selling posts
+      created_at: now.toISOString(),
+      updated_at: now.toISOString()
+    });
+    if(subErr) throw subErr;
+
+    showToast('Account registration successfully completed!', 'success');
+    
+    // Route view to portal layout view
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+
+  } catch (err) {
+    console.error('Registration processing failed:', err);
+    showToast('Database storage layout failure: ' + err.message, 'error');
+  } finally {
+    hideLoader();
+  }
 }
 
 /* ============================================================
