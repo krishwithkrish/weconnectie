@@ -239,12 +239,36 @@ button#choiceImporter.active,
   display:flex;flex-direction:column;
   overflow:hidden;
 }
+/* Revert the inner selector back to a simple vertical layout flow */
 .signup-inner {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  padding: 2rem 2rem 2rem 2rem !important;
+  padding: 2rem !important;
+  width: 100%;
+}
+
+/* CORRECTIVE FIX: Target the actual container or split wrapper to center and limit size */
+#signupContainer,
+.auth-container,
+.signup-split {
+  max-width: 540px !important;       /* Comfortably bundles fields together */
+  width: 92% !important;             /* Maintains clean responsive gutters on mobile */
+  margin: 3rem auto !important;      /* Force drops it vertically and isolates horizontally */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;    /* Pulls all inner nested children directly to the center */
+  justify-content: center !important;
+  box-sizing: border-box;
+}
+
+/* Ensure any internal form blocks conform to the exact structural center width */
+#signupContainer form,
+.signup-inner form {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;                      /* Clean spacing structure between input fields */
 }
 /* Two-column form layout */
 .signup-cols{
