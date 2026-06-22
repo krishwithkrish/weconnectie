@@ -698,18 +698,18 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
               <div class="form-section-title">🏢 Company Information</div>
               <div class="form-group">
                 <label for="exp-company">Company Name <span class="req">*</span></label>
-                <input type="text" id="exp-company" class="form-input" placeholder="Ceylon Spice Exports (Pvt) Ltd" autocomplete="organization" maxlength="50" required>
+                <input type="text" id="exp-company" class="form-input" autocomplete="organization" maxlength="50" required>
                 <div class="field-error" id="err-exp-company"></div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="exp-brn">Business Reg. No. <span class="req">*</span></label>
-                  <input type="text" id="exp-brn" class="form-input" placeholder="PV/LK/2019/XXXXX" maxlength="50" required>
+                  <input type="text" id="exp-brn" class="form-input" maxlength="50" required>
                   <div class="field-error" id="err-exp-brn"></div>
                 </div>
                 <div class="form-group">
                   <label for="exp-location">Location <span class="req">*</span></label>
-                  <input type="text" id="exp-location" class="form-input" placeholder="Colombo 03, Western Province" maxlength="50" required>
+                  <input type="text" id="exp-location" class="form-input" maxlength="50" required>
                   <div class="field-error" id="err-exp-location"></div>
                 </div>
               </div>
@@ -764,10 +764,10 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                <div class="form-group">
                 <label>Company Telephone</label>
                 <div class="phone-row">
-                  <div class="phone-code-col"><label>Code</label><div class="country-code-locked">🇱🇰 +94</div></div>
+                  <div class="phone-code-col"><label>(Code)</label><div class="country-code-locked">🇱🇰 +94</div></div>
                   <div class="form-group" style="flex:1;margin-bottom:0">
-                    <label for="exp-tel">Number</label>
-                    <input type="tel" id="exp-tel" class="form-input" placeholder="011 2345678" maxlength="15" pattern="[0-9\s\-]{7,12}">
+                    <label for="exp-tel">(Number)</label>
+                    <input type="tel" id="exp-tel" class="form-input" maxlength="15" pattern="[0-9\s\-]{7,12}">
                     <div class="field-error" id="err-exp-tel"></div>
                   </div>
                 </div>
@@ -775,10 +775,10 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
               <div class="form-group">
                 <label>Mobile Number <span class="req">*</span></label>
                 <div class="phone-row">
-                  <div class="phone-code-col"><label>Code</label><div class="country-code-locked">🇱🇰 +94</div></div>
+                  <div class="phone-code-col"><label>(Code)</label><div class="country-code-locked">🇱🇰 +94</div></div>
                   <div class="form-group" style="flex:1;margin-bottom:0">
-                    <label for="exp-mobile">Number <span class="req">*</span></label>
-                    <input type="tel" id="exp-mobile" class="form-input" placeholder="071 2345678" maxlength="12" required pattern="[0-9]{9,10}">
+                    <label for="exp-mobile">(Number)<span class="req">*</span></label>
+                    <input type="tel" id="exp-mobile" class="form-input" maxlength="12" required pattern="[0-9]{9,10}">
                     <div class="field-error" id="err-exp-mobile"></div>
                   </div>
                 </div>
@@ -786,7 +786,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
              </div>
               <div class="form-group">
                 <label for="exp-email">Company Email <span class="req">*</span></label>
-                <input type="email" id="exp-email" class="form-input" placeholder="info@yourcompany.lk" autocomplete="email" maxlength="50" required>
+                <input type="email" id="exp-email" class="form-input" placeholder="youremail@company.com" autocomplete="email" maxlength="50" required>
                 <div class="field-error" id="err-exp-email"></div>
               </div>
             </div>
@@ -847,13 +847,13 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
               <div class="form-section-title">🏢 Company Information</div>
               <div class="form-group">
                 <label for="imp-company">Company Name <span class="req">*</span></label>
-                <input type="text" id="imp-company" class="form-input" placeholder="Global Foods Distribution GmbH" autocomplete="organization" maxlength="50" required>
+                <input type="text" id="imp-company" class="form-input" autocomplete="organization" maxlength="50" required>
                 <div class="field-error" id="err-imp-company"></div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="imp-brn">Business Reg. No. <span class="req">*</span></label>
-                  <input type="text" id="imp-brn" class="form-input" placeholder="Your country's reg. no." maxlength="50" required>
+                  <input type="text" id="imp-brn" class="form-input" maxlength="50" required>
                   <div class="field-error" id="err-imp-brn"></div>
                 </div>
                 <div class="form-group">
@@ -923,7 +923,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 <label>Company Telephone</label>
                 <div class="phone-row">
                   <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
-                    <label for="imp-tel-code">Code</label>
+                    <label for="imp-tel-code">(Code)</label>
                     <select id="imp-tel-code" class="form-select" style="padding:.7rem .5rem">
                       <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
                       <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
@@ -936,8 +936,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                     </select>
                   </div>
                   <div class="form-group" style="flex:1;margin-bottom:0">
-                    <label for="imp-tel">Number</label>
-                    <input type="tel" id="imp-tel" class="form-input" placeholder="Local number" maxlength="15" pattern="[0-9\s\-]{7,12}">
+                    <label for="imp-tel">(Number)</label>
+                    <input type="tel" id="imp-tel" class="form-input" maxlength="15" pattern="[0-9\s\-]{7,12}">
                   </div>
                 </div>
               </div>
@@ -945,7 +945,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                 <label>Mobile Number <span class="req">*</span></label>
                 <div class="phone-row">
                   <div class="form-group" style="width:110px;margin-bottom:0;flex-shrink:0">
-                    <label for="imp-mob-code">Code <span class="req">*</span></label>
+                    <label for="imp-mob-code">(Code)<span class="req">*</span></label>
                     <select id="imp-mob-code" class="form-select" style="padding:.7rem .5rem" required>
                       <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option>
                       <option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option>
@@ -958,8 +958,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                     </select>
                   </div>
                   <div class="form-group" style="flex:1;margin-bottom:0">
-                    <label for="imp-mobile">Number <span class="req">*</span></label>
-                    <input type="tel" id="imp-mobile" class="form-input" placeholder="Local mobile number" maxlength="15" required>
+                    <label for="imp-mobile">(Number)<span class="req">*</span></label>
+                    <input type="tel" id="imp-mobile" class="form-input" maxlength="15" required>
                     <div class="field-error" id="err-imp-mobile"></div>
                   </div>
                 </div>
@@ -967,7 +967,7 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
                </div>
               <div class="form-group">
                 <label for="imp-email">Company Email <span class="req">*</span></label>
-                <input type="email" id="imp-email" class="form-input" placeholder="procurement@yourcompany.com" autocomplete="email" maxlength="50" required>
+                <input type="email" id="imp-email" class="form-input" placeholder="youremail@company.com" autocomplete="email" maxlength="50" required>
                 <div class="field-error" id="err-imp-email"></div>
               </div>
             </div>
@@ -1307,24 +1307,24 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
             <div class="form-row">
               <div class="form-group">
                 <label for="eof-hsn">HSN Code <span class="req">*</span></label>
-                <input type="text" id="eof-hsn" class="form-input" placeholder="e.g. 0902.10" maxlength="20" required pattern="[0-9\.]{4,12}">
+                <input type="text" id="eof-hsn" class="form-input" maxlength="20" required pattern="[0-9\.]{4,12}">
                 <div class="field-error" id="err-eof-hsn"></div>
               </div>
               <div class="form-group">
                 <label for="eof-product">Product Name <span class="req">*</span></label>
-                <input type="text" id="eof-product" class="form-input" placeholder="e.g. Ceylon Green Tea — BOPF Grade" maxlength="120" required>
+                <input type="text" id="eof-product" class="form-input" maxlength="120" required>
                 <div class="field-error" id="err-eof-product"></div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="eof-price">Unit Price (USD) <span class="req">*</span></label>
-                <input type="number" id="eof-price" class="form-input" placeholder="e.g. 4.50" min="0.01" step="0.01" max="999999" required>
+                <input type="number" id="eof-price" class="form-input" min="0.01" step="0.01" max="999999" required>
                 <div class="field-error" id="err-eof-price"></div>
               </div>
               <div class="form-group">
                 <label for="eof-capacity">Monthly Export Capacity <span class="req">*</span></label>
-                <input type="text" id="eof-capacity" class="form-input" placeholder="e.g. 5,000 kg / month" maxlength="60" required>
+                <input type="text" id="eof-capacity" class="form-input"  maxlength="60" required>
                 <div class="field-error" id="err-eof-capacity"></div>
               </div>
             </div>
@@ -1535,19 +1535,19 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--light-bg);o
             <div class="form-row">
               <div class="form-group">
                 <label for="irf-hsn">HSN Code <span class="req">*</span></label>
-                <input type="text" id="irf-hsn" class="form-input" placeholder="e.g. 0902.10" maxlength="20" required pattern="[0-9\.]{4,12}">
+                <input type="text" id="irf-hsn" class="form-input" maxlength="20" required pattern="[0-9\.]{4,12}">
                 <div class="field-error" id="err-irf-hsn"></div>
               </div>
               <div class="form-group">
                 <label for="irf-product">Product Required <span class="req">*</span></label>
-                <input type="text" id="irf-product" class="form-input" placeholder="e.g. Ceylon Black Pepper BG1" maxlength="120" required>
+                <input type="text" id="irf-product" class="form-input" maxlength="120" required>
                 <div class="field-error" id="err-irf-product"></div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="irf-capacity">Required Capacity <span class="req">*</span></label>
-                <input type="text" id="irf-capacity" class="form-input" placeholder="e.g. 10 MT per shipment" maxlength="60" required>
+                <input type="text" id="irf-capacity" class="form-input" maxlength="60" required>
                 <div class="field-error" id="err-irf-capacity"></div>
               </div>
               <div class="form-group">
